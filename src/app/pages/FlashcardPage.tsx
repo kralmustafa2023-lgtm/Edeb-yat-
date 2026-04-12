@@ -35,7 +35,7 @@ export default function FlashcardPage() {
     if (current + 1 >= cards.length) {
       setDone(true);
     } else {
-      setCurrent(c => c + 1);
+      setCurrent(current + 1);
       setFlipped(false);
     }
   };
@@ -148,7 +148,7 @@ export default function FlashcardPage() {
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1.5">
             <span className={`text-sm ${themeClasses.textMuted}`}>{selectedDeck.title}</span>
-            <span className={`text-sm ${themeClasses.textMuted}`} style={{ fontWeight: 600 }}>{Number(current) + 1}/{cards.length}</span>
+            <span className={`text-sm ${themeClasses.textMuted}`} style={{ fontWeight: 600 }}>{current + 1}/{cards.length}</span>
           </div>
           <div className={`h-1.5 rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
             <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300" style={{ width: `${progress}%` }} />

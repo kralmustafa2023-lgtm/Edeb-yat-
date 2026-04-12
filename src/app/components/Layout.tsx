@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { useApp } from '../context/AppContext';
 
+// Memoize the page content so context updates don't cause AnimatePresence to remount pages
+const MemoizedOutlet = React.memo(function MemoizedOutlet() {
+  return <Outlet />;
+});
+
 export function Layout() {
   const { themeClasses, sidebarOpen, setSidebarOpen } = useApp();
   const location = useLocation();
+
+  // Only use the base path segment for the animation key to avoid spurious remounts
+  const pageKey = useMemo(() => {
+    // e.g. "/flashcard" stays stable, "/sair/fuzuli" → "/sair/fuzuli"
+    return location.pathname;
+  }, [location.pathname]);
 
   return (
     <div className={`min-h-screen ${themeClasses.bg} transition-colors duration-300 flex`}>
@@ -29,18 +40,9 @@ export function Layout() {
           <span className={`text-sm ${themeClasses.text}`} style={{ fontWeight: 600 }}>9. Sınıf Edebiyat</span>
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="p-6"
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        <div key={pageKey} className="p-6">
+          <MemoizedOutlet />
+        </div>
       </motion.main>
     </div>
   );
