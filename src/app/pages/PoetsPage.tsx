@@ -86,16 +86,12 @@ export default function PoetsPage() {
               <Link to={`/sair/${poet.id}`}>
                 <div className={`${card} overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer`}>
                   {/* Cover Image */}
-                  <div className={`relative h-36 bg-gradient-to-br ${poet.gradientFrom} ${poet.gradientTo} overflow-hidden`}>
+                  <div className="relative h-44 overflow-hidden bg-black/10">
                     <img
                       src={poet.image}
                       alt={poet.name}
-                      className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
+                      className="absolute inset-0 w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <div className="text-4xl mb-1">{poet.emoji}</div>
-                      <div className="text-white/80 text-xs">{poet.years}</div>
-                    </div>
                     {/* Studied badge */}
                     {isStudied && (
                       <div className="absolute top-2 left-2 bg-emerald-500 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1">
@@ -107,6 +103,7 @@ export default function PoetsPage() {
                   {/* Info */}
                   <div className="p-4">
                     <p className={`text-sm ${themeClasses.text}`} style={{ fontWeight: 700 }}>{poet.name}</p>
+                    <p className={`text-xs ${themeClasses.textMuted} mt-0.5`}>{poet.years}</p>
                     <p className={`text-xs ${themeClasses.textMuted} mt-0.5`}>{poet.period}</p>
                     <p className={`text-xs ${themeClasses.textFaint} mt-1`}>{poet.movement}</p>
                     <div className="flex flex-wrap gap-1 mt-2">
