@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router';
+import { createHashRouter } from 'react-router';
 import { Layout } from './components/Layout';
 import DashboardPage from './pages/DashboardPage';
 import PoetsPage from './pages/PoetsPage';
@@ -21,7 +21,7 @@ function NotFound() {
   );
 }
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   {
     path: '/',
     Component: Layout,
@@ -39,4 +39,4 @@ export const router = createBrowserRouter([
       { path: '*', Component: NotFound },
     ],
   },
-], { basename: import.meta.env.BASE_URL });
+]);
