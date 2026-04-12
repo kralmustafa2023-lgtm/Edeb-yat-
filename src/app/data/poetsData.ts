@@ -380,7 +380,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-emerald-700',
     gradientTo: 'to-teal-900',
     emoji: '🌿',
-    image: 'https://images.unsplash.com/photo-1603169130499-04f370dae46d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Yunus_Emre.jpg/440px-Yunus_Emre.jpg',
     tags: ['İlahi', 'Tasavvuf', 'Hece Ölçüsü', 'Dörtlük'],
     facts: [
       'Anadolu\'da Türk dilinin ve kültürünün gelişmesine büyük katkı sağlamıştır.',
@@ -402,7 +402,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-purple-700',
     gradientTo: 'to-indigo-900',
     emoji: '📜',
-    image: 'https://images.unsplash.com/photo-1720700955633-63e99df2a092?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Portrait_of_Azerbaijani_poet_Fuzuli_by_Azimzade.jpg/440px-Portrait_of_Azerbaijani_poet_Fuzuli_by_Azimzade.jpg',
     tags: ['Gazel', 'Divan', 'Aruz Ölçüsü', 'Beyit'],
     facts: [
       '"Leyla vü Mecnun" mesnevisi Türk edebiyatının şaheserleri arasında yer alır.',
@@ -453,7 +453,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-indigo-700',
     gradientTo: 'to-purple-900',
     emoji: '👑',
-    image: 'https://images.unsplash.com/photo-1757619852657-4a2c96f43598?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Baki_poet.jpg/440px-Baki_poet.jpg',
     tags: ['Mersiye', 'Kaside', 'Aruz', 'Terkib-i Bent'],
     facts: [
       '"Sultanü\'ş-Şuara" unvanını kazanan ilk Türk şairidir.',
@@ -508,7 +508,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-red-700',
     gradientTo: 'to-rose-900',
     emoji: '🎸',
-    image: 'https://images.unsplash.com/photo-1600447084495-195ae3b972d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Karacaoglan.jpg/440px-Karacaoglan.jpg',
     tags: ['Koşma', 'Semai', 'Hece', 'Aşık Edebiyatı'],
     facts: [
       'Şiirlerinde hiçbir divan etkisi görülmez; tamamen saf Türkçe kullanmıştır.',
@@ -565,7 +565,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-blue-700',
     gradientTo: 'to-cyan-900',
     emoji: '🗽',
-    image: 'https://images.unsplash.com/photo-1694945464285-815d3a2d0935?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Namik_Kemal.jpg/440px-Namik_Kemal.jpg',
     tags: ['Kaside', 'Tiyatro', 'Roman', 'Hürriyet'],
     facts: [
       '"Vatan" kavramını edebiyata ilk kez Namık Kemal taşımıştır.',
@@ -616,7 +616,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-cyan-700',
     gradientTo: 'to-blue-900',
     emoji: '🌫️',
-    image: 'https://images.unsplash.com/photo-1772368872233-4539a0b63f2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Tevfik_Fikret2.jpg/440px-Tevfik_Fikret2.jpg',
     tags: ['Serbest Müstezat', 'Aruz', 'Sosyal Eleştiri'],
     facts: [
       'Servet-i Fünun dergisinin başyazarıdır.',
@@ -673,7 +673,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-red-700',
     gradientTo: 'to-red-900',
     emoji: '🇹🇷',
-    image: 'https://images.unsplash.com/photo-1600447084495-195ae3b972d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Mehmet_Akif_Ersoy.jpg/440px-Mehmet_Akif_Ersoy.jpg',
     tags: ['İstiklal Marşı', 'Safahat', 'Aruz', 'Milli Şiir'],
     facts: [
       'İstiklal Marşı\'nı ödül parasını reddederek yazmıştır.',
@@ -730,7 +730,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-emerald-700',
     gradientTo: 'to-green-900',
     emoji: '⛵',
-    image: 'https://images.unsplash.com/photo-1613923146682-365db3ee9f68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Yahya_Kemal_Beyatl%C4%B1.jpg/440px-Yahya_Kemal_Beyatl%C4%B1.jpg',
     tags: ['Sone', 'Neo-Klasikçilik', 'İstanbul Şiirleri'],
     facts: [
       'Şiirlerini ancak mükemmel hale gelince yayımlamıştır; "kâh" diye bilinen kusursuzluk anlayışı.',
@@ -785,7 +785,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-amber-700',
     gradientTo: 'to-orange-900',
     emoji: '🏚️',
-    image: 'https://images.unsplash.com/photo-1600447084495-195ae3b972d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Faruk_Nafiz_%C3%87aml%C4%B1bel.jpg/440px-Faruk_Nafiz_%C3%87aml%C4%B1bel.jpg',
     tags: ['Hece Ölçüsü', 'Beş Hececiler', 'Han Duvarları', 'Anadolu'],
     facts: [
       '"Han Duvarları" Türk edebiyatının en uzun hece şiirlerinden biridir.',
@@ -807,7 +807,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-violet-700',
     gradientTo: 'to-purple-900',
     emoji: '🏔️',
-    image: 'https://images.unsplash.com/photo-1600447084495-195ae3b972d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ahmet_Kutsi_Tecer.jpg/440px-Ahmet_Kutsi_Tecer.jpg',
     tags: ['Koşma', 'Halk Geleneği', 'Anadolu', 'Tiyatro'],
     facts: [
       'Hem şair hem tiyatro yazarı hem de halk bilimcidir.',
@@ -829,7 +829,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-pink-700',
     gradientTo: 'to-rose-900',
     emoji: '⏳',
-    image: 'https://images.unsplash.com/photo-1603169130499-04f370dae46d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Cahit_S%C4%B1tk%C4%B1_Taranc%C4%B1.jpg/440px-Cahit_S%C4%B1tk%C4%B1_Taranc%C4%B1.jpg',
     tags: ['Hece Ölçüsü', 'Lirik Şiir', 'Ölüm Teması', 'Varoluşçuluk'],
     facts: [
       '"Otuz Beş Yaş" Türk edebiyatının en çok sevilen şiirlerinden biridir.',
@@ -851,7 +851,7 @@ export const POETS: Poet[] = [
     gradientFrom: 'from-sky-700',
     gradientTo: 'to-blue-900',
     emoji: '🌊',
-    image: 'https://images.unsplash.com/photo-1613923146682-365db3ee9f68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Orhan_Veli_Kan%C4%B1k.jpg/440px-Orhan_Veli_Kan%C4%B1k.jpg',
     tags: ['Garip Akımı', 'Serbest Şiir', 'İstanbul', 'Modernizm'],
     facts: [
       'Garip manifestosunda şiirde "alışılmadık olanı" savunmuştur.',
