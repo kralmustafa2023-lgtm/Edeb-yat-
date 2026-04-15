@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { User, Lock, ArrowRight } from 'lucide-react';
 import '../../styles/login.css';
 
 export default function LoginPage() {
@@ -69,7 +70,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/50 ml-4">Kullanıcı Adı</label>
               <div className="relative">
-                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-amber-900/40" data-icon="person">person</span>
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-900/40" size={20} />
                 <input 
                   className="w-full pl-12 pr-6 py-4 rounded-2xl input-ivory text-amber-950 placeholder-amber-900/30 focus:ring-2 focus:ring-amber-900/20 focus:border-transparent outline-none transition-all" 
                   placeholder="Kullanıcı adınızı giriniz" 
@@ -84,7 +85,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/50 ml-4">Şifre</label>
               <div className="relative">
-                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-amber-900/40" data-icon="lock">lock</span>
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-amber-900/40" size={20} />
                 <input 
                   className="w-full pl-12 pr-6 py-4 rounded-2xl input-ivory text-amber-950 placeholder-amber-900/30 focus:ring-2 focus:ring-amber-900/20 focus:border-transparent outline-none transition-all" 
                   placeholder="••••••••" 
@@ -102,7 +103,7 @@ export default function LoginPage() {
                 type="submit"
               >
                 SİSTEME GİRİŞ YAP
-                <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
             </div>
           </form>
