@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Outlet, useLocation } from 'react-router';
+import React, { useMemo, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu } from 'lucide-react';
 import { Sidebar } from './Sidebar';
@@ -13,6 +13,13 @@ const MemoizedOutlet = React.memo(function MemoizedOutlet() {
 export function Layout() {
   const { themeClasses, sidebarOpen, setSidebarOpen } = useApp();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('authenticated') !== 'true') {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   // Only use the base path segment for the animation key to avoid spurious remounts
   const pageKey = useMemo(() => {

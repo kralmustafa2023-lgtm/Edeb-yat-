@@ -12,6 +12,7 @@ export default function LoginPage() {
     e.preventDefault();
     // Simple demo password check
     if (username === 'admin' && password === '123456') {
+      sessionStorage.setItem('authenticated', 'true');
       navigate('/');
     } else {
       alert('Hatalı kullanıcı adı veya şifre! (İpucu: admin / 123456)');
