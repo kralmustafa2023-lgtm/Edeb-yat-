@@ -19,6 +19,7 @@ import TeacherDashboardPage from './pages/teacher/TeacherDashboardPage';
 import TeacherClassesPage from './pages/teacher/TeacherClassesPage';
 import TeacherCalendarPage from './pages/teacher/TeacherCalendarPage';
 import TeacherContentPage from './pages/teacher/TeacherContentPage';
+import TeacherMessagesPage from './pages/teacher/TeacherMessagesPage';
 
 function NotFound() {
   return (
@@ -66,8 +67,9 @@ export const router = createHashRouter([
       { index: true, Component: TeacherDashboardPage },
       { path: 'dashboard', Component: TeacherDashboardPage },
       { path: 'classes', Component: TeacherClassesPage },
-      { path: 'calendar', Component: TeacherCalendarPage },
-      { path: 'content', Component: TeacherContentPage },
+      { path: 'messages', Component: TeacherMessagesPage },
+      { path: 'questions', Component: NotFound },
+      { path: 'settings', Component: NotFound },
       { path: '*', Component: NotFound },
     ],
   },
