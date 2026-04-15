@@ -44,6 +44,13 @@
   --surface-container-high: #28283d;
   --surface-container-lowest: #0c0c1f;
   --surface-container: #1e1e32;
+
+  /* Teacher/Scholarly Theme Tokens */
+  --scholarly-bg: #fbfaee;
+  --scholarly-surface: #efeee3;
+  --scholarly-primary: #170337;
+  --scholarly-secondary: #944a23;
+  --scholarly-accent: #68558a;
 }
 
 .dark {

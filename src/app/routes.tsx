@@ -14,6 +14,11 @@ import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import HelpPage from './pages/HelpPage';
+import TeacherLayout from './components/teacher/TeacherLayout';
+import TeacherDashboardPage from './pages/teacher/TeacherDashboardPage';
+import TeacherClassesPage from './pages/teacher/TeacherClassesPage';
+import TeacherCalendarPage from './pages/teacher/TeacherCalendarPage';
+import TeacherContentPage from './pages/teacher/TeacherContentPage';
 
 function NotFound() {
   return (
@@ -51,6 +56,18 @@ export const router = createHashRouter([
       { path: 'eslestirme', Component: MatchingPage },
       { path: 'istatistik', Component: StatsPage },
       { path: 'ayarlar', Component: SettingsPage },
+      { path: '*', Component: NotFound },
+    ],
+  },
+  {
+    path: '/teacher',
+    Component: TeacherLayout,
+    children: [
+      { index: true, Component: TeacherDashboardPage },
+      { path: 'dashboard', Component: TeacherDashboardPage },
+      { path: 'classes', Component: TeacherClassesPage },
+      { path: 'calendar', Component: TeacherCalendarPage },
+      { path: 'content', Component: TeacherContentPage },
       { path: '*', Component: NotFound },
     ],
   },
