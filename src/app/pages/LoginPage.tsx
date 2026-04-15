@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { User, Lock, ArrowRight } from 'lucide-react';
 import '../../styles/login.css';
@@ -11,7 +11,6 @@ export default function LoginPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple demo password check
     if (username === 'admin' && password === '123456') {
       sessionStorage.setItem('authenticated', 'true');
       navigate('/');
@@ -22,11 +21,9 @@ export default function LoginPage() {
 
   return (
     <div className="bg-surface-container-lowest min-h-screen relative flex items-center justify-center overflow-hidden font-['Inter']">
-      {/* Full Screen Background Image with Blur Overlay */}
       <div className="fixed inset-0 library-bg scale-105 blur-[8px]"></div>
       <div className="fixed inset-0 bg-black/40"></div>
       
-      {/* Header / Brand Anchor */}
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-12 py-8 z-50">
         <div className="text-2xl font-black tracking-tighter text-white">Nizip Sosyal Bilimler Lisesi</div>
         <div className="hidden md:flex gap-10 items-center">
@@ -36,10 +33,8 @@ export default function LoginPage() {
         </div>
       </nav>
 
-      {/* Main Entry Panel */}
       <main className="relative z-10 w-full max-w-2xl px-6">
         <div className="glass-panel rounded-[2.5rem] p-10 md:p-14 flex flex-col items-center">
-          {/* Hero Title */}
           <header className="text-center mb-10">
             <h1 className="text-3xl md:text-4xl font-black text-amber-950 leading-tight mb-4 tracking-tighter">
               Kelamın Gücüyle Geleceği İnşa Edin: Bilginin ve Estetiğin Buluşma Noktası
@@ -47,25 +42,23 @@ export default function LoginPage() {
             <p className="text-amber-900/60 font-bold tracking-widest uppercase text-[10px]">Öğrenci ve Akademik Bilgi Sistemi</p>
           </header>
 
-          {/* Toggle Selector */}
           <div className="flex bg-amber-950/5 p-1.5 rounded-full w-full max-w-md mb-10">
             <button 
               type="button"
               onClick={() => setRole('ogrenci')}
-              className={`flex-1 py-3 px-6 rounded-full font-bold text-sm shadow-sm transition-all duration-300 ${role === 'ogrenci' ? 'bg-white text-amber-950' : 'text-amber-900/40 hover:text-amber-900/60'}`}
+              className={lex-1 py-3 px-6 rounded-full font-bold text-sm shadow-sm transition-all duration-300 $}
             >
               Öğrenci
             </button>
             <button 
               type="button"
               onClick={() => setRole('ogretmen')}
-              className={`flex-1 py-3 px-6 rounded-full font-bold text-sm transition-all duration-300 ${role === 'ogretmen' ? 'bg-white text-amber-950 shadow-sm' : 'text-amber-900/40 hover:text-amber-900/60'}`}
+              className={lex-1 py-3 px-6 rounded-full font-bold text-sm transition-all duration-300 $}
             >
               Öğretmen
             </button>
           </div>
 
-          {/* Login Form */}
           <form className="w-full max-w-md space-y-6" onSubmit={handleLogin}>
             <div className="space-y-2">
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/50 ml-4">Kullanıcı Adı</label>
@@ -114,7 +107,6 @@ export default function LoginPage() {
         </div>
       </main>
 
-      {/* Footer - Fixed Bottom */}
       <footer className="fixed bottom-0 w-full flex justify-center items-center py-8 z-50">
         <div className="text-white/40 text-[10px] uppercase tracking-[0.2em] font-bold">
           © 2026 Nizip Sosyal Bilimler Lisesi
