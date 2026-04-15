@@ -20,7 +20,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="bg-[#0c0c1f] min-h-screen relative flex items-center justify-center overflow-hidden font-['Inter']">
+    <div className="bg-surface-container-lowest min-h-screen relative flex items-center justify-center overflow-hidden font-['Inter']">
       {/* Full Screen Background Image with Blur Overlay */}
       <div className="fixed inset-0 library-bg scale-105 blur-[8px]"></div>
       <div className="fixed inset-0 bg-black/40"></div>
