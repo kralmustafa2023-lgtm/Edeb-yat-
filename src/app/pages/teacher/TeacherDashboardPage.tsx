@@ -102,7 +102,7 @@ export default function TeacherDashboardPage() {
       {/* Upcoming Calendar (Strip Layout) */}
       <section className="bg-stone-200/30 p-8 rounded-3xl">
         <div className="flex items-center gap-4 mb-8">
-          <EventUpcoming className="text-primary" size={24} />
+          <Calendar className="text-primary" size={24} />
           <h3 className="text-xl font-serif text-primary">Akademik Takvim - Bugün</h3>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
