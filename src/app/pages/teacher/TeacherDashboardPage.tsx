@@ -146,7 +146,6 @@ export default function TeacherDashboardPage() {
           </div>
         </div>
       </section>
-    </div>
       
       {/* Announcement Modal */}
       {isAnnouncing && (
