@@ -12,6 +12,8 @@ import FillTablePage from './pages/FillTablePage';
 import StatsPage from './pages/StatsPage';
 import SettingsPage from './pages/SettingsPage';
 import LoginPage from './pages/LoginPage';
+import AboutPage from './pages/AboutPage';
+import HelpPage from './pages/HelpPage';
 
 function NotFound() {
   return (
@@ -26,6 +28,14 @@ export const router = createHashRouter([
   {
     path: '/login',
     Component: LoginPage,
+  },
+  {
+    path: '/about',
+    Component: AboutPage,
+  },
+  {
+    path: '/help',
+    Component: HelpPage,
   },
   {
     path: '/',

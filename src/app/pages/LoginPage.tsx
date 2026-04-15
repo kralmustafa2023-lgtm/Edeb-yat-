@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import '../../styles/login.css';
@@ -112,11 +112,11 @@ export default function LoginPage() {
       <div className="fixed inset-0 bg-black/40"></div>
       
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-6 md:px-12 py-8 z-50">
-        <div className="text-xl md:text-2xl font-black tracking-tighter text-white">Nizip Sosyal Bilimler Lisesi</div>
+        <Link to="/" className="text-xl md:text-2xl font-black tracking-tighter text-white">Nizip Sosyal Bilimler Lisesi</Link>
         <div className="hidden md:flex gap-10 items-center">
-          <span className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Giriş</span>
-          <span className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Yardım</span>
-          <span className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Hakkında</span>
+          <Link to="/login" className="text-white text-xs tracking-widest uppercase font-bold border-b border-white/40 pb-0.5">Giriş</Link>
+          <Link to="/help" className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Yardım</Link>
+          <Link to="/about" className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Hakkında</Link>
         </div>
       </nav>
 
