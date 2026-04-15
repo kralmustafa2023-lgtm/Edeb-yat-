@@ -87,7 +87,7 @@ export default function AboutPage() {
                     <img 
                       alt="Nizip Sosyal Bilimler Lisesi Binası" 
                       className="w-full h-full object-cover rounded-[1.5rem]" 
-                      src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&q=80&w=1000" 
+                      src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1000" 
                     />
                   </div>
                 </div>
