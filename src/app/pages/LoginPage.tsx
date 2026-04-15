@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase/config';
 import '../../styles/login.css';
 
 interface CardContentProps {
@@ -49,7 +52,7 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
     <form className="w-full max-w-sm space-y-4 flex-1 flex flex-col" onSubmit={handleLogin}>
       <div className="space-y-1.5">
         <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/50 ml-4">
-          Kullanıcı Adı
+          E-posta Adresi
         </label>
         <div className="relative">
           {type === 'ogrenci' ? (
@@ -59,8 +62,8 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
           )}
           <input 
             className="w-full pl-11 pr-5 py-3.5 rounded-xl input-ivory text-amber-950 placeholder-amber-900/30 focus:ring-2 focus:ring-amber-900/20 focus:border-transparent outline-none transition-all text-sm font-medium" 
-            placeholder="Kullanıcı adınızı giriniz" 
-            type="text"
+            placeholder="ornek@edebiyat.com" 
+            type="email"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -106,19 +109,53 @@ export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === 'admin' && password === '123456') {
-      sessionStorage.setItem('authenticated', 'true');
-      sessionStorage.setItem('userRole', role);
+    try {
+      // Admin bypass for local testing
+      if (username === 'admin' && password === '123456') {
+        sessionStorage.setItem('authenticated', 'true');
+        sessionStorage.setItem('userRole', role);
+        navigate(role === 'ogretmen' ? '/teacher/dashboard' : '/');
+        return;
+      }
+
+      let userCredential;
+      try {
+        userCredential = await signInWithEmailAndPassword(auth, username, password);
+      } catch (error: any) {
+        // If user not found, create one automatically to make testing easy
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+          userCredential = await createUserWithEmailAndPassword(auth, username, password);
+          // Set role in firestore
+          await setDoc(doc(db, 'users', userCredential.user.uid), {
+            email: username,
+            role: role
+          });
+        } else {
+          throw error;
+        }
+      }
+
+      // Check role from firestore
+      const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+      let userRole = role; 
       
-      if (role === 'ogretmen') {
+      if (userDoc.exists()) {
+        userRole = userDoc.data().role;
+      }
+
+      sessionStorage.setItem('authenticated', 'true');
+      sessionStorage.setItem('userRole', userRole);
+
+      if (userRole === 'ogretmen') {
         navigate('/teacher/dashboard');
       } else {
         navigate('/');
       }
-    } else {
-      alert('Hatalı kullanıcı adı veya şifre! (İpucu: admin / 123456)');
+
+    } catch (error: any) {
+      alert('Giriş başarısız: ' + error.message);
     }
   };
 

@@ -1,0 +1,19 @@
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDRvNPR8DRBim9XZxXqWIrl3VvJsaW8ZSE",
+  authDomain: "edebiat-470ce.firebaseapp.com",
+  projectId: "edebiat-470ce",
+  storageBucket: "edebiat-470ce.firebasestorage.app",
+  messagingSenderId: "936006843933",
+  appId: "1:936006843933:web:aebcc6c3a016da026d10f4",
+  measurementId: "G-9BBJVCTDPT"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db };
