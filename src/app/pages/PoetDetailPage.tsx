@@ -178,7 +178,7 @@ export default function PoetDetailPage() {
                                 {word.tooltip && activeTag && (
                                   <span className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 rounded-lg text-xs whitespace-nowrap z-50 pointer-events-none opacity-0 group-hover/word:opacity-100 transition-opacity
                                     ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-gray-900 text-white'} shadow-lg max-w-xs`}
-                                    style={{ whiteSpace: 'pre-wrap', maxWidth: 220, whiteSpace: 'normal', textAlign: 'center' }}
+                                    style={{ whiteSpace: 'normal', maxWidth: 220, textAlign: 'center' }}
                                   >
                                     {word.tooltip}
                                   </span>
