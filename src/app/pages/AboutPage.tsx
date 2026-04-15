@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router';
 import { Info, ShieldCheck, Sparkles, UserCircle } from 'lucide-react';
-import okulBinasi from '../assets/okul_binasi.png';
+import okulBinasi from '../../assets/okul_binasi.png';
 import '../../styles/login.css';
 
 export default function AboutPage() {
