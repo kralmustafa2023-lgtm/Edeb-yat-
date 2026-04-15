@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { User, Lock, ArrowRight } from 'lucide-react';
 import '../../styles/login.css';
@@ -46,14 +46,14 @@ export default function LoginPage() {
             <button 
               type="button"
               onClick={() => setRole('ogrenci')}
-              className={lex-1 py-3 px-6 rounded-full font-bold text-sm shadow-sm transition-all duration-300 $}
+              className={`flex-1 py-3 px-6 rounded-full font-bold text-sm shadow-sm transition-all duration-300 ${role === 'ogrenci' ? 'bg-white text-amber-950' : 'text-amber-900/40 hover:text-amber-900/60'}`}
             >
               Öğrenci
             </button>
             <button 
               type="button"
               onClick={() => setRole('ogretmen')}
-              className={lex-1 py-3 px-6 rounded-full font-bold text-sm transition-all duration-300 $}
+              className={`flex-1 py-3 px-6 rounded-full font-bold text-sm transition-all duration-300 ${role === 'ogretmen' ? 'bg-white text-amber-950 shadow-sm' : 'text-amber-900/40 hover:text-amber-900/60'}`}
             >
               Öğretmen
             </button>
