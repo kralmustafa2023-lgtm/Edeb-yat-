@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutGrid, List, BookOpen, Download, FileText, PlayCircle, HelpCircle, GraduationCap, History, Globe, Brain, Languages, MoreVertical, Search } from 'lucide-react';
+import { LayoutGrid, List, BookOpen, Download, FileText, PlayCircle, HelpCircle, GraduationCap, History, Globe, Brain, Languages, MoreVertical, Search, ChevronRight } from 'lucide-react';
 
 export default function TeacherContentPage() {
   const categories = [

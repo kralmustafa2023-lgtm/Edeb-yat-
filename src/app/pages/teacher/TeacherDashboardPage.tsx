@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, ClipboardList, Calendar, FileText, Megaphone, CheckSquare, GraduationCap } from 'lucide-react';
+import { Users, ClipboardList, Calendar, FileText, Megaphone, CheckSquare, GraduationCap, PlusCircle } from 'lucide-react';
 
 export default function TeacherDashboardPage() {
   const teacherName = "Dr. Elif Yılmaz";
