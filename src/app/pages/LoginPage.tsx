@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { ref, get, set, child } from 'firebase/database';
 import { auth, db } from '../firebase/config';
 import '../../styles/login.css';
 
@@ -124,11 +124,10 @@ export default function LoginPage() {
       try {
         userCredential = await signInWithEmailAndPassword(auth, username, password);
       } catch (error: any) {
-        // If user not found, create one automatically to make testing easy
         if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
           userCredential = await createUserWithEmailAndPassword(auth, username, password);
-          // Set role in firestore
-          await setDoc(doc(db, 'users', userCredential.user.uid), {
+          // Set role in Realtime Database
+          await set(ref(db, 'users/' + userCredential.user.uid), {
             email: username,
             role: role
           });
@@ -137,12 +136,13 @@ export default function LoginPage() {
         }
       }
 
-      // Check role from firestore
-      const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+      // Check role from Realtime Database
+      const dbRef = ref(db);
+      const snapshot = await get(child(dbRef, `users/${userCredential.user.uid}`));
       let userRole = role; 
       
-      if (userDoc.exists()) {
-        userRole = userDoc.data().role;
+      if (snapshot.exists()) {
+        userRole = snapshot.val().role;
       }
 
       sessionStorage.setItem('authenticated', 'true');
