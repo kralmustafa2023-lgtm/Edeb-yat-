@@ -52,7 +52,7 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
     <form className="w-full max-w-sm space-y-4 flex-1 flex flex-col" onSubmit={handleLogin}>
       <div className="space-y-1.5">
         <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/50 ml-4">
-          E-posta Adresi
+          Kullanıcı Adı
         </label>
         <div className="relative">
           {type === 'ogrenci' ? (
@@ -62,8 +62,8 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
           )}
           <input 
             className="w-full pl-11 pr-5 py-3.5 rounded-xl input-ivory text-amber-950 placeholder-amber-900/30 focus:ring-2 focus:ring-amber-900/20 focus:border-transparent outline-none transition-all text-sm font-medium" 
-            placeholder="ornek@edebiyat.com" 
-            type="email"
+            placeholder="Kullanıcı adınızı giriniz (örn: ali)" 
+            type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -112,6 +112,9 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Firebase sadece mail kabul ettiği için, normal bir kullanıcı adı girilirse arkaplanda mail formatına çeviriyoruz.
+      const formattedEmail = username.includes('@') ? username : `${username}@edebiyat.com`;
+
       // Admin bypass for local testing
       if (username === 'admin' && password === '123456') {
         sessionStorage.setItem('authenticated', 'true');
@@ -122,13 +125,14 @@ export default function LoginPage() {
 
       let userCredential;
       try {
-        userCredential = await signInWithEmailAndPassword(auth, username, password);
+        userCredential = await signInWithEmailAndPassword(auth, formattedEmail, password);
       } catch (error: any) {
         if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-          userCredential = await createUserWithEmailAndPassword(auth, username, password);
+          userCredential = await createUserWithEmailAndPassword(auth, formattedEmail, password);
           // Set role in Realtime Database
           await set(ref(db, 'users/' + userCredential.user.uid), {
-            email: username,
+            username: username,
+            email: formattedEmail,
             role: role
           });
         } else {
