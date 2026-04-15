@@ -1,0 +1,15 @@
+.library-bg {
+    background-image: url(https://lh3.googleusercontent.com/aida/ADBb0ujVeiQUKoItPBn97ZDJ_yG8AK5wJUfXDkD4Wlbm9QCWwF58HIBLnuvDMff15Fsrvon1qyX_gKBNASXOAyUfJyYYf27Ho9IbRujibtUmUqUvtGBMxmG67lHnpllrt4VrplBlSNJn--kijD7ueqpMedOUcKXy9mYUL_0A3IxEdQMnPIVAiin8o2iCPrZk9Q9XDu14vkOCMcneCL_XSatwfgpafzzQsqWmaLwbniJguZhaOWGtYN_eJNaQ3zJWfGBcLI3HJsscOE_Q-KY);
+    background-size: cover;
+    background-position: center;
+}
+.glass-panel {
+    background: rgba(255, 251, 235, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+.input-ivory {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(120, 66, 18, 0.1);
+}

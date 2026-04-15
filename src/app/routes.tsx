@@ -11,6 +11,7 @@ import LessonNotesPage from './pages/LessonNotesPage';
 import FillTablePage from './pages/FillTablePage';
 import StatsPage from './pages/StatsPage';
 import SettingsPage from './pages/SettingsPage';
+import LoginPage from './pages/LoginPage';
 
 function NotFound() {
   return (
@@ -22,6 +23,10 @@ function NotFound() {
 }
 
 export const router = createHashRouter([
+  {
+    path: '/login',
+    Component: LoginPage,
+  },
   {
     path: '/',
     Component: Layout,
