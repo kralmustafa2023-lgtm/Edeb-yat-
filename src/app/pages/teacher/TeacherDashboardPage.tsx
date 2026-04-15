@@ -1,9 +1,25 @@
-import React from 'react';
-import { Users, ClipboardList, Calendar, FileText, Megaphone, CheckSquare, GraduationCap, PlusCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Users, ClipboardList, Calendar, FileText, Megaphone, CheckSquare, GraduationCap, PlusCircle, X } from 'lucide-react';
+import { ref, push, set } from 'firebase/database';
+import { db } from '../../firebase/config';
 
 export default function TeacherDashboardPage() {
   const teacherName = "Dr. Elif Yılmaz";
+  const [isAnnouncing, setIsAnnouncing] = useState(false);
+  const [announcementText, setAnnouncementText] = useState("");
 
+  const handleSendAnnouncement = async () => {
+    if (!announcementText.trim()) return;
+    const newNotifRef = push(ref(db, 'notifications'));
+    await set(newNotifRef, {
+      message: announcementText,
+      timestamp: Date.now(),
+      sender: teacherName
+    });
+    setAnnouncementText("");
+    setIsAnnouncing(false);
+    alert('Duyuru başarıyla gönderildi!');
+  };
   const stats = [
     { label: "Toplam Öğrenci", value: "124", icon: Users, color: "text-secondary", bg: "bg-surface-container-lowest" },
     { label: "Aktif Sınıf", value: "6", icon: Users, color: "text-surface-tint", bg: "bg-surface-container-low" },
@@ -77,8 +93,14 @@ export default function TeacherDashboardPage() {
           <div className="bg-stone-100/50 p-8 rounded-2xl shadow-sm">
             <h3 className="text-xl font-serif text-primary mb-6">Hızlı İşlemler</h3>
             <div className="space-y-4">
+              <button 
+                onClick={() => setIsAnnouncing(true)}
+                className="w-full flex items-center justify-between p-4 bg-white rounded-xl hover:bg-primary hover:text-white transition-all group shadow-sm"
+              >
+                <span className="text-xs font-bold uppercase tracking-widest">Duyuru Oluştur</span>
+                <div className="opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all">→</div>
+              </button>
               {[
-                { label: "Duyuru Oluştur", icon: "megaphone" },
                 { label: "Kaynak Yükle", icon: "upload" },
                 { label: "Yoklama Al", icon: "clipboard-check" }
               ].map((btn, idx) => (
@@ -124,6 +146,33 @@ export default function TeacherDashboardPage() {
           </div>
         </div>
       </section>
+    </div>
+      
+      {/* Announcement Modal */}
+      {isAnnouncing && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-serif font-bold text-primary">Yeni Duyuru</h3>
+              <button onClick={() => setIsAnnouncing(false)} className="p-2 text-stone-400 hover:text-stone-700 bg-stone-100 rounded-full">
+                <X size={18} />
+              </button>
+            </div>
+            <textarea 
+              value={announcementText}
+              onChange={(e) => setAnnouncementText(e.target.value)}
+              placeholder="Öğrencilere iletmek istediğiniz mesajı buraya yazın..."
+              className="w-full h-32 p-4 border border-stone-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-4 text-sm"
+            />
+            <button 
+              onClick={handleSendAnnouncement}
+              className="w-full py-3 bg-primary text-white rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-primary/90 transition-colors"
+            >
+              Duyuruyu Gönder
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

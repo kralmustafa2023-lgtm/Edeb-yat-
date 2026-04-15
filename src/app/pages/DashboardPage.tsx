@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import {
   Flame, Trophy, Zap, BookOpen, Brain, Shuffle, Table2,
-  Star, ChevronRight, Target, TrendingUp, Award, Users,
+  Star, ChevronRight, Target, TrendingUp, Award, Users, Bell, X
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import { ref, onValue } from 'firebase/database';
+import { db } from '../firebase/config';
 import { useApp } from '../context/AppContext';
 import { POETS } from '../data/poetsData';
 
@@ -23,6 +25,25 @@ const QUICK_LINKS = [
 export default function DashboardPage() {
   const { themeClasses, progress, theme, getLevel } = useApp();
   const level = getLevel();
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  useEffect(() => {
+    const notifRef = ref(db, 'notifications');
+    const unsubscribe = onValue(notifRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const notifList = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        })).sort((a, b) => b.timestamp - a.timestamp);
+        setNotifications(notifList);
+      } else {
+        setNotifications([]);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const weeklyData = DAYS.map((day, i) => ({
     day,
@@ -42,13 +63,62 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
       {/* Header */}
-      <div>
-        <h1 className={`text-2xl ${themeClasses.text}`} style={{ fontWeight: 700 }}>
-          Merhaba, Edebiyat Öğrencisi! 👋
-        </h1>
-        <p className={`${themeClasses.textMuted} mt-1`}>
-          9. Sınıf Türk Dili ve Edebiyatı • {new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-        </p>
+      <div className="flex justify-between items-start relative z-50">
+        <div>
+          <h1 className={`text-2xl ${themeClasses.text}`} style={{ fontWeight: 700 }}>
+            Merhaba, Edebiyat Öğrencisi! 👋
+          </h1>
+          <p className={`${themeClasses.textMuted} mt-1`}>
+            9. Sınıf Türk Dili ve Edebiyatı • {new Date().toLocaleDateString('tr-TR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+          </p>
+        </div>
+        
+        {/* Notification Bell */}
+        <div className="relative">
+          <button 
+            onClick={() => setShowNotifications(!showNotifications)}
+            className={`w-12 h-12 flex items-center justify-center rounded-full ${themeClasses.card} ${themeClasses.cardBorder} hover:bg-black/5 transition relative`}
+          >
+            <Bell size={22} className={themeClasses.text} />
+            {notifications.length > 0 && (
+              <span className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse border-2 border-white"></span>
+            )}
+          </button>
+          
+          {/* Notifications Dropdown */}
+          {showNotifications && (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`absolute right-0 top-14 w-80 max-h-96 overflow-y-auto rounded-2xl shadow-2xl p-4 border ${themeClasses.card} ${themeClasses.cardBorder} z-50`}
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className={`font-bold ${themeClasses.text}`}>Duyurular</h3>
+                <button onClick={() => setShowNotifications(false)} className={`${themeClasses.textMuted} hover:${themeClasses.text}`}>
+                  <X size={16} />
+                </button>
+              </div>
+              
+              {notifications.length === 0 ? (
+                <p className={`text-sm ${themeClasses.textMuted} text-center py-4`}>Henüz bir duyuru yok.</p>
+              ) : (
+                <div className="space-y-3">
+                  {notifications.map(notif => (
+                    <div key={notif.id} className={`p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5`}>
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{notif.sender}</span>
+                        <span className={`text-[10px] ${themeClasses.textMuted}`}>
+                          {new Date(notif.timestamp).toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'})}
+                        </span>
+                      </div>
+                      <p className={`text-sm text-stone-700 dark:text-stone-300`}>{notif.message}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          )}
+        </div>
       </div>
 
       {/* Stats Row */}
