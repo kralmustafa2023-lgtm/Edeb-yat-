@@ -1,5 +1,5 @@
 import React from 'react';
-import { Groups, AutoGraph, Send, FilterList, FileDownload, Visibility, ChatBubble, ChevronLeft, ChevronRight, User } from 'lucide-react';
+import { Users, TrendingUp, Send, Filter, Download, Eye, MessageSquare, ChevronLeft, ChevronRight, User } from 'lucide-react';
 
 export default function TeacherClassesPage() {
   const students = [
@@ -119,8 +119,8 @@ export default function TeacherClassesPage() {
                   </td>
                   <td className="px-8 py-5 text-right">
                     <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="p-2 text-stone-400 hover:text-violet-900 transition-colors"><Visibility size={20}/></button>
-                      <button className="p-2 text-stone-400 hover:text-amber-700 transition-colors"><ChatBubble size={20}/></button>
+                      <button className="p-2 text-stone-400 hover:text-violet-900 transition-colors"><Eye size={20}/></button>
+                      <button className="p-2 text-stone-400 hover:text-amber-700 transition-colors"><MessageSquare size={20}/></button>
                     </div>
                   </td>
                 </tr>

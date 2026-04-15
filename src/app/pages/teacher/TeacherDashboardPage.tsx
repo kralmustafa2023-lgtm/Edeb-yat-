@@ -1,21 +1,21 @@
 import React from 'react';
-import { Users, Diversity3, PendingActions, EventUpcoming, Description, Campaign, FactCheck, School } from 'lucide-react';
+import { Users, ClipboardList, Calendar, FileText, Megaphone, CheckSquare, GraduationCap } from 'lucide-react';
 
 export default function TeacherDashboardPage() {
   const teacherName = "Dr. Elif Yılmaz";
 
   const stats = [
     { label: "Toplam Öğrenci", value: "124", icon: Users, color: "text-secondary", bg: "bg-surface-container-lowest" },
-    { label: "Aktif Sınıf", value: "6", icon: Diversity3, color: "text-surface-tint", bg: "bg-surface-container-low" },
-    { label: "Bekleyen Ödev", value: "18", icon: PendingActions, color: "text-secondary", bg: "bg-white/40 border-white/40 shadow-sm" },
-    { label: "Planlanan Sınav", value: "2", icon: EventUpcoming, color: "text-on-primary-container", bg: "bg-primary-container shadow-xl text-on-primary" },
+    { label: "Aktif Sınıf", value: "6", icon: Users, color: "text-surface-tint", bg: "bg-surface-container-low" },
+    { label: "Bekleyen Ödev", value: "18", icon: ClipboardList, color: "text-secondary", bg: "bg-white/40 border-white/40 shadow-sm" },
+    { label: "Planlanan Sınav", value: "2", icon: Calendar, color: "text-on-primary-container", bg: "bg-primary-container shadow-xl text-on-primary" },
   ];
 
   const activities = [
-    { title: "Mert S. - \"Modernizm Üzerine\" Deneme", subtitle: "11-B Sınıfı • Yeni ödev teslim edildi.", time: "14 DK ÖNCE", icon: Description, iconColor: "text-primary" },
-    { title: "Sistem Duyurusu", subtitle: "Dönem sonu not girişleri için son 3 gün.", time: "2 SAAT ÖNCE", icon: Campaign, iconColor: "text-secondary" },
-    { title: "Ayşe K. - Edebiyat Projesi", subtitle: "Ödev başarıyla notlandırıldı: 95/100", time: "4 SAAT ÖNCE", icon: FactCheck, iconColor: "text-surface-tint" },
-    { title: "Veli Toplantısı Hatırlatıcısı", subtitle: "Yarın saat 15:00'te Zoom üzerinden gerçekleştirilecektir.", time: "1 GÜN ÖNCE", icon: School, iconColor: "text-primary" },
+    { title: "Mert S. - \"Modernizm Üzerine\" Deneme", subtitle: "11-B Sınıfı • Yeni ödev teslim edildi.", time: "14 DK ÖNCE", icon: FileText, iconColor: "text-primary" },
+    { title: "Sistem Duyurusu", subtitle: "Dönem sonu not girişleri için son 3 gün.", time: "2 SAAT ÖNCE", icon: Megaphone, iconColor: "text-secondary" },
+    { title: "Ayşe K. - Edebiyat Projesi", subtitle: "Ödev başarıyla notlandırıldı: 95/100", time: "4 SAAT ÖNCE", icon: CheckSquare, iconColor: "text-surface-tint" },
+    { title: "Veli Toplantısı Hatırlatıcısı", subtitle: "Yarın saat 15:00'te Zoom üzerinden gerçekleştirilecektir.", time: "1 GÜN ÖNCE", icon: GraduationCap, iconColor: "text-primary" },
   ];
 
   return (
