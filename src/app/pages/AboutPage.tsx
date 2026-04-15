@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router';
 import { Info, ShieldCheck, Sparkles, UserCircle } from 'lucide-react';
+import okulBinasi from '../assets/okul_binasi.png';
 import '../../styles/login.css';
 
 export default function AboutPage() {
@@ -11,6 +12,7 @@ export default function AboutPage() {
       {/* Background Image Container */}
       <div className="fixed inset-0 z-0 library-bg scale-105 blur-[8px]"></div>
       <div className="fixed inset-0 z-0 bg-black/40"></div>
+
 
       {/* TopNavBar */}
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-12 py-8 z-50">
@@ -87,7 +89,7 @@ export default function AboutPage() {
                     <img 
                       alt="Nizip Sosyal Bilimler Lisesi Binası" 
                       className="w-full h-full object-cover rounded-[1.5rem]" 
-                      src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1000" 
+                      src={okulBinasi} 
                     />
                   </div>
                 </div>
