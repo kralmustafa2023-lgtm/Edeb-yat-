@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, get, set, child } from 'firebase/database';
-import { auth, db } from '../firebase/config';
+import { db } from '../firebase/config';
 import '../../styles/login.css';
 
 interface CardContentProps {
@@ -112,9 +111,6 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Firebase sadece mail kabul ettiği için, normal bir kullanıcı adı girilirse arkaplanda mail formatına çeviriyoruz.
-      const formattedEmail = username.includes('@') ? username : `${username}@edebiyat.com`;
-
       // Admin bypass for local testing
       if (username === 'admin' && password === '123456') {
         sessionStorage.setItem('authenticated', 'true');
@@ -123,30 +119,28 @@ export default function LoginPage() {
         return;
       }
 
-      let userCredential;
-      try {
-        userCredential = await signInWithEmailAndPassword(auth, formattedEmail, password);
-      } catch (error: any) {
-        if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-          userCredential = await createUserWithEmailAndPassword(auth, formattedEmail, password);
-          // Set role in Realtime Database
-          await set(ref(db, 'users/' + userCredential.user.uid), {
-            username: username,
-            email: formattedEmail,
-            role: role
-          });
-        } else {
-          throw error;
-        }
-      }
-
-      // Check role from Realtime Database
+      // Veritabanı anahtarı için geçersiz karakterleri temizle
+      const safeUsername = username.replace(/[\.\#\$\[\]]/g, '');
       const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, `users/${userCredential.user.uid}`));
-      let userRole = role; 
+      const snapshot = await get(child(dbRef, `users/${safeUsername}`));
       
+      let userRole = role; 
+
+      // Kullanıcı veritabanında var mı kontrol et
       if (snapshot.exists()) {
-        userRole = snapshot.val().role;
+        const userData = snapshot.val();
+        if (userData.password !== password) {
+            alert('Hatalı şifre!');
+            return;
+        }
+        userRole = userData.role;
+      } else {
+        // Otomatik Kullanıcı Kaydı (İlk giriş)
+        await set(ref(db, `users/${safeUsername}`), {
+          username: username,
+          password: password,
+          role: role
+        });
       }
 
       sessionStorage.setItem('authenticated', 'true');
