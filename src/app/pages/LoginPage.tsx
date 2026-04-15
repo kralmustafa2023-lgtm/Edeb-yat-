@@ -55,7 +55,7 @@ export default function LoginPage() {
       <form className="w-full max-w-sm space-y-4 flex-1 flex flex-col" onSubmit={handleLogin}>
         <div className="space-y-1.5">
           <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/50 ml-4">
-            {type === 'ogrenci' ? 'Öğrenci No / T.C.' : 'Personel Kodu / T.C.'}
+            Kullanıcı Adı
           </label>
           <div className="relative">
             {type === 'ogrenci' ? (
@@ -65,7 +65,7 @@ export default function LoginPage() {
             )}
             <input 
               className="w-full pl-11 pr-5 py-3.5 rounded-xl input-ivory text-amber-950 placeholder-amber-900/30 focus:ring-2 focus:ring-amber-900/20 focus:border-transparent outline-none transition-all text-sm font-medium" 
-              placeholder={type === 'ogrenci' ? "Kullanıcı adınızı giriniz" : "Akademisyen kodunuzu giriniz"} 
+              placeholder="Kullanıcı adınızı giriniz" 
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
