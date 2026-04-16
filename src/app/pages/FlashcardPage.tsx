@@ -1,18 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle, XCircle, RotateCcw } from 'lucide-react';
+import { ArrowLeft, CheckCircle, XCircle, RotateCcw } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { FLASHCARD_DECKS, FlashcardDeck } from '../data/flashcardData';
+import { ref, onValue } from 'firebase/database';
+import { db } from '../firebase/config';
+
+interface Flashcard {
+  id: string;
+  front: string;
+  back: string;
+  category?: string;
+}
+
+interface FlashcardDeck {
+  id: string;
+  title: string;
+  icon: string;
+  color: string;
+  cards: Flashcard[];
+}
 
 export default function FlashcardPage() {
   const { themeClasses, theme, incrementFlashcard } = useApp();
+  const [decks, setDecks] = useState<FlashcardDeck[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedDeck, setSelectedDeck] = useState<FlashcardDeck | null>(null);
-  const [cards, setCards] = useState<FlashcardDeck['cards']>([]);
+  const [cards, setCards] = useState<Flashcard[]>([]);
   const [current, setCurrent] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState<string[]>([]);
   const [unknown, setUnknown] = useState<string[]>([]);
   const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    const decksRef = ref(db, 'flashcards');
+    const unsubscribe = onValue(decksRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const list: FlashcardDeck[] = Object.entries(data).map(([key, val]: any) => ({
+          id: key,
+          ...val,
+          color: val.color || 'from-violet-500 to-purple-600',
+          cards: (val.cards || []).map((c: any, idx: number) => ({ ...c, id: `c-${idx}` }))
+        }));
+        setDecks(list);
+      }
+      setLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const startDeck = (deck: FlashcardDeck) => {
     setSelectedDeck(deck);
@@ -58,26 +94,32 @@ export default function FlashcardPage() {
     }
   };
 
-  const card = `rounded-2xl border ${themeClasses.card} ${themeClasses.cardBorder}`;
+  const cardStyle = `rounded-2xl border ${themeClasses.card} ${themeClasses.cardBorder}`;
 
-  // DECK SELECT
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center py-20 gap-4">
+      <div className="w-12 h-12 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin" />
+      <p className={`text-sm font-bold ${themeClasses.textMuted}`}>Demetler yükleniyor...</p>
+    </div>
+  );
+
   if (!selectedDeck) return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className={`text-2xl ${themeClasses.text}`} style={{ fontWeight: 700 }}>Flashcard</h1>
-        <p className={`text-sm ${themeClasses.textMuted} mt-1`}>3D kart çevirme ile hızlı tekrar yap. Biliyorum / Bilmiyorum sistemi ile ilerle.</p>
+        <p className={`text-sm ${themeClasses.textMuted} mt-1`}>Kartları çevirerek hızlı tekrar yap. +30 XP kazanırsın!</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {FLASHCARD_DECKS.map((deck, i) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {decks.map((deck, i) => (
           <motion.button
             key={deck.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
             onClick={() => startDeck(deck)}
-            className={`${card} p-5 text-left hover:shadow-xl transition-all duration-200 hover:-translate-y-1`}
+            className={`${cardStyle} p-5 text-left hover:shadow-xl transition-all duration-200 hover:-translate-y-1 group`}
           >
-            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${deck.color} flex items-center justify-center text-2xl mb-3`}>
+            <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${deck.color} flex items-center justify-center text-2xl mb-3 shadow-lg shadow-black/5`}>
               {deck.icon}
             </div>
             <p className={`${themeClasses.text} text-base`} style={{ fontWeight: 700 }}>{deck.title}</p>
@@ -88,14 +130,9 @@ export default function FlashcardPage() {
     </div>
   );
 
-  // DONE SCREEN
   if (done) return (
     <div className="max-w-md mx-auto space-y-6">
-      <motion.div
-        className={`${card} p-8 text-center`}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-      >
+      <motion.div className={`${cardStyle} p-8 text-center`} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
         <div className="text-5xl mb-4">🃏</div>
         <h2 className={`text-xl ${themeClasses.text} mb-2`} style={{ fontWeight: 700 }}>Tur Bitti!</h2>
         <div className="flex gap-4 justify-center my-4">
@@ -109,127 +146,47 @@ export default function FlashcardPage() {
             <p className={`text-xs ${themeClasses.textMuted}`}>Bilmiyorum</p>
           </div>
         </div>
-        {unknown.length > 0 && (
-          <p className={`text-xs ${themeClasses.textMuted} mb-4`}>
-            {unknown.length} kart bilmiyorum olarak işaretlendi. Tekrar çalışmak ister misin?
-          </p>
-        )}
         <div className="flex gap-3">
-          <button
-            onClick={restart}
-            className={`flex-1 py-3 rounded-xl border ${themeClasses.cardBorder} ${themeClasses.textMuted} ${themeClasses.hover} text-sm flex items-center justify-center gap-2`}
-          >
-            <RotateCcw size={14} />
-            {unknown.length > 0 ? `Tekrar (${unknown.length})` : 'Yenile'}
-          </button>
-          <button
-            onClick={() => setSelectedDeck(null)}
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm"
-            style={{ fontWeight: 600 }}
-          >
-            Demetler →
-          </button>
+          <button onClick={restart} className={`flex-1 py-3 rounded-xl border ${themeClasses.cardBorder} ${themeClasses.textMuted} ${themeClasses.hover} text-sm flex items-center justify-center gap-2`}><RotateCcw size={14} /> Tekrar</button>
+          <button onClick={() => setSelectedDeck(null)} className="flex-1 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm" style={{ fontWeight: 600 }}>Demetler →</button>
         </div>
       </motion.div>
     </div>
   );
 
-  // CARD VIEW
   const currentCard = cards[current];
   const progress = (current / cards.length) * 100;
 
   return (
     <div className="max-w-xl mx-auto space-y-6">
-      {/* Header */}
       <div className="flex items-center gap-4">
-        <button onClick={() => setSelectedDeck(null)} className={`p-2 rounded-xl ${themeClasses.hover} ${themeClasses.textMuted}`}>
-          <ArrowLeft size={20} />
-        </button>
+        <button onClick={() => setSelectedDeck(null)} className={`p-2 rounded-xl ${themeClasses.hover} ${themeClasses.textMuted}`}><ArrowLeft size={20} /></button>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1.5">
             <span className={`text-sm ${themeClasses.textMuted}`}>{selectedDeck.title}</span>
             <span className={`text-sm ${themeClasses.textMuted}`} style={{ fontWeight: 600 }}>{current + 1}/{cards.length}</span>
           </div>
-          <div className={`h-1.5 rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}>
-            <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all duration-300" style={{ width: `${progress}%` }} />
-          </div>
+          <div className={`h-1.5 rounded-full ${theme === 'dark' ? 'bg-white/10' : 'bg-black/10'}`}><div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 transition-all" style={{ width: `${progress}%` }} /></div>
         </div>
       </div>
-
-      {/* Stats */}
-      <div className="flex gap-3 justify-center">
-        <span className="flex items-center gap-1 text-xs text-emerald-400"><CheckCircle size={12} />{known.length} biliyorum</span>
-        <span className="flex items-center gap-1 text-xs text-red-400"><XCircle size={12} />{unknown.length} bilmiyorum</span>
-      </div>
-
-      {/* Flashcard */}
       <div className="cursor-pointer" onClick={() => setFlipped(f => !f)} style={{ perspective: 1000 }}>
-        <motion.div
-          style={{ transformStyle: 'preserve-3d', position: 'relative', height: 280 }}
-          animate={{ rotateY: flipped ? 180 : 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-        >
-          {/* Front */}
-          <div
-            className={`absolute inset-0 ${card} p-8 flex flex-col items-center justify-center text-center`}
-            style={{ backfaceVisibility: 'hidden' }}
-          >
-            <div className={`text-xs ${themeClasses.textMuted} mb-4 uppercase tracking-widest`}>Ön · Tıkla çevirmek için</div>
-            <p className={`text-lg ${themeClasses.text} leading-relaxed`} style={{ fontWeight: 600 }}>
-              {currentCard.front}
-            </p>
-            <div className={`mt-4 text-xs ${themeClasses.badge} px-2 py-1 rounded-full`}>{currentCard.category}</div>
+        <motion.div style={{ transformStyle: 'preserve-3d', position: 'relative', height: 280 }} animate={{ rotateY: flipped ? 180 : 0 }} transition={{ duration: 0.5 }}>
+          <div className={`absolute inset-0 ${cardStyle} p-8 flex flex-col items-center justify-center text-center`} style={{ backfaceVisibility: 'hidden' }}>
+            <p className={`text-lg ${themeClasses.text} leading-relaxed`} style={{ fontWeight: 600 }}>{currentCard.front}</p>
           </div>
-
-          {/* Back */}
-          <div
-            className={`absolute inset-0 rounded-2xl border p-8 flex flex-col items-center justify-center text-center overflow-auto ${
-              theme === 'dark'
-                ? 'bg-gradient-to-br from-purple-900/50 to-indigo-900/50 border-purple-500/30'
-                : theme === 'sepia'
-                ? 'bg-gradient-to-br from-amber-100 to-orange-100 border-amber-300'
-                : 'bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200'
-            }`}
-            style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-          >
-            <div className={`text-xs ${themeClasses.textMuted} mb-4 uppercase tracking-widest`}>Arka · Cevap</div>
-            <p className={`text-sm ${themeClasses.text} leading-relaxed whitespace-pre-line text-left`}>{currentCard.back}</p>
+          <div className={`absolute inset-0 rounded-2xl border p-8 flex flex-col items-center justify-center text-center overflow-auto bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200`} style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+            <p className={`text-sm ${themeClasses.text} leading-relaxed text-left`}>{currentCard.back}</p>
           </div>
         </motion.div>
       </div>
-
-      {/* Action Buttons */}
       <AnimatePresence>
         {flipped && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="flex gap-3"
-          >
-            <button
-              onClick={() => handleKnow(false)}
-              className="flex-1 py-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 flex items-center justify-center gap-2 hover:bg-red-500/20 transition-all"
-              style={{ fontWeight: 600 }}
-            >
-              <XCircle size={18} />
-              Bilmiyorum
-            </button>
-            <button
-              onClick={() => handleKnow(true)}
-              className="flex-1 py-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center gap-2 hover:bg-emerald-500/20 transition-all"
-              style={{ fontWeight: 600 }}
-            >
-              <CheckCircle size={18} />
-              Biliyorum
-            </button>
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="flex gap-3">
+            <button onClick={() => handleKnow(false)} className="flex-1 py-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 flex items-center justify-center gap-2 hover:bg-red-500/20" style={{ fontWeight: 600 }}><XCircle size={18} /> Bilmiyorum</button>
+            <button onClick={() => handleKnow(true)} className="flex-1 py-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center gap-2 hover:bg-emerald-500/20" style={{ fontWeight: 600 }}><CheckCircle size={18} /> Biliyorum</button>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {!flipped && (
-        <p className={`text-center text-xs ${themeClasses.textFaint}`}>Kartı çevirmek için tıkla →</p>
-      )}
     </div>
   );
 }
