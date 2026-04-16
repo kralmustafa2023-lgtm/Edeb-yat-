@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { ref, onValue, set as dbSet } from 'firebase/database';
 import { db } from '../firebase/config';
 
@@ -47,74 +47,37 @@ interface AppContextType {
 }
 
 export interface ThemeClasses {
-  bg: string;
-  sidebar: string;
-  card: string;
-  cardBorder: string;
-  text: string;
-  textMuted: string;
-  textFaint: string;
-  accent: string;
-  accentBg: string;
-  accentText: string;
-  inputBg: string;
-  inputBorder: string;
-  hover: string;
-  divider: string;
-  badge: string;
+  bg: string; sidebar: string; card: string; cardBorder: string;
+  text: string; textMuted: string; textFaint: string;
+  accent: string; accentBg: string; accentText: string;
+  inputBg: string; inputBorder: string; hover: string;
+  divider: string; badge: string;
 }
 
 const THEME_CLASSES: Record<Theme, ThemeClasses> = {
   dark: {
-    bg: 'bg-[#0d0d1a]',
-    sidebar: 'bg-[#11111f] border-purple-900/30',
-    card: 'bg-[#1a1a2e] border-purple-900/20',
-    cardBorder: 'border-purple-900/20',
-    text: 'text-[#e2e2f0]',
-    textMuted: 'text-[#8585a8]',
-    textFaint: 'text-[#4a4a6a]',
-    accent: 'text-purple-400',
-    accentBg: 'bg-purple-600 hover:bg-purple-500',
-    accentText: 'text-purple-400',
-    inputBg: 'bg-[#1a1a2e] border-purple-900/30',
-    inputBorder: 'border-purple-900/40',
-    hover: 'hover:bg-purple-900/20',
-    divider: 'border-purple-900/20',
-    badge: 'bg-purple-900/40 text-purple-300',
+    bg: 'bg-[#0d0d1a]', sidebar: 'bg-[#11111f] border-purple-900/30',
+    card: 'bg-[#1a1a2e] border-purple-900/20', cardBorder: 'border-purple-900/20',
+    text: 'text-[#e2e2f0]', textMuted: 'text-[#8585a8]', textFaint: 'text-[#4a4a6a]',
+    accent: 'text-purple-400', accentBg: 'bg-purple-600 hover:bg-purple-500', accentText: 'text-purple-400',
+    inputBg: 'bg-[#1a1a2e] border-purple-900/30', inputBorder: 'border-purple-900/40',
+    hover: 'hover:bg-purple-900/20', divider: 'border-purple-900/20', badge: 'bg-purple-900/40 text-purple-300',
   },
   light: {
-    bg: 'bg-[#f0f0f8]',
-    sidebar: 'bg-white border-indigo-100',
-    card: 'bg-white border-indigo-100',
-    cardBorder: 'border-indigo-100',
-    text: 'text-[#1a1a2e]',
-    textMuted: 'text-[#6b7280]',
-    textFaint: 'text-[#9ca3af]',
-    accent: 'text-indigo-600',
-    accentBg: 'bg-indigo-600 hover:bg-indigo-500',
-    accentText: 'text-indigo-600',
-    inputBg: 'bg-white border-indigo-200',
-    inputBorder: 'border-indigo-200',
-    hover: 'hover:bg-indigo-50',
-    divider: 'border-indigo-100',
-    badge: 'bg-indigo-100 text-indigo-700',
+    bg: 'bg-[#f0f0f8]', sidebar: 'bg-white border-indigo-100',
+    card: 'bg-white border-indigo-100', cardBorder: 'border-indigo-100',
+    text: 'text-[#1a1a2e]', textMuted: 'text-[#6b7280]', textFaint: 'text-[#9ca3af]',
+    accent: 'text-indigo-600', accentBg: 'bg-indigo-600 hover:bg-indigo-500', accentText: 'text-indigo-600',
+    inputBg: 'bg-white border-indigo-200', inputBorder: 'border-indigo-200',
+    hover: 'hover:bg-indigo-50', divider: 'border-indigo-100', badge: 'bg-indigo-100 text-indigo-700',
   },
   sepia: {
-    bg: 'bg-[#f5f0e8]',
-    sidebar: 'bg-[#ede7dc] border-amber-200',
-    card: 'bg-[#faf5ed] border-amber-200',
-    cardBorder: 'border-amber-200',
-    text: 'text-[#3d2c1c]',
-    textMuted: 'text-[#7c6b5a]',
-    textFaint: 'text-[#a89880]',
-    accent: 'text-amber-800',
-    accentBg: 'bg-amber-700 hover:bg-amber-600',
-    accentText: 'text-amber-800',
-    inputBg: 'bg-[#faf5ed] border-amber-300',
-    inputBorder: 'border-amber-300',
-    hover: 'hover:bg-amber-100',
-    divider: 'border-amber-200',
-    badge: 'bg-amber-100 text-amber-800',
+    bg: 'bg-[#f5f0e8]', sidebar: 'bg-[#ede7dc] border-amber-200',
+    card: 'bg-[#faf5ed] border-amber-200', cardBorder: 'border-amber-200',
+    text: 'text-[#3d2c1c]', textMuted: 'text-[#7c6b5a]', textFaint: 'text-[#a89880]',
+    accent: 'text-amber-800', accentBg: 'bg-amber-700 hover:bg-amber-600', accentText: 'text-amber-800',
+    inputBg: 'bg-[#faf5ed] border-amber-300', inputBorder: 'border-amber-300',
+    hover: 'hover:bg-amber-100', divider: 'border-amber-200', badge: 'bg-amber-100 text-amber-800',
   },
 };
 
@@ -138,29 +101,15 @@ const DEFAULT_ACHIEVEMENTS: Achievement[] = [
 ];
 
 const DEFAULT_PROGRESS: Progress = {
-  studiedPoets: [],
-  quizScores: [],
-  flashcardsDone: 0,
-  matchingDone: 0,
-  tableDone: 0,
-  totalXP: 0,
-  streak: 0,
-  lastStudyDate: '',
-  weeklyActivity: [0, 0, 0, 0, 0, 0, 0],
-  achievements: DEFAULT_ACHIEVEMENTS,
-  favoritePoets: [],
-  notes: {},
+  studiedPoets: [], quizScores: [], flashcardsDone: 0, matchingDone: 0, tableDone: 0,
+  totalXP: 0, streak: 0, lastStudyDate: '', weeklyActivity: [0, 0, 0, 0, 0, 0, 0],
+  achievements: DEFAULT_ACHIEVEMENTS, favoritePoets: [], notes: {},
 };
 
 const AppContext = createContext<AppContextType | null>(null);
 
-// Kullanıcı adını sessionStorage'dan al
 function getCurrentUsername(): string | null {
-  try {
-    return sessionStorage.getItem('currentUsername') || null;
-  } catch {
-    return null;
-  }
+  try { return sessionStorage.getItem('currentUsername') || null; } catch { return null; }
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
@@ -168,66 +117,27 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return (localStorage.getItem('edebiyat_theme') as Theme) || 'dark';
   });
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [progress, setProgress] = useState<Progress>(() => {
-    try {
-      const saved = localStorage.getItem('edebiyat_progress');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        parsed.achievements = DEFAULT_ACHIEVEMENTS.map(def => {
-          const found = parsed.achievements?.find((a: Achievement) => a.id === def.id);
-          return found || def;
-        });
-        return { ...DEFAULT_PROGRESS, ...parsed };
-      }
-    } catch {}
-    return DEFAULT_PROGRESS;
-  });
+  const [progress, setProgress] = useState<Progress>(DEFAULT_PROGRESS);
 
-  // Firebase'den ilerleme verisi çekmek için bir defa çalışan listener
-  const firebaseInitialized = useRef(false);
-  const skipNextSync = useRef(false);
+  // Firebase tek kaynak — yerel değişiklikleri Firebase'e yazıyoruz
+  const isFromFirebase = useRef(false); // Firebase'den gelen güncellemeyi tekrar yazmayı engelle
 
+  // Firebase listener — gerçek zamanlı senkronizasyon
   useEffect(() => {
     const username = getCurrentUsername();
-    if (!username || firebaseInitialized.current) return;
+    if (!username) return;
 
-    firebaseInitialized.current = true;
     const progressRef = ref(db, `users/${username}/progress`);
-
-    // Firebase'den oku ve yerel veriyle birleştir
     const unsubscribe = onValue(progressRef, (snapshot) => {
-      const firebaseData = snapshot.val();
-      if (firebaseData) {
-        // Firebase'deki veriyi yerel veriyle karşılaştır
-        const merged: Progress = {
-          ...DEFAULT_PROGRESS,
-          ...firebaseData,
-          // Her zaman daha yüksek olan değeri al
-          totalXP: Math.max(firebaseData.totalXP || 0, progress.totalXP || 0),
-          flashcardsDone: Math.max(firebaseData.flashcardsDone || 0, progress.flashcardsDone || 0),
-          matchingDone: Math.max(firebaseData.matchingDone || 0, progress.matchingDone || 0),
-          tableDone: Math.max(firebaseData.tableDone || 0, progress.tableDone || 0),
-          streak: Math.max(firebaseData.streak || 0, progress.streak || 0),
-          // Quiz score'ları birleştir (duplicate olmaması için)
-          quizScores: mergeQuizScores(firebaseData.quizScores || [], progress.quizScores || []),
-          // İncelenen şairleri birleştir
-          studiedPoets: [...new Set([...(firebaseData.studiedPoets || []), ...(progress.studiedPoets || [])])],
-          favoritePoets: [...new Set([...(firebaseData.favoritePoets || []), ...(progress.favoritePoets || [])])],
-          // Achievement'ları birleştir (bir kere unlocked olduysa locked olmaz)
-          achievements: DEFAULT_ACHIEVEMENTS.map(def => {
-            const fromFb = (firebaseData.achievements || []).find((a: Achievement) => a.id === def.id);
-            const fromLocal = progress.achievements.find(a => a.id === def.id);
-            return {
-              ...def,
-              unlocked: (fromFb?.unlocked || false) || (fromLocal?.unlocked || false)
-            };
-          }),
-          weeklyActivity: firebaseData.weeklyActivity || progress.weeklyActivity || [0,0,0,0,0,0,0],
-          lastStudyDate: firebaseData.lastStudyDate || progress.lastStudyDate || '',
-          notes: { ...(firebaseData.notes || {}), ...(progress.notes || {}) },
-        };
-
-        skipNextSync.current = true;
+      const data = snapshot.val();
+      if (data) {
+        // Achievement'ları default ile eşle (yeni eklenenler için)
+        const achievements = DEFAULT_ACHIEVEMENTS.map(def => {
+          const found = (data.achievements || []).find((a: Achievement) => a.id === def.id);
+          return found || def;
+        });
+        const merged = { ...DEFAULT_PROGRESS, ...data, achievements };
+        isFromFirebase.current = true;
         setProgress(merged);
       }
     });
@@ -235,25 +145,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return () => unsubscribe();
   }, []);
 
-  // Tema localStorage'a kaydet
-  useEffect(() => {
-    localStorage.setItem('edebiyat_theme', theme);
-  }, [theme]);
+  // Tema kaydet
+  useEffect(() => { localStorage.setItem('edebiyat_theme', theme); }, [theme]);
 
-  // İlerleme hem localStorage'a hem Firebase'e kaydet
+  // Progress değiştiğinde Firebase'e yaz (sadece yerel değişiklikler)
   useEffect(() => {
-    localStorage.setItem('edebiyat_progress', JSON.stringify(progress));
-
-    // Firebase senkronizasyonu
-    if (skipNextSync.current) {
-      skipNextSync.current = false;
+    if (isFromFirebase.current) {
+      isFromFirebase.current = false;
       return;
     }
-
     const username = getCurrentUsername();
     if (username) {
-      const progressRef = ref(db, `users/${username}/progress`);
-      dbSet(progressRef, progress).catch(err => {
+      dbSet(ref(db, `users/${username}/progress`), progress).catch(err => {
         console.error('Firebase sync hatası:', err);
       });
     }
@@ -261,27 +164,21 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const setTheme = (t: Theme) => setThemeState(t);
 
-  const addXP = (amount: number) => {
+  const addXP = useCallback((amount: number) => {
     setProgress(prev => {
       const newXP = prev.totalXP + amount;
       const today = new Date().toDateString();
       const dayIndex = new Date().getDay();
-      const newWeekly = [...prev.weeklyActivity];
+      const newWeekly = [...(prev.weeklyActivity || [0,0,0,0,0,0,0])];
       newWeekly[dayIndex] = (newWeekly[dayIndex] || 0) + amount;
 
-      // Check streak
       let newStreak = prev.streak;
       if (prev.lastStudyDate !== today) {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
-        if (prev.lastStudyDate === yesterday.toDateString()) {
-          newStreak = prev.streak + 1;
-        } else {
-          newStreak = 1;
-        }
+        newStreak = prev.lastStudyDate === yesterday.toDateString() ? prev.streak + 1 : 1;
       }
 
-      // Check XP achievements
       const newAchievements = [...prev.achievements];
       if (newXP >= 500) {
         const idx = newAchievements.findIndex(a => a.id === 'xp_500');
@@ -296,16 +193,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
         if (idx >= 0) newAchievements[idx] = { ...newAchievements[idx], unlocked: true };
       }
 
-      return {
-        ...prev,
-        totalXP: newXP,
-        lastStudyDate: today,
-        weeklyActivity: newWeekly,
-        streak: newStreak,
-        achievements: newAchievements,
-      };
+      return { ...prev, totalXP: newXP, lastStudyDate: today, weeklyActivity: newWeekly, streak: newStreak, achievements: newAchievements };
     });
-  };
+  }, []);
 
   const markPoetStudied = (id: string) => {
     setProgress(prev => {
@@ -326,12 +216,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const entry = { topic, score, total, date: new Date().toLocaleDateString('tr-TR') };
       const newScores = [...prev.quizScores, entry];
       const newAchievements = [...prev.achievements];
-      // first quiz
       const firstIdx = newAchievements.findIndex(a => a.id === 'first_quiz');
       if (firstIdx >= 0 && !newAchievements[firstIdx].unlocked) {
         newAchievements[firstIdx] = { ...newAchievements[firstIdx], unlocked: true };
       }
-      // perfect quiz
       if (score === total) {
         const perfIdx = newAchievements.findIndex(a => a.id === 'perfect_quiz');
         if (perfIdx >= 0) newAchievements[perfIdx] = { ...newAchievements[perfIdx], unlocked: true };
@@ -382,10 +270,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const updateNote = (key: string, value: string) => {
-    setProgress(prev => ({
-      ...prev,
-      notes: { ...prev.notes, [key]: value },
-    }));
+    setProgress(prev => ({ ...prev, notes: { ...prev.notes, [key]: value } }));
   };
 
   const getLevel = () => {
@@ -412,22 +297,4 @@ export function useApp() {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error('useApp must be used inside AppProvider');
   return ctx;
-}
-
-// Quiz skorlarını birleştir (aynı tarih+konu olanları tekrarlamadan)
-function mergeQuizScores(
-  fbScores: Progress['quizScores'],
-  localScores: Progress['quizScores']
-): Progress['quizScores'] {
-  const all = [...fbScores, ...localScores];
-  const seen = new Set<string>();
-  const unique: Progress['quizScores'] = [];
-  for (const s of all) {
-    const key = `${s.topic}_${s.date}_${s.score}_${s.total}`;
-    if (!seen.has(key)) {
-      seen.add(key);
-      unique.push(s);
-    }
-  }
-  return unique;
 }
