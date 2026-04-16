@@ -29,7 +29,7 @@ export default function DashboardPage() {
   const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
-    const notifRef = ref(db, 'notifications');
+    const notifRef = ref(db, 'announcements');
     const unsubscribe = onValue(notifRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
@@ -44,6 +44,7 @@ export default function DashboardPage() {
     });
     return () => unsubscribe();
   }, []);
+
 
   const weeklyData = DAYS.map((day, i) => ({
     day,
