@@ -119,8 +119,14 @@ export default function LoginPage() {
         return;
       }
 
-      // Veritabanı anahtarı için normalize et (trim + küçük harf + özel karakter temizle)
-      const safeUsername = username.trim().toLowerCase().replace(/[\.\#\$\[\]\s]/g, '');
+      // Türkçe karakterleri ve özel işaretleri İngilizce'ye çevirip standardize et
+      const charMap: Record<string, string> = { 'ç':'c', 'ğ':'g', 'ı':'i', 'i':'i', 'ö':'o', 'ş':'s', 'ü':'u', 'Ç':'c', 'Ğ':'g', 'I':'i', 'İ':'i', 'Ö':'o', 'Ş':'s', 'Ü':'u' };
+      const safeUsername = username
+        .trim()
+        .replace(/[çğıiöşüÇĞIİÖŞÜ]/g, m => charMap[m])
+        .toLowerCase()
+        .replace(/[\.\#\$\[\]\s]/g, '');
+        
       const dbRef = ref(db);
       const snapshot = await get(child(dbRef, `users/${safeUsername}`));
       
@@ -135,9 +141,10 @@ export default function LoginPage() {
         }
         userRole = userData.role;
       } else {
-        alert('Kullanıcı bulunamadı! Lütfen öğretmeniniz ile iletişime geçin.');
+        alert(`Kullanıcı bulunamadı!\nSistemin aradığı ad: "${safeUsername}"\nLütfen öğretmeniniz ile iletişime geçin.`);
         return;
       }
+
 
 
 

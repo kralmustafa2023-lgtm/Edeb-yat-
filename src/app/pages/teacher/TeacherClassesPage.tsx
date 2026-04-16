@@ -67,12 +67,19 @@ export default function TeacherClassesPage() {
       return;
     }
 
-    // Normalize: trim + lowercase + remove Firebase-forbidden chars
-    const safeUsername = newUsername.trim().toLowerCase().replace(/[\.\#\$\[\]\s]/g, '');
+    // Türkçe karakterleri ve özel işaretleri İngilizce'ye çevirip standardize et
+    const charMap: Record<string, string> = { 'ç':'c', 'ğ':'g', 'ı':'i', 'i':'i', 'ö':'o', 'ş':'s', 'ü':'u', 'Ç':'c', 'Ğ':'g', 'I':'i', 'İ':'i', 'Ö':'o', 'Ş':'s', 'Ü':'u' };
+    const safeUsername = newUsername
+      .trim()
+      .replace(/[çğıiöşüÇĞIİÖŞÜ]/g, m => charMap[m])
+      .toLowerCase()
+      .replace(/[\.\#\$\[\]\s]/g, '');
+
     if (!safeUsername) {
       alert('Geçerli bir kullanıcı adı giriniz.');
       return;
     }
+
     
     try {
       await set(ref(db, `users/${safeUsername}`), {
