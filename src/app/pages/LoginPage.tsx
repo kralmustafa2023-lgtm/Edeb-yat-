@@ -4,6 +4,7 @@ import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ref, get, set, child } from 'firebase/database';
 import { db } from '../firebase/config';
+import { useApp } from '../context/AppContext';
 import '../../styles/login.css';
 
 interface CardContentProps {
@@ -104,6 +105,7 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { login } = useApp();
   const [role, setRole] = useState<'ogrenci' | 'ogretmen'>('ogrenci');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -113,13 +115,12 @@ export default function LoginPage() {
     try {
       // Admin bypass for local testing
       if (username === 'admin' && password === '123456') {
-        sessionStorage.setItem('authenticated', 'true');
-        sessionStorage.setItem('userRole', role);
+        login(username, role);
         navigate(role === 'ogretmen' ? '/teacher/dashboard' : '/');
         return;
       }
 
-      // Türkçe karakterleri ve özel işaretleri İngilizce'ye çevirip standardize et
+      // Turkish char normalization
       const charMap: Record<string, string> = { 'ç':'c', 'ğ':'g', 'ı':'i', 'i':'i', 'ö':'o', 'ş':'s', 'ü':'u', 'Ç':'c', 'Ğ':'g', 'I':'i', 'İ':'i', 'Ö':'o', 'Ş':'s', 'Ü':'u' };
       const safeUsername = username
         .trim()
@@ -132,7 +133,6 @@ export default function LoginPage() {
       
       let userRole = role; 
 
-      // Kullanıcı veritabanında var mı kontrol et
       if (snapshot.exists()) {
         const userData = snapshot.val();
         if (userData.password !== password) {
@@ -145,12 +145,7 @@ export default function LoginPage() {
         return;
       }
 
-
-
-
-      sessionStorage.setItem('authenticated', 'true');
-      sessionStorage.setItem('userRole', userRole);
-      sessionStorage.setItem('currentUsername', safeUsername);
+      login(safeUsername, userRole);
 
       if (userRole === 'ogretmen') {
         navigate('/teacher/dashboard');

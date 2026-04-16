@@ -11,15 +11,15 @@ const MemoizedOutlet = React.memo(function MemoizedOutlet() {
 });
 
 export function Layout() {
-  const { themeClasses, sidebarOpen, setSidebarOpen } = useApp();
+  const { themeClasses, sidebarOpen, setSidebarOpen, user } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (sessionStorage.getItem('authenticated') !== 'true') {
+    if (!user.isAuthenticated) {
       navigate('/login');
     }
-  }, [navigate]);
+  }, [user.isAuthenticated, navigate]);
 
   // Only use the base path segment for the animation key to avoid spurious remounts
   const pageKey = useMemo(() => {

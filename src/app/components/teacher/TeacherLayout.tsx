@@ -3,23 +3,23 @@ import { Outlet, useNavigate, useLocation, Link } from 'react-router';
 import { 
   BarChart2, Users, Mail, FileQuestion, Settings, LogOut
 } from 'lucide-react';
+import { useApp } from '../../context/AppContext';
 
 export default function TeacherLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, logout } = useApp();
 
   useEffect(() => {
-    const auth = sessionStorage.getItem('authenticated');
-    const role = sessionStorage.getItem('userRole');
-    if (auth !== 'true') {
+    if (!user.isAuthenticated) {
       navigate('/login');
-    } else if (role !== 'ogretmen') {
+    } else if (user.role !== 'ogretmen') {
       navigate('/');
     }
-  }, [navigate]);
+  }, [user.isAuthenticated, user.role, navigate]);
 
   const handleLogout = () => {
-    sessionStorage.clear();
+    logout();
     navigate('/login');
   };
 

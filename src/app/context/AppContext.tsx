@@ -28,10 +28,19 @@ export interface Progress {
   notes: { [key: string]: string };
 }
 
+interface User {
+  username: string | null;
+  role: string | null;
+  isAuthenticated: boolean;
+}
+
 interface AppContextType {
   theme: Theme;
   setTheme: (t: Theme) => void;
   progress: Progress;
+  user: User;
+  login: (username: string, role: string) => void;
+  logout: () => void;
   addXP: (amount: number) => void;
   markPoetStudied: (id: string) => void;
   addQuizScore: (topic: string, score: number, total: number) => void;
@@ -47,37 +56,74 @@ interface AppContextType {
 }
 
 export interface ThemeClasses {
-  bg: string; sidebar: string; card: string; cardBorder: string;
-  text: string; textMuted: string; textFaint: string;
-  accent: string; accentBg: string; accentText: string;
-  inputBg: string; inputBorder: string; hover: string;
-  divider: string; badge: string;
+  bg: string;
+  sidebar: string;
+  card: string;
+  cardBorder: string;
+  text: string;
+  textMuted: string;
+  textFaint: string;
+  accent: string;
+  accentBg: string;
+  accentText: string;
+  inputBg: string;
+  inputBorder: string;
+  hover: string;
+  divider: string;
+  badge: string;
 }
 
 const THEME_CLASSES: Record<Theme, ThemeClasses> = {
   dark: {
-    bg: 'bg-[#0d0d1a]', sidebar: 'bg-[#11111f] border-purple-900/30',
-    card: 'bg-[#1a1a2e] border-purple-900/20', cardBorder: 'border-purple-900/20',
-    text: 'text-[#e2e2f0]', textMuted: 'text-[#8585a8]', textFaint: 'text-[#4a4a6a]',
-    accent: 'text-purple-400', accentBg: 'bg-purple-600 hover:bg-purple-500', accentText: 'text-purple-400',
-    inputBg: 'bg-[#1a1a2e] border-purple-900/30', inputBorder: 'border-purple-900/40',
-    hover: 'hover:bg-purple-900/20', divider: 'border-purple-900/20', badge: 'bg-purple-900/40 text-purple-300',
+    bg: 'bg-[#0d0d1a]',
+    sidebar: 'bg-[#11111f] border-purple-900/30',
+    card: 'bg-[#1a1a2e] border-purple-900/20',
+    cardBorder: 'border-purple-900/20',
+    text: 'text-[#e2e2f0]',
+    textMuted: 'text-[#8585a8]',
+    textFaint: 'text-[#4a4a6a]',
+    accent: 'text-purple-400',
+    accentBg: 'bg-purple-600 hover:bg-purple-500',
+    accentText: 'text-purple-400',
+    inputBg: 'bg-[#1a1a2e] border-purple-900/30',
+    inputBorder: 'border-purple-900/40',
+    hover: 'hover:bg-purple-900/20',
+    divider: 'border-purple-900/20',
+    badge: 'bg-purple-900/40 text-purple-300',
   },
   light: {
-    bg: 'bg-[#f0f0f8]', sidebar: 'bg-white border-indigo-100',
-    card: 'bg-white border-indigo-100', cardBorder: 'border-indigo-100',
-    text: 'text-[#1a1a2e]', textMuted: 'text-[#6b7280]', textFaint: 'text-[#9ca3af]',
-    accent: 'text-indigo-600', accentBg: 'bg-indigo-600 hover:bg-indigo-500', accentText: 'text-indigo-600',
-    inputBg: 'bg-white border-indigo-200', inputBorder: 'border-indigo-200',
-    hover: 'hover:bg-indigo-50', divider: 'border-indigo-100', badge: 'bg-indigo-100 text-indigo-700',
+    bg: 'bg-[#f0f0f8]',
+    sidebar: 'bg-white border-indigo-100',
+    card: 'bg-white border-indigo-100',
+    cardBorder: 'border-indigo-100',
+    text: 'text-[#1a1a2e]',
+    textMuted: 'text-[#6b7280]',
+    textFaint: 'text-[#9ca3af]',
+    accent: 'text-indigo-600',
+    accentBg: 'bg-indigo-600 hover:bg-indigo-500',
+    accentText: 'text-indigo-600',
+    inputBg: 'bg-white border-indigo-200',
+    inputBorder: 'border-indigo-200',
+    hover: 'hover:bg-indigo-50',
+    divider: 'border-indigo-100',
+    badge: 'bg-indigo-100 text-indigo-700',
   },
   sepia: {
-    bg: 'bg-[#f5f0e8]', sidebar: 'bg-[#ede7dc] border-amber-200',
-    card: 'bg-[#faf5ed] border-amber-200', cardBorder: 'border-amber-200',
-    text: 'text-[#3d2c1c]', textMuted: 'text-[#7c6b5a]', textFaint: 'text-[#a89880]',
-    accent: 'text-amber-800', accentBg: 'bg-amber-700 hover:bg-amber-600', accentText: 'text-amber-800',
-    inputBg: 'bg-[#faf5ed] border-amber-300', inputBorder: 'border-amber-300',
-    hover: 'hover:bg-amber-100', divider: 'border-amber-200', badge: 'bg-amber-100 text-amber-800',
+    bg: 'bg-[#f5f0e8]',
+    sidebar: 'bg-[#ede7dc] border-amber-200',
+    card: 'bg-[#faf5ed] border-amber-200',
+    cardBorder: 'border-amber-200',
+    text: 'text-[#3d2c1c]',
+    textMuted: 'text-[#7c6b5a]',
+    textFaint: 'text-[#a89880]',
+    accent: 'text-amber-800',
+    accentBg: 'bg-amber-700 hover:bg-amber-600',
+    accentText: 'text-amber-800',
+    inputBg: 'bg-[#faf5ed] border-amber-300',
+    inputBorder: 'border-amber-300',
+    hover: 'hover:bg-amber-100',
+    divider: 'border-amber-200',
+    badge: 'bg-amber-100 text-amber-800',
   },
 };
 
@@ -101,66 +147,105 @@ const DEFAULT_ACHIEVEMENTS: Achievement[] = [
 ];
 
 const DEFAULT_PROGRESS: Progress = {
-  studiedPoets: [], quizScores: [], flashcardsDone: 0, matchingDone: 0, tableDone: 0,
-  totalXP: 0, streak: 0, lastStudyDate: '', weeklyActivity: [0, 0, 0, 0, 0, 0, 0],
-  achievements: DEFAULT_ACHIEVEMENTS, favoritePoets: [], notes: {},
+  studiedPoets: [],
+  quizScores: [],
+  flashcardsDone: 0,
+  matchingDone: 0,
+  tableDone: 0,
+  totalXP: 0,
+  streak: 0,
+  lastStudyDate: '',
+  weeklyActivity: [0, 0, 0, 0, 0, 0, 0],
+  achievements: DEFAULT_ACHIEVEMENTS,
+  favoritePoets: [],
+  notes: {},
 };
 
 const AppContext = createContext<AppContextType | null>(null);
-
-function getCurrentUsername(): string | null {
-  try { return sessionStorage.getItem('currentUsername') || null; } catch { return null; }
-}
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     return (localStorage.getItem('edebiyat_theme') as Theme) || 'dark';
   });
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  
+  // Auth state
+  const [user, setUser] = useState<User>(() => {
+    const authenticated = sessionStorage.getItem('authenticated') === 'true';
+    const username = sessionStorage.getItem('currentUsername');
+    const role = sessionStorage.getItem('userRole');
+    return {
+      username: authenticated ? username : null,
+      role: authenticated ? role : null,
+      isAuthenticated: authenticated
+    };
+  });
+
   const [progress, setProgress] = useState<Progress>(DEFAULT_PROGRESS);
+  const dataLoaded = useRef(false);
+  const skipNextSync = useRef(false);
 
-  // Firebase tek kaynak — yerel değişiklikleri Firebase'e yazıyoruz
-  const isFromFirebase = useRef(false); // Firebase'den gelen güncellemeyi tekrar yazmayı engelle
+  // Login/Logout methods
+  const login = (username: string, role: string) => {
+    sessionStorage.setItem('authenticated', 'true');
+    sessionStorage.setItem('currentUsername', username);
+    sessionStorage.setItem('userRole', role);
+    setUser({ username, role, isAuthenticated: true });
+    dataLoaded.current = false;
+  };
 
-  // Firebase listener — gerçek zamanlı senkronizasyon
+  const logout = () => {
+    sessionStorage.clear();
+    setUser({ username: null, role: null, isAuthenticated: false });
+    setProgress(DEFAULT_PROGRESS);
+    dataLoaded.current = false;
+  };
+
+  // Firebase listener — depends on user.username
   useEffect(() => {
-    const username = getCurrentUsername();
-    if (!username) return;
+    if (!user.username || !user.isAuthenticated) return;
 
-    const progressRef = ref(db, `users/${username}/progress`);
+    const progressRef = ref(db, `users/${user.username}/progress`);
     const unsubscribe = onValue(progressRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        // Achievement'ları default ile eşle (yeni eklenenler için)
+        // Map achievements properly
         const achievements = DEFAULT_ACHIEVEMENTS.map(def => {
           const found = (data.achievements || []).find((a: Achievement) => a.id === def.id);
           return found || def;
         });
         const merged = { ...DEFAULT_PROGRESS, ...data, achievements };
-        isFromFirebase.current = true;
+        skipNextSync.current = true;
         setProgress(merged);
+        dataLoaded.current = true;
+      } else {
+        // If no data exists yet, initialize it
+        dataLoaded.current = true;
+        // This will trigger the sync of DEFAULT_PROGRESS to Firebase on next progress change
       }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user.username, user.isAuthenticated]);
 
-  // Tema kaydet
-  useEffect(() => { localStorage.setItem('edebiyat_theme', theme); }, [theme]);
-
-  // Progress değiştiğinde Firebase'e yaz (sadece yerel değişiklikler)
+  // Sync to Firebase
   useEffect(() => {
-    if (isFromFirebase.current) {
-      isFromFirebase.current = false;
+    if (!dataLoaded.current || !user.username || !user.isAuthenticated) return;
+
+    if (skipNextSync.current) {
+      skipNextSync.current = false;
       return;
     }
-    const username = getCurrentUsername();
-    if (username) {
-      dbSet(ref(db, `users/${username}/progress`), progress).catch(err => {
-        console.error('Firebase sync hatası:', err);
-      });
-    }
-  }, [progress]);
+
+    dbSet(ref(db, `users/${user.username}/progress`), progress).catch(err => {
+      console.error('Firebase sync hatası:', err);
+    });
+  }, [progress, user.username, user.isAuthenticated]);
+
+  // Local storage for theme only
+  useEffect(() => {
+    localStorage.setItem('edebiyat_theme', theme);
+  }, [theme]);
 
   const setTheme = (t: Theme) => setThemeState(t);
 
@@ -169,7 +254,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const newXP = prev.totalXP + amount;
       const today = new Date().toDateString();
       const dayIndex = new Date().getDay();
-      const newWeekly = [...(prev.weeklyActivity || [0,0,0,0,0,0,0])];
+      const newWeekly = [...(prev.weeklyActivity || [0, 0, 0, 0, 0, 0, 0])];
       newWeekly[dayIndex] = (newWeekly[dayIndex] || 0) + amount;
 
       let newStreak = prev.streak;
@@ -193,7 +278,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         if (idx >= 0) newAchievements[idx] = { ...newAchievements[idx], unlocked: true };
       }
 
-      return { ...prev, totalXP: newXP, lastStudyDate: today, weeklyActivity: newWeekly, streak: newStreak, achievements: newAchievements };
+      return {
+        ...prev,
+        totalXP: newXP,
+        lastStudyDate: today,
+        weeklyActivity: newWeekly,
+        streak: newStreak,
+        achievements: newAchievements
+      };
     });
   }, []);
 
@@ -283,7 +375,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   return (
     <AppContext.Provider value={{
-      theme, setTheme, progress, addXP, markPoetStudied, addQuizScore,
+      theme, setTheme, progress, user, login, logout, addXP, markPoetStudied, addQuizScore,
       toggleFavoritePoet, incrementFlashcard, incrementMatching, incrementTable,
       updateNote, getLevel, themeClasses: THEME_CLASSES[theme],
       sidebarOpen, setSidebarOpen,
