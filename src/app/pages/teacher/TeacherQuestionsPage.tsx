@@ -14,15 +14,15 @@ interface Question {
 }
 
 const CATEGORIES = [
-  'Giriş (Ünite 1)',
-  'Hikâye (Ünite 2)',
-  'Şiir (Ünite 3)',
-  'Masal & Fabl (Ünite 4)',
-  'Roman (Ünite 5)',
-  'Tiyatro (Ünite 6)',
-  'Biyografi/Otobiyografi (Ünite 7)',
-  'Mektup/E-Posta (Ünite 8)',
-  'Günlük/Blog (Ünite 9)'
+  { id: 'unit-1', title: 'Giriş (Ünite 1)' },
+  { id: 'unit-2', title: 'Hikâye (Ünite 2)' },
+  { id: 'unit-3', title: 'Şiir (Ünite 3)' },
+  { id: 'unit-4', title: 'Masal & Fabl (Ünite 4)' },
+  { id: 'unit-5', title: 'Roman (Ünite 5)' },
+  { id: 'unit-6', title: 'Tiyatro (Ünite 6)' },
+  { id: 'unit-7', title: 'Biyografi/Otobiyografi (Ünite 7)' },
+  { id: 'unit-8', title: 'Mektup/E-Posta (Ünite 8)' },
+  { id: 'unit-9', title: 'Günlük/Blog (Ünite 9)' }
 ];
 
 export default function TeacherQuestionsPage() {
@@ -39,24 +39,31 @@ export default function TeacherQuestionsPage() {
   const [formCorrect, setFormCorrect] = useState(0);
   const [formExplanation, setFormExplanation] = useState('');
   const [formDifficulty, setFormDifficulty] = useState<'kolay' | 'orta' | 'zor'>('orta');
-  const [formCategory, setFormCategory] = useState(CATEGORIES[0]);
+  const [formCategory, setFormCategory] = useState(CATEGORIES[0].id);
 
   useEffect(() => {
     const questionsRef = ref(db, 'questions');
     const unsubscribe = onValue(questionsRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const list: Question[] = [];
-        Object.entries(data).forEach(([catId, catQuestions]: [string, any]) => {
-          Object.entries(catQuestions).forEach(([qId, qData]: [string, any]) => {
-            list.push({ id: qId, category: catId, ...qData });
+      try {
+        const data = snapshot.val();
+        if (data) {
+          const list: Question[] = [];
+          Object.entries(data).forEach(([catId, catQuestions]: [string, any]) => {
+            if (typeof catQuestions === 'object' && catQuestions !== null) {
+              Object.entries(catQuestions).forEach(([qId, qData]: [string, any]) => {
+                list.push({ id: qId, category: catId, unit: catId, ...qData });
+              });
+            }
           });
-        });
-        setQuestions(list);
-      } else {
-        setQuestions([]);
+          setQuestions(list);
+        } else {
+          setQuestions([]);
+        }
+      } catch (err) {
+        console.error("Data processing error:", err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     });
 
     return () => unsubscribe();
@@ -68,7 +75,7 @@ export default function TeacherQuestionsPage() {
     setFormCorrect(0);
     setFormExplanation('');
     setFormDifficulty('orta');
-    setFormCategory(CATEGORIES[0]);
+    setFormCategory(CATEGORIES[0].id);
     setEditingQuestion(null);
   };
 
@@ -83,12 +90,12 @@ export default function TeacherQuestionsPage() {
       options: formOptions,
       correct: formCorrect,
       explanation: formExplanation,
-      difficulty: formDifficulty
+      difficulty: formDifficulty,
+      unit: formCategory // Explicitly store unit ID
     };
 
     try {
       if (editingQuestion) {
-        // If category changed, remove from old, add to new
         if (editingQuestion.category !== formCategory) {
           await remove(ref(db, `questions/${editingQuestion.category}/${editingQuestion.id}`));
           await set(ref(db, `questions/${formCategory}/${editingQuestion.id}`), questionData);
@@ -106,6 +113,7 @@ export default function TeacherQuestionsPage() {
       alert('Kaydedilirken bir hata oluştu.');
     }
   };
+
 
   const handleEdit = (q: Question) => {
     setEditingQuestion(q);
@@ -165,7 +173,7 @@ export default function TeacherQuestionsPage() {
         >
           <option value="Hepsi">Tüm Üniteler</option>
           {CATEGORIES.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat.id} value={cat.id}>{cat.title}</option>
           ))}
         </select>
       </div>
@@ -186,7 +194,7 @@ export default function TeacherQuestionsPage() {
               <div className="flex justify-between items-start gap-4 mb-3">
                 <div className="flex flex-wrap gap-2">
                   <span className="px-3 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-black uppercase tracking-wider rounded-full">
-                    {q.category}
+                    {CATEGORIES.find(c => c.id === q.category)?.title || q.category}
                   </span>
                   <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded-full ${
                     q.difficulty === 'kolay' ? 'bg-emerald-50 text-emerald-600' :
@@ -260,10 +268,11 @@ export default function TeacherQuestionsPage() {
                   className="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 font-medium"
                 >
                   {CATEGORIES.map(cat => (
-                    <option key={cat} value={cat}>{cat}</option>
+                    <option key={cat.id} value={cat.id}>{cat.title}</option>
                   ))}
                 </select>
               </div>
+
 
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-2">Zorluk Seviyesi</label>

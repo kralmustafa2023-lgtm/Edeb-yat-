@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Users, Pencil, KeyRound, Trash2, X, Plus, Save, TrendingUp, Award, ShieldCheck } from 'lucide-react';
 import { db } from '../../firebase/config';
 import { ref, onValue, remove, set, update } from 'firebase/database';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface Student {
   id: string;
