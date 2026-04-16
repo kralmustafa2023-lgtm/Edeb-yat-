@@ -135,13 +135,10 @@ export default function LoginPage() {
         }
         userRole = userData.role;
       } else {
-        // Otomatik Kullanıcı Kaydı (İlk giriş)
-        await set(ref(db, `users/${safeUsername}`), {
-          username: username,
-          password: password,
-          role: role
-        });
+        alert('Kullanıcı bulunamadı! Lütfen öğretmeniniz ile iletişime geçin.');
+        return;
       }
+
 
       sessionStorage.setItem('authenticated', 'true');
       sessionStorage.setItem('userRole', userRole);
