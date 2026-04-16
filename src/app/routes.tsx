@@ -20,6 +20,7 @@ import TeacherClassesPage from './pages/teacher/TeacherClassesPage';
 import TeacherCalendarPage from './pages/teacher/TeacherCalendarPage';
 import TeacherContentPage from './pages/teacher/TeacherContentPage';
 import TeacherMessagesPage from './pages/teacher/TeacherMessagesPage';
+import TeacherQuestionsPage from './pages/teacher/TeacherQuestionsPage';
 
 function NotFound() {
   return (
@@ -68,7 +69,7 @@ export const router = createHashRouter([
       { path: 'dashboard', Component: TeacherDashboardPage },
       { path: 'classes', Component: TeacherClassesPage },
       { path: 'messages', Component: TeacherMessagesPage },
-      { path: 'questions', Component: NotFound },
+      { path: 'questions', Component: TeacherQuestionsPage },
       { path: 'settings', Component: NotFound },
       { path: '*', Component: NotFound },
     ],

@@ -1,11 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, Pencil, KeyRound, Trash2 } from 'lucide-react';
+import { db } from '../../firebase/config';
+import { ref, onValue, remove } from 'firebase/database';
+
+interface Student {
+  id: string;
+  name: string;
+  username: string;
+  role: string;
+  email?: string;
+  score?: number;
+  gold?: number;
+  createdAt?: string;
+  status: string;
+}
 
 export default function TeacherClassesPage() {
-  const students = [
-    { name: 'Mstfuygur', subclass: 'Mstfuygur', group: '-', score: 0, gold: 0, status: 'Aktif' },
-    { name: 'mustafa', subclass: 'deneme', group: '9/A', score: 11, gold: 181, status: 'Aktif' },
-  ];
+  const [students, setStudents] = useState<Student[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const usersRef = ref(db, 'users');
+    const unsubscribe = onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const studentList: Student[] = [];
+        Object.entries(data).forEach(([key, value]) => {
+          const user = value as any;
+          if (user.role === 'ogrenci') {
+            studentList.push({
+              id: key,
+              name: user.name || user.username || 'İsimsiz',
+              username: user.username || '',
+              role: user.role,
+              email: user.email || '',
+              score: user.score || 0,
+              gold: user.gold || 0,
+              createdAt: user.createdAt || '',
+              status: 'Aktif'
+            });
+          }
+        });
+        setStudents(studentList);
+      } else {
+        setStudents([]);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleDelete = async (studentId: string) => {
+    if (window.confirm('Bu öğrenciyi silmek istediğinizden emin misiniz?')) {
+      try {
+        await remove(ref(db, `users/${studentId}`));
+        alert('Öğrenci başarıyla silindi.');
+      } catch (error) {
+        alert('Silme işlemi başarısız oldu.');
+      }
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -25,8 +80,8 @@ export default function TeacherClassesPage() {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-slate-100">
-                <th className="pb-4 font-bold text-slate-400 text-sm">Öğrenci</th>
-                <th className="pb-4 font-bold text-slate-400 text-sm">Grup</th>
+                <th className="pb-4 font-bold text-slate-400 text-sm">Öğrenci Adı</th>
+                <th className="pb-4 font-bold text-slate-400 text-sm">Kullanıcı Adı</th>
                 <th className="pb-4 font-bold text-slate-400 text-sm">Puan</th>
                 <th className="pb-4 font-bold text-slate-400 text-sm">Altın</th>
                 <th className="pb-4 font-bold text-slate-400 text-sm">Durum</th>
@@ -34,58 +89,75 @@ export default function TeacherClassesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
-              {students.map((student, idx) => (
-                <tr key={idx} className="group hover:bg-slate-50/50 transition-colors">
-                  <td className="py-5">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0">
-                        👤
-                      </div>
-                      <div>
-                        <p className="font-black text-indigo-950 text-[15px] leading-tight">{student.name}</p>
-                        <p className="text-xs font-bold text-slate-400">{student.subclass}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-5 font-black text-indigo-900 text-sm">{student.group}</td>
-                  <td className="py-5">
-                    <div className="flex items-center gap-1">
-                      <span className="font-black text-amber-500">{student.score}</span>
-                      <span className="text-amber-500 text-sm">⭐</span>
-                    </div>
-                  </td>
-                  <td className="py-5">
-                    <div className="flex items-center gap-1">
-                      <span className="font-black text-emerald-600">{student.gold}</span>
-                      <span className="text-sm">💰</span>
-                    </div>
-                  </td>
-                  <td className="py-5">
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-600 font-bold rounded-full text-[11px] uppercase tracking-wider">
-                      {student.status}
-                    </span>
-                  </td>
-                  <td className="py-5">
-                    <div className="flex items-center gap-2">
-                      <button className="px-4 py-1.5 bg-indigo-50 text-indigo-600 font-bold text-xs rounded-lg hover:bg-indigo-100 transition-colors">
-                        Detay
-                      </button>
-                      <button className="w-8 h-8 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors">
-                        <Pencil size={14} strokeWidth={2.5} />
-                      </button>
-                      <button className="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-100 transition-colors">
-                        <KeyRound size={14} strokeWidth={2.5} />
-                      </button>
-                      <button className="px-4 py-1.5 bg-rose-50 text-rose-600 font-bold text-xs rounded-lg hover:bg-rose-100 transition-colors">
-                        Kapat
-                      </button>
-                      <button className="w-8 h-8 flex items-center justify-center bg-orange-50 text-slate-600 rounded-lg hover:bg-orange-100 transition-colors">
-                        <Trash2 size={14} strokeWidth={2.5} />
-                      </button>
-                    </div>
+              {loading ? (
+                <tr>
+                  <td colSpan={6} className="py-8 text-center text-slate-500 font-medium">
+                    Öğrenciler yükleniyor...
                   </td>
                 </tr>
-              ))}
+              ) : students.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="py-8 text-center text-slate-500 font-medium">
+                    Kayıtlı öğrenci bulunamadı.
+                  </td>
+                </tr>
+              ) : (
+                students.map((student) => (
+                  <tr key={student.id} className="group hover:bg-slate-50/50 transition-colors">
+                    <td className="py-5">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-xl shrink-0">
+                          👤
+                        </div>
+                        <div>
+                          <p className="font-black text-indigo-950 text-[15px] leading-tight">{student.name}</p>
+                          {student.email && <p className="text-xs font-bold text-slate-400 mt-1">{student.email}</p>}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-5 font-black text-indigo-900 text-sm">@{student.username}</td>
+                    <td className="py-5">
+                      <div className="flex items-center gap-1">
+                        <span className="font-black text-amber-500">{student.score}</span>
+                        <span className="text-amber-500 text-sm">⭐</span>
+                      </div>
+                    </td>
+                    <td className="py-5">
+                      <div className="flex items-center gap-1">
+                        <span className="font-black text-emerald-600">{student.gold}</span>
+                        <span className="text-sm">💰</span>
+                      </div>
+                    </td>
+                    <td className="py-5">
+                      <span className="px-3 py-1 bg-emerald-100 text-emerald-600 font-bold rounded-full text-[11px] uppercase tracking-wider">
+                        {student.status}
+                      </span>
+                    </td>
+                    <td className="py-5">
+                      <div className="flex items-center gap-2">
+                        <button className="px-4 py-1.5 bg-indigo-50 text-indigo-600 font-bold text-xs rounded-lg hover:bg-indigo-100 transition-colors">
+                          Detay
+                        </button>
+                        <button className="w-8 h-8 flex items-center justify-center bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors">
+                          <Pencil size={14} strokeWidth={2.5} />
+                        </button>
+                        <button className="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-100 transition-colors">
+                          <KeyRound size={14} strokeWidth={2.5} />
+                        </button>
+                        <button className="px-4 py-1.5 bg-rose-50 text-rose-600 font-bold text-xs rounded-lg hover:bg-rose-100 transition-colors">
+                          Kapat
+                        </button>
+                        <button 
+                          onClick={() => handleDelete(student.id)}
+                          className="w-8 h-8 flex items-center justify-center bg-orange-50 text-slate-600 rounded-lg hover:bg-orange-100 transition-colors"
+                        >
+                          <Trash2 size={14} strokeWidth={2.5} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -93,3 +165,4 @@ export default function TeacherClassesPage() {
     </div>
   );
 }
+
