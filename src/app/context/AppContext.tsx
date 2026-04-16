@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
+import { ref, onValue, set as dbSet } from 'firebase/database';
+import { db } from '../firebase/config';
 
 export type Theme = 'dark' | 'light' | 'sepia';
 
@@ -152,6 +154,15 @@ const DEFAULT_PROGRESS: Progress = {
 
 const AppContext = createContext<AppContextType | null>(null);
 
+// Kullanıcı adını sessionStorage'dan al
+function getCurrentUsername(): string | null {
+  try {
+    return sessionStorage.getItem('currentUsername') || null;
+  } catch {
+    return null;
+  }
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
     return (localStorage.getItem('edebiyat_theme') as Theme) || 'dark';
@@ -162,7 +173,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const saved = localStorage.getItem('edebiyat_progress');
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Merge with default achievements to catch new ones
         parsed.achievements = DEFAULT_ACHIEVEMENTS.map(def => {
           const found = parsed.achievements?.find((a: Achievement) => a.id === def.id);
           return found || def;
@@ -173,12 +183,80 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return DEFAULT_PROGRESS;
   });
 
+  // Firebase'den ilerleme verisi çekmek için bir defa çalışan listener
+  const firebaseInitialized = useRef(false);
+  const skipNextSync = useRef(false);
+
+  useEffect(() => {
+    const username = getCurrentUsername();
+    if (!username || firebaseInitialized.current) return;
+
+    firebaseInitialized.current = true;
+    const progressRef = ref(db, `users/${username}/progress`);
+
+    // Firebase'den oku ve yerel veriyle birleştir
+    const unsubscribe = onValue(progressRef, (snapshot) => {
+      const firebaseData = snapshot.val();
+      if (firebaseData) {
+        // Firebase'deki veriyi yerel veriyle karşılaştır
+        const merged: Progress = {
+          ...DEFAULT_PROGRESS,
+          ...firebaseData,
+          // Her zaman daha yüksek olan değeri al
+          totalXP: Math.max(firebaseData.totalXP || 0, progress.totalXP || 0),
+          flashcardsDone: Math.max(firebaseData.flashcardsDone || 0, progress.flashcardsDone || 0),
+          matchingDone: Math.max(firebaseData.matchingDone || 0, progress.matchingDone || 0),
+          tableDone: Math.max(firebaseData.tableDone || 0, progress.tableDone || 0),
+          streak: Math.max(firebaseData.streak || 0, progress.streak || 0),
+          // Quiz score'ları birleştir (duplicate olmaması için)
+          quizScores: mergeQuizScores(firebaseData.quizScores || [], progress.quizScores || []),
+          // İncelenen şairleri birleştir
+          studiedPoets: [...new Set([...(firebaseData.studiedPoets || []), ...(progress.studiedPoets || [])])],
+          favoritePoets: [...new Set([...(firebaseData.favoritePoets || []), ...(progress.favoritePoets || [])])],
+          // Achievement'ları birleştir (bir kere unlocked olduysa locked olmaz)
+          achievements: DEFAULT_ACHIEVEMENTS.map(def => {
+            const fromFb = (firebaseData.achievements || []).find((a: Achievement) => a.id === def.id);
+            const fromLocal = progress.achievements.find(a => a.id === def.id);
+            return {
+              ...def,
+              unlocked: (fromFb?.unlocked || false) || (fromLocal?.unlocked || false)
+            };
+          }),
+          weeklyActivity: firebaseData.weeklyActivity || progress.weeklyActivity || [0,0,0,0,0,0,0],
+          lastStudyDate: firebaseData.lastStudyDate || progress.lastStudyDate || '',
+          notes: { ...(firebaseData.notes || {}), ...(progress.notes || {}) },
+        };
+
+        skipNextSync.current = true;
+        setProgress(merged);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  // Tema localStorage'a kaydet
   useEffect(() => {
     localStorage.setItem('edebiyat_theme', theme);
   }, [theme]);
 
+  // İlerleme hem localStorage'a hem Firebase'e kaydet
   useEffect(() => {
     localStorage.setItem('edebiyat_progress', JSON.stringify(progress));
+
+    // Firebase senkronizasyonu
+    if (skipNextSync.current) {
+      skipNextSync.current = false;
+      return;
+    }
+
+    const username = getCurrentUsername();
+    if (username) {
+      const progressRef = ref(db, `users/${username}/progress`);
+      dbSet(progressRef, progress).catch(err => {
+        console.error('Firebase sync hatası:', err);
+      });
+    }
   }, [progress]);
 
   const setTheme = (t: Theme) => setThemeState(t);
@@ -334,4 +412,22 @@ export function useApp() {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error('useApp must be used inside AppProvider');
   return ctx;
+}
+
+// Quiz skorlarını birleştir (aynı tarih+konu olanları tekrarlamadan)
+function mergeQuizScores(
+  fbScores: Progress['quizScores'],
+  localScores: Progress['quizScores']
+): Progress['quizScores'] {
+  const all = [...fbScores, ...localScores];
+  const seen = new Set<string>();
+  const unique: Progress['quizScores'] = [];
+  for (const s of all) {
+    const key = `${s.topic}_${s.date}_${s.score}_${s.total}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push(s);
+    }
+  }
+  return unique;
 }

@@ -150,6 +150,7 @@ export default function LoginPage() {
 
       sessionStorage.setItem('authenticated', 'true');
       sessionStorage.setItem('userRole', userRole);
+      sessionStorage.setItem('currentUsername', safeUsername);
 
       if (userRole === 'ogretmen') {
         navigate('/teacher/dashboard');
