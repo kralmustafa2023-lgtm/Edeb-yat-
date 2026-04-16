@@ -67,12 +67,17 @@ export default function TeacherClassesPage() {
       return;
     }
 
-    const safeUsername = newUsername.replace(/[\.\#\$\[\]]/g, '');
+    // Normalize: trim + lowercase + remove Firebase-forbidden chars
+    const safeUsername = newUsername.trim().toLowerCase().replace(/[\.\#\$\[\]\s]/g, '');
+    if (!safeUsername) {
+      alert('Geçerli bir kullanıcı adı giriniz.');
+      return;
+    }
     
     try {
       await set(ref(db, `users/${safeUsername}`), {
-        name: newName,
-        username: newUsername,
+        name: newName.trim(),
+        username: safeUsername,
         password: newPassword,
         role: 'ogrenci',
         score: 0,
@@ -85,9 +90,10 @@ export default function TeacherClassesPage() {
       setNewName('');
       setNewUsername('');
       setNewPassword('');
-      alert('Öğrenci başarıyla eklendi.');
-    } catch (error) {
-      alert('Hata oluştu!');
+      alert(`Öğrenci başarıyla eklendi!\nGiriş bilgileri:\nKullanıcı adı: ${safeUsername}\nŞifre: ${newPassword}`);
+    } catch (error: any) {
+      console.error('Student add error:', error);
+      alert('Hata oluştu: ' + (error?.message || 'Bilinmeyen hata'));
     }
   };
 

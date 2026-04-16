@@ -119,8 +119,8 @@ export default function LoginPage() {
         return;
       }
 
-      // Veritabanı anahtarı için geçersiz karakterleri temizle
-      const safeUsername = username.replace(/[\.\#\$\[\]]/g, '');
+      // Veritabanı anahtarı için normalize et (trim + küçük harf + özel karakter temizle)
+      const safeUsername = username.trim().toLowerCase().replace(/[\.\#\$\[\]\s]/g, '');
       const dbRef = ref(db);
       const snapshot = await get(child(dbRef, `users/${safeUsername}`));
       
@@ -138,6 +138,7 @@ export default function LoginPage() {
         alert('Kullanıcı bulunamadı! Lütfen öğretmeniniz ile iletişime geçin.');
         return;
       }
+
 
 
       sessionStorage.setItem('authenticated', 'true');
