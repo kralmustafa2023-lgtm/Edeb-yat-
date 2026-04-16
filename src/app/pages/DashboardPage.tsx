@@ -105,16 +105,39 @@ export default function DashboardPage() {
               ) : (
                 <div className="space-y-3">
                   {notifications.map(notif => (
-                    <div key={notif.id} className={`p-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5`}>
-                      <div className="flex justify-between items-start mb-1">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{notif.sender}</span>
+                    <div key={notif.id} className={`p-4 rounded-xl bg-black/5 dark:bg-white/5 border ${themeClasses.cardBorder} space-y-2`}>
+                      <div className="flex justify-between items-start">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{notif.type || 'Duyuru'}</span>
                         <span className={`text-[10px] ${themeClasses.textMuted}`}>
-                          {new Date(notif.timestamp).toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'})}
+                          {new Date(notif.timestamp).toLocaleDateString('tr-TR')}
                         </span>
                       </div>
-                      <p className={`text-sm text-stone-700 dark:text-stone-300`}>{notif.message}</p>
+                      <h4 className={`text-sm font-bold ${themeClasses.text}`}>{notif.title}</h4>
+                      <p className={`text-xs text-stone-600 dark:text-stone-400 leading-relaxed`}>{notif.content}</p>
+                      
+                      {notif.youtubeUrl && (
+                        <div className="aspect-video rounded-lg overflow-hidden border border-black/10 mt-2">
+                          <iframe 
+                            src={notif.youtubeUrl} 
+                            className="w-full h-full"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      )}
+
+                      {notif.fileUrl && (
+                        <a 
+                          href={notif.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 text-[10px] font-bold text-sky-500 hover:text-sky-600 mt-1"
+                        >
+                          <Bell size={12} /> Dosya Ekini Görüntüle
+                        </a>
+                      )}
                     </div>
                   ))}
+
                 </div>
               )}
             </motion.div>
