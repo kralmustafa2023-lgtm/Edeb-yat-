@@ -8,6 +8,7 @@ import {
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { useApp } from '../context/AppContext';
 import { POETS } from '../data/poetsData';
+import { onMessagesChange, type Message } from '../firebase/database';
 
 const DAYS = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
 
@@ -23,21 +24,13 @@ const QUICK_LINKS = [
 export default function DashboardPage() {
   const { themeClasses, progress, theme, getLevel } = useApp();
   const level = getLevel();
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<Message[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
-    // OFFLINE MODE: Load announcements from localStorage
-    const saved = localStorage.getItem('announcements');
-    if (saved) {
-      try {
-        setNotifications(JSON.parse(saved));
-      } catch (e) {
-        setNotifications([]);
-      }
-    }
+    const unsub = onMessagesChange(setNotifications);
+    return unsub;
   }, []);
-
 
   const weeklyData = DAYS.map((day, i) => ({
     day,

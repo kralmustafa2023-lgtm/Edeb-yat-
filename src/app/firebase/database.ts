@@ -171,3 +171,37 @@ export function onLeaderboardChange(callback: (entries: LeaderboardEntry[]) => v
     off(progressRef, 'value', pHandler);
   };
 }
+
+// ─── Messages / Announcements ─────────────────────────────────────────────────
+
+export interface Message {
+  id: string;
+  title: string;
+  content: string;
+  type: string;
+  youtubeUrl?: string | null;
+  fileUrl?: string | null;
+  timestamp: number;
+}
+
+export async function sendMessage(msg: Omit<Message, 'id'>): Promise<void> {
+  const id = Date.now().toString();
+  await set(ref(db, `messages/${id}`), { ...msg, id });
+}
+
+export async function deleteMessage(id: string): Promise<void> {
+  await remove(ref(db, `messages/${id}`));
+}
+
+/** Realtime listener for all messages */
+export function onMessagesChange(callback: (messages: Message[]) => void): () => void {
+  const r = ref(db, 'messages');
+  const handler = (snap: DataSnapshot) => {
+    if (!snap.exists()) { callback([]); return; }
+    const data = snap.val() as Record<string, Message>;
+    const list = Object.values(data).sort((a, b) => b.timestamp - a.timestamp);
+    callback(list);
+  };
+  onValue(r, handler);
+  return () => off(r, 'value', handler);
+}

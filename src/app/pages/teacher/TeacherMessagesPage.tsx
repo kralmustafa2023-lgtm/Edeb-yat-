@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Rocket, Youtube, Link as LinkIcon, Trash2 } from 'lucide-react';
-
-interface Message {
-  id: string;
-  title: string;
-  content: string;
-  type: string;
-  youtubeUrl?: string;
-  fileUrl?: string;
-  timestamp: any;
-}
+import { onMessagesChange, sendMessage, deleteMessage, type Message } from '../../firebase/database';
 
 export default function TeacherMessagesPage() {
   const [title, setTitle] = useState('');
@@ -20,11 +11,8 @@ export default function TeacherMessagesPage() {
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    // OFFLINE MODE: Load announcements from localStorage
-    const saved = localStorage.getItem('announcements');
-    if (saved) {
-      setMessages(JSON.parse(saved));
-    }
+    const unsub = onMessagesChange(setMessages);
+    return unsub;
   }, []);
 
   const extractYoutubeId = (url: string) => {
@@ -42,26 +30,19 @@ export default function TeacherMessagesPage() {
     setSending(true);
     try {
       const ytId = extractYoutubeId(content);
-      const newMessage = {
-        id: Date.now().toString(),
+      await sendMessage({
         title,
         content,
         type,
         fileUrl: fileUrl.trim() || null,
         youtubeUrl: ytId ? `https://www.youtube.com/embed/${ytId}` : null,
         timestamp: Date.now(),
-      };
-
-      const updated = [newMessage, ...messages];
-      localStorage.setItem('announcements', JSON.stringify(updated));
-      setMessages(updated);
-      
+      });
       setTitle('');
       setContent('');
       setFileUrl('');
-      alert('Mesaj yerel hafızaya kaydedildi!');
     } catch (error) {
-      alert('Mesaj kaydedilirken bir hata oluştu.');
+      alert('Mesaj gönderilirken bir hata oluştu.');
     } finally {
       setSending(false);
     }
@@ -69,9 +50,7 @@ export default function TeacherMessagesPage() {
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Bu mesajı silmek istediğinizden emin misiniz?')) {
-      const updated = messages.filter(m => m.id !== id);
-      localStorage.setItem('announcements', JSON.stringify(updated));
-      setMessages(updated);
+      await deleteMessage(id);
     }
   };
 
