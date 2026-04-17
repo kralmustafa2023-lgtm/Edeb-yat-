@@ -160,7 +160,7 @@ export default function FlashcardPage() {
           <div className={`absolute inset-0 ${cardStyle} p-8 flex flex-col items-center justify-center text-center`} style={{ backfaceVisibility: 'hidden' }}>
             <p className={`text-lg ${themeClasses.text} leading-relaxed`} style={{ fontWeight: 600 }}>{currentCard.front}</p>
           </div>
-          <div className={`absolute inset-0 rounded-2xl border p-8 flex flex-col items-center justify-center text-center overflow-auto bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200`} style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
+          <div className={`absolute inset-0 ${cardStyle} p-8 flex flex-col items-center justify-center text-center`} style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
             <p className={`text-sm ${themeClasses.text} leading-relaxed text-left`}>{currentCard.back}</p>
           </div>
         </motion.div>

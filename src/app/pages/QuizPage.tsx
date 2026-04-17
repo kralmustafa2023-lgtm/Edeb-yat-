@@ -25,18 +25,6 @@ interface QuizTopic {
 
 type Screen = 'select' | 'quiz' | 'result';
 
-const UNIT_MAP: Record<string, { title: string; color: string; icon: string }> = {
-  'unit-1': { title: 'Dili ve Kültür', color: 'from-amber-400 to-orange-500', icon: '📝' },
-  'unit-2': { title: 'Hikâye', color: 'from-blue-400 to-indigo-500', icon: '📖' },
-  'unit-3': { title: 'Şiir', color: 'from-purple-400 to-pink-500', icon: '🎭' },
-  'unit-4': { title: 'Masal/Fabl', color: 'from-emerald-400 to-teal-500', icon: '🦄' },
-  'unit-5': { title: 'Roman', color: 'from-rose-400 to-red-500', icon: '📚' },
-  'unit-6': { title: 'Tiyatro', color: 'from-sky-400 to-blue-500', icon: '🏛️' },
-  'unit-7': { title: 'Biyografi/Otobiyografi', color: 'from-slate-400 to-slate-600', icon: '👤' },
-  'unit-8': { title: 'Mektup/E-posta', color: 'from-yellow-400 to-amber-500', icon: '✉️' },
-  'unit-9': { title: 'Günlük/Blog', color: 'from-indigo-400 to-purple-600', icon: '✍️' },
-};
-
 export default function QuizPage() {
   const { themeClasses, theme, addQuizScore } = useApp();
   const [screen, setScreen] = useState<Screen>('select');
@@ -52,31 +40,23 @@ export default function QuizPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. QUIZ_TOPICS'ten soruları yükle
-    let allQuestions: QuizQuestion[] = [];
-    QUIZ_TOPICS.forEach((topic) => {
-      topic.questions.forEach((q) => {
-        allQuestions.push({ ...q, unit: topic.id });
-      });
+    // QUIZ_TOPICS'ten soruları yükle + teacher'ın eklediği custom soruları ekle
+    const topics = QUIZ_TOPICS.map(topic => {
+      let questions = topic.questions.map(q => ({ ...q, unit: topic.id }));
+      // Custom sorular varsa ekle
+      try {
+        const saved = localStorage.getItem('custom_questions');
+        if (saved) {
+          const custom = JSON.parse(saved);
+          const customForTopic = custom.filter((q: any) => q.category === topic.id || q.unit === topic.id);
+          questions = [...questions, ...customForTopic];
+        }
+      } catch (e) {}
+      return { ...topic, questions };
     });
 
-    // 2. Varsa yerel hafızadaki (Teacher panelden eklenen) soruları da ekle
-    const saved = localStorage.getItem('custom_questions');
-    if (saved) {
-      try {
-        const custom = JSON.parse(saved);
-        allQuestions = [...allQuestions, ...custom];
-      } catch (e) {}
-    }
-
-    // Üniteleri oluştur
-    const topics = Object.entries(UNIT_MAP).map(([unitId, meta]) => ({
-      id: unitId,
-      ...meta,
-      questions: allQuestions.filter(q => q.unit === unitId),
-    })).filter(t => t.questions.length > 0);
-
-    setDynamicTopics(topics);
+    // Sadece sorusu olan konuları göster
+    setDynamicTopics(topics.filter(t => t.questions.length > 0));
     setLoading(false);
   }, []);
 
