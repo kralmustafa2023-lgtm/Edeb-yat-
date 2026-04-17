@@ -1,11 +1,11 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router';
 import { Info, ShieldCheck, Sparkles, UserCircle } from 'lucide-react';
 import okulBinasi from '../../assets/okul_binasi.png';
+import { useApp } from '../context/AppContext';
 import '../../styles/login.css';
 
 export default function AboutPage() {
-  const navigate = useNavigate();
+  const { navigate } = useApp();
 
   return (
     <div className="bg-surface-container-lowest font-['Inter'] min-h-screen relative selection:bg-amber-900/30 overflow-x-hidden">
