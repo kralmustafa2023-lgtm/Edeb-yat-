@@ -50,16 +50,22 @@ const TEACHER_PAGES: Record<string, React.FC> = {
 function AppRouter() {
   const { currentPage, user } = useApp();
 
+  console.log('🔍 AppRouter - currentPage:', currentPage, 'user:', user);
+
   // Public pages (no layout)
   if (currentPage === 'login') return <LoginPage />;
   if (currentPage === 'about') return <AboutPage />;
   if (currentPage === 'help') return <HelpPage />;
 
   // Auth guard
-  if (!user.isAuthenticated) return <LoginPage />;
+  if (!user.isAuthenticated) {
+    console.log('⚠️ User not authenticated, showing LoginPage');
+    return <LoginPage />;
+  }
 
   // Teacher pages
   if (currentPage.startsWith('teacher')) {
+    console.log('👩‍🏫 Rendering teacher page:', currentPage);
     const TeacherPage = TEACHER_PAGES[currentPage];
     return (
       <TeacherLayout>
@@ -69,6 +75,7 @@ function AppRouter() {
   }
 
   // Student pages
+  console.log('👨‍🎓 Rendering student page:', currentPage);
   const StudentPage = STUDENT_PAGES[currentPage];
   return (
     <Layout>

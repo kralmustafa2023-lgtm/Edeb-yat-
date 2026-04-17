@@ -20,9 +20,9 @@ export default function AboutPage() {
           Nizip Sosyal Bilimler Lisesi
         </div>
         <div className="hidden md:flex gap-10 items-center">
-          <Link to="/login" className="text-white/80 text-sm tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Giriş</Link>
-          <Link to="/help" className="text-white/80 text-sm tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Yardım</Link>
-          <Link to="/about" className="text-white text-sm tracking-widest uppercase font-bold border-b-2 border-white pb-1">Hakkında</Link>
+          <button onClick={() => navigate('login')} className="text-white/80 text-sm tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Giriş</button>
+          <button onClick={() => navigate('help')} className="text-white/80 text-sm tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Yardım</button>
+          <button onClick={() => navigate('about')} className="text-white text-sm tracking-widest uppercase font-bold border-b-2 border-white pb-1">Hakkında</button>
         </div>
         <div className="flex items-center gap-4">
           <button className="text-white hover:bg-white/10 transition-all duration-300 p-2 rounded-full">
