@@ -1,31 +1,15 @@
-import React, { useMemo, useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
 import { Menu } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { useApp } from '../context/AppContext';
 
-// Memoize the page content so context updates don't cause AnimatePresence to remount pages
-const MemoizedOutlet = React.memo(function MemoizedOutlet() {
-  return <Outlet />;
-});
-
-export function Layout() {
+export function Layout({ children }: { children: React.ReactNode }) {
   const { themeClasses, sidebarOpen, setSidebarOpen, user } = useApp();
-  const location = useLocation();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user.isAuthenticated) {
-      navigate('/login');
-    }
-  }, [user.isAuthenticated, navigate]);
-
-  // Only use the base path segment for the animation key to avoid spurious remounts
-  const pageKey = useMemo(() => {
-    // e.g. "/flashcard" stays stable, "/sair/fuzuli" → "/sair/fuzuli"
-    return location.pathname;
-  }, [location.pathname]);
+  if (!user.isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className={`min-h-screen ${themeClasses.bg} transition-colors duration-300 flex`}>
@@ -44,11 +28,11 @@ export function Layout() {
           >
             <Menu size={20} />
           </button>
-          <span className={`text-sm ${themeClasses.text}`} style={{ fontWeight: 600 }}>9. Sınıf Edebiyat</span>
+          <span className={`text-sm ${themeClasses.text}`} style={{ fontWeight: 600 }}>9. Sinif Edebiyat</span>
         </div>
 
-        <div key={pageKey} className="p-6">
-          <MemoizedOutlet />
+        <div className="p-6">
+          {children}
         </div>
       </motion.main>
     </div>

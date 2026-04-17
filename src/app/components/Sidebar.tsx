@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   BookOpen, Brain, Zap, Table2, Shuffle, BarChart3,
@@ -7,24 +6,24 @@ import {
   Star, Flame, Trophy, LogOut, Sun, Moon, Coffee,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import type { PageId } from '../context/AppContext';
 
-const NAV_ITEMS = [
-  { to: '/', icon: Home, label: 'Ana Sayfa', exact: true },
-  { to: '/sairler', icon: Users, label: 'Şairler' },
-  { to: '/ders-notlari', icon: BookOpen, label: 'Ders Notları' },
-  { to: '/quiz', icon: Brain, label: 'Quiz' },
-  { to: '/flashcard', icon: Zap, label: 'Flashcard' },
-  { to: '/tablo', icon: Table2, label: 'Tablo Doldurma' },
-  { to: '/eslestirme', icon: Shuffle, label: 'Eşleştirme' },
-  { to: '/istatistik', icon: BarChart3, label: 'İstatistik' },
+const NAV_ITEMS: { page: PageId; icon: any; label: string }[] = [
+  { page: 'dashboard', icon: Home, label: 'Ana Sayfa' },
+  { page: 'sairler', icon: Users, label: 'Şairler' },
+  { page: 'ders-notlari', icon: BookOpen, label: 'Ders Notları' },
+  { page: 'quiz', icon: Brain, label: 'Quiz' },
+  { page: 'flashcard', icon: Zap, label: 'Flashcard' },
+  { page: 'tablo', icon: Table2, label: 'Tablo Doldurma' },
+  { page: 'eslestirme', icon: Shuffle, label: 'Eşleştirme' },
+  { page: 'istatistik', icon: BarChart3, label: 'İstatistik' },
 ];
 
 const LEVEL_NAMES = ['Çaylak', 'Edebiyatsever', 'Edebiyatçı', 'Usta', 'Üstat'];
 
 export function Sidebar() {
-  const { themeClasses, theme, setTheme, progress, sidebarOpen, setSidebarOpen, getLevel, logout } = useApp();
+  const { themeClasses, theme, setTheme, progress, sidebarOpen, setSidebarOpen, getLevel, logout, navigate, currentPage } = useApp();
   const [showSettings, setShowSettings] = useState(false);
-  const navigate = useNavigate();
 
   const level = getLevel();
   const nextLevelXP = level.maxXP === 99999 ? progress.totalXP + 500 : level.maxXP;
@@ -127,46 +126,42 @@ export function Sidebar() {
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-3 space-y-1 px-2">
-          {NAV_ITEMS.map(({ to, icon: Icon, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === '/'}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${
+          {NAV_ITEMS.map(({ page, icon: Icon, label }) => {
+            const isActive = currentPage === page;
+            return (
+              <button
+                key={page}
+                onClick={() => navigate(page)}
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group w-full text-left ${
                   isActive
                     ? theme === 'dark'
                       ? 'bg-purple-600/30 text-purple-300 shadow-sm'
                       : theme === 'sepia'
                       ? 'bg-amber-200 text-amber-900'
                       : 'bg-indigo-100 text-indigo-700'
-                    : `${themeClasses.hover} ${themeClasses.textMuted} hover:${themeClasses.text}`
-                }`
-              }
-            >
-              {({ isActive }) => (
-                <>
-                  <Icon
-                    size={18}
-                    className={`shrink-0 ${isActive ? (theme === 'dark' ? 'text-purple-400' : theme === 'sepia' ? 'text-amber-700' : 'text-indigo-600') : ''}`}
-                  />
-                  <AnimatePresence mode="wait">
-                    {sidebarOpen && (
-                      <motion.span
-                        initial={{ opacity: 0, width: 0 }}
-                        animate={{ opacity: 1, width: 'auto' }}
-                        exit={{ opacity: 0, width: 0 }}
-                        className="text-sm overflow-hidden whitespace-nowrap"
-                        style={{ fontWeight: isActive ? 600 : 400 }}
-                      >
-                        {label}
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </>
-              )}
-            </NavLink>
-          ))}
+                    : `${themeClasses.hover} ${themeClasses.textMuted}`
+                }`}
+              >
+                <Icon
+                  size={18}
+                  className={`shrink-0 ${isActive ? (theme === 'dark' ? 'text-purple-400' : theme === 'sepia' ? 'text-amber-700' : 'text-indigo-600') : ''}`}
+                />
+                <AnimatePresence mode="wait">
+                  {sidebarOpen && (
+                    <motion.span
+                      initial={{ opacity: 0, width: 0 }}
+                      animate={{ opacity: 1, width: 'auto' }}
+                      exit={{ opacity: 0, width: 0 }}
+                      className="text-sm overflow-hidden whitespace-nowrap"
+                      style={{ fontWeight: isActive ? 600 : 400 }}
+                    >
+                      {label}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </button>
+            );
+          })}
         </nav>
 
         {/* Settings */}
@@ -198,7 +193,7 @@ export function Sidebar() {
                 </div>
                 <div className={`mt-2 pt-2 border-t ${themeClasses.divider}`}>
                   <button
-                    onClick={() => navigate('/ayarlar')}
+                    onClick={() => navigate('ayarlar')}
                     className={`w-full text-left text-xs ${themeClasses.textMuted} ${themeClasses.hover} px-2 py-1.5 rounded-lg flex items-center gap-2`}
                   >
                     <Settings size={12} />

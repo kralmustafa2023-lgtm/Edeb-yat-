@@ -62,6 +62,14 @@ interface ThemeClasses {
 
 type ThemeId = 'dark' | 'light' | 'sepia';
 
+export type PageId =
+  | 'login' | 'about' | 'help'
+  | 'dashboard' | 'sairler' | 'sair-detail' | 'ders-notlari'
+  | 'quiz' | 'flashcard' | 'tablo' | 'eslestirme'
+  | 'istatistik' | 'ayarlar'
+  | 'teacher-dashboard' | 'teacher-classes' | 'teacher-messages'
+  | 'teacher-questions' | 'teacher-settings';
+
 interface AppContextType {
   user: User;
   progress: Progress;
@@ -79,6 +87,9 @@ interface AppContextType {
   incrementTable: () => void;
   toggleFavoritePoet: (poetId: string) => void;
   markPoetStudied: (poetId: string) => void;
+  currentPage: PageId;
+  pageParam: string;
+  navigate: (page: PageId, param?: string) => void;
 }
 
 // ─── Defaults ─────────────────────────────────────────────────────────────────
@@ -204,6 +215,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return (localStorage.getItem('edebiyat_theme') as ThemeId) || 'dark';
   });
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [currentPage, setCurrentPage] = useState<PageId>(() => {
+    try {
+      const saved = localStorage.getItem('edebiyat_user');
+      if (saved) {
+        const u = JSON.parse(saved);
+        if (u.isAuthenticated) return u.role === 'ogretmen' ? 'teacher-dashboard' : 'dashboard';
+      }
+    } catch {}
+    return 'login';
+  });
+  const [pageParam, setPageParam] = useState('');
   const [loaded, setLoaded] = useState(false);
 
   // Ref to track if we're currently saving, to avoid re-saving Firebase updates
@@ -309,6 +331,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // ─── Actions ────────────────────────────────────────────────────────────────
 
+  const navigate = useCallback((page: PageId, param?: string) => {
+    setCurrentPage(page);
+    setPageParam(param || '');
+  }, []);
+
   const login = useCallback((username: string, role: 'ogrenci' | 'ogretmen', name: string) => {
     const newUser: User = { isAuthenticated: true, username, role, name };
     setUser(newUser);
@@ -316,6 +343,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     if (role === 'ogretmen') {
       setProgress(DEFAULT_PROGRESS);
       setLoaded(true);
+      setCurrentPage('teacher-dashboard');
+    } else {
+      setCurrentPage('dashboard');
     }
   }, []);
 
@@ -324,6 +354,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setProgress(DEFAULT_PROGRESS);
     localStorage.removeItem('edebiyat_user');
     setLoaded(false);
+    setCurrentPage('login');
+    setPageParam('');
   }, []);
 
   const setTheme = useCallback((id: ThemeId) => {
@@ -400,6 +432,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         incrementTable,
         toggleFavoritePoet,
         markPoetStudied,
+        currentPage,
+        pageParam,
+        navigate,
       }}
     >
       {children}

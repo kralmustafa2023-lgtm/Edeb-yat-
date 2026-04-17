@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useApp } from '../context/AppContext';
@@ -109,8 +108,7 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
 );
 
 export default function LoginPage() {
-  const navigate = useNavigate();
-  const { login } = useApp();
+  const { login, navigate } = useApp();
   const [role, setRole] = useState<'ogrenci' | 'ogretmen'>('ogrenci');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -126,12 +124,10 @@ export default function LoginPage() {
         const ok = await loginTeacher(username.trim(), password);
         if (!ok) { setError('Kullanıcı adı veya şifre hatalı.'); return; }
         login(username.trim(), 'ogretmen', 'Öğretmen');
-        navigate('/teacher/dashboard');
       } else {
         const student = await loginStudent(username.trim(), password);
         if (!student) { setError('Kullanıcı adı veya şifre hatalı.'); return; }
         login(student.username, 'ogrenci', student.name);
-        navigate('/');
       }
     } catch {
       setError('Bağlantı hatası. Lütfen tekrar deneyin.');
@@ -146,11 +142,11 @@ export default function LoginPage() {
       <div className="fixed inset-0 bg-black/40"></div>
       
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-6 md:px-12 py-8 z-50">
-        <Link to="/" className="text-xl md:text-2xl font-black tracking-tighter text-white">Nizip Sosyal Bilimler Lisesi</Link>
+        <span className="text-xl md:text-2xl font-black tracking-tighter text-white cursor-pointer" onClick={() => navigate('login')}>Nizip Sosyal Bilimler Lisesi</span>
         <div className="hidden md:flex gap-10 items-center">
-          <Link to="/login" className="text-white text-xs tracking-widest uppercase font-bold border-b border-white/40 pb-0.5">Giriş</Link>
-          <Link to="/help" className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Yardım</Link>
-          <Link to="/about" className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Hakkında</Link>
+          <span onClick={() => navigate('login')} className="text-white text-xs tracking-widest uppercase font-bold border-b border-white/40 pb-0.5 cursor-pointer">Giriş</span>
+          <span onClick={() => navigate('help')} className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Yardım</span>
+          <span onClick={() => navigate('about')} className="text-white/80 text-xs tracking-widest uppercase cursor-pointer hover:text-white transition-colors">Hakkında</span>
         </div>
       </nav>
 

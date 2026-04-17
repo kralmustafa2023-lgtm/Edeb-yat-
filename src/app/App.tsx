@@ -1,12 +1,86 @@
 import React from 'react';
-import { RouterProvider } from 'react-router';
-import { router } from './routes';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useApp } from './context/AppContext';
+import type { PageId } from './context/AppContext';
+import { Layout } from './components/Layout';
+import LoginPage from './pages/LoginPage';
+import AboutPage from './pages/AboutPage';
+import HelpPage from './pages/HelpPage';
+import DashboardPage from './pages/DashboardPage';
+import PoetsPage from './pages/PoetsPage';
+import PoetDetailPage from './pages/PoetDetailPage';
+import QuizPage from './pages/QuizPage';
+import FlashcardPage from './pages/FlashcardPage';
+import MatchingPage from './pages/MatchingPage';
+import LessonNotesPage from './pages/LessonNotesPage';
+import FillTablePage from './pages/FillTablePage';
+import StatsPage from './pages/StatsPage';
+import SettingsPage from './pages/SettingsPage';
+import TeacherLayout from './components/teacher/TeacherLayout';
+import TeacherDashboardPage from './pages/teacher/TeacherDashboardPage';
+import TeacherClassesPage from './pages/teacher/TeacherClassesPage';
+import TeacherMessagesPage from './pages/teacher/TeacherMessagesPage';
+import TeacherQuestionsPage from './pages/teacher/TeacherQuestionsPage';
+
+const STUDENT_PAGES: Record<string, React.FC> = {
+  'dashboard': DashboardPage,
+  'sairler': PoetsPage,
+  'sair-detail': PoetDetailPage,
+  'ders-notlari': LessonNotesPage,
+  'quiz': QuizPage,
+  'flashcard': FlashcardPage,
+  'tablo': FillTablePage,
+  'eslestirme': MatchingPage,
+  'istatistik': StatsPage,
+  'ayarlar': SettingsPage,
+};
+
+const TEACHER_PAGES: Record<string, React.FC> = {
+  'teacher-dashboard': TeacherDashboardPage,
+  'teacher-classes': TeacherClassesPage,
+  'teacher-messages': TeacherMessagesPage,
+  'teacher-questions': TeacherQuestionsPage,
+  'teacher-settings': () => (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <div className="text-6xl">🔧</div>
+      <p className="text-xl opacity-60">Ayarlar sayfası yakında</p>
+    </div>
+  ),
+};
+
+function AppRouter() {
+  const { currentPage, user } = useApp();
+
+  // Public pages (no layout)
+  if (currentPage === 'login') return <LoginPage />;
+  if (currentPage === 'about') return <AboutPage />;
+  if (currentPage === 'help') return <HelpPage />;
+
+  // Auth guard
+  if (!user.isAuthenticated) return <LoginPage />;
+
+  // Teacher pages
+  if (currentPage.startsWith('teacher')) {
+    const TeacherPage = TEACHER_PAGES[currentPage];
+    return (
+      <TeacherLayout>
+        {TeacherPage ? <TeacherPage /> : <div>Sayfa bulunamadı</div>}
+      </TeacherLayout>
+    );
+  }
+
+  // Student pages
+  const StudentPage = STUDENT_PAGES[currentPage];
+  return (
+    <Layout>
+      {StudentPage ? <StudentPage /> : <DashboardPage />}
+    </Layout>
+  );
+}
 
 export default function App() {
   return (
     <AppProvider>
-      <RouterProvider router={router} />
+      <AppRouter />
     </AppProvider>
   );
 }

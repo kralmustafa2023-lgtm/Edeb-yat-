@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Star, BookOpen, Info, ChevronDown, ChevronUp, Eye, EyeOff } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -8,8 +7,7 @@ import { POETS, ANALYSIS_META, AnalysisTag, AnnotatedWord } from '../data/poetsD
 const ANALYSIS_BUTTONS: AnalysisTag[] = ['redif', 'kafiye', 'olcu', 'nazimBirimi', 'edebiSanat', 'tema', 'konu'];
 
 export default function PoetDetailPage() {
-  const { id } = useParams<{ id: string }>();
-  const { themeClasses, theme, progress, toggleFavoritePoet, markPoetStudied } = useApp();
+  const { themeClasses, theme, progress, toggleFavoritePoet, markPoetStudied, pageParam: id, navigate } = useApp();
   const [activeAnalyses, setActiveAnalyses] = useState<Set<AnalysisTag>>(new Set());
   const [showAnalysisPanel, setShowAnalysisPanel] = useState(true);
   const [expandedInfo, setExpandedInfo] = useState<AnalysisTag | null>(null);
@@ -21,7 +19,7 @@ export default function PoetDetailPage() {
     <div className={`text-center py-20 ${themeClasses.textMuted}`}>
       <div className="text-5xl mb-4">🔍</div>
       <p>Şair bulunamadı.</p>
-      <Link to="/sairler" className="text-purple-400 hover:underline mt-2 inline-block">← Şairlere Dön</Link>
+      <button onClick={() => navigate('sairler')} className="text-purple-400 hover:underline mt-2 inline-block">← Şairlere Dön</button>
     </div>
   );
 
@@ -64,9 +62,9 @@ export default function PoetDetailPage() {
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-start gap-4">
-        <Link to="/sairler" className={`p-2 rounded-xl ${themeClasses.hover} ${themeClasses.textMuted} transition-colors shrink-0`}>
+        <button onClick={() => navigate('sairler')} className={`p-2 rounded-xl ${themeClasses.hover} ${themeClasses.textMuted} transition-colors shrink-0`}>
           <ArrowLeft size={20} />
-        </Link>
+        </button>
         <div className="flex-1">
           <div className="flex items-start justify-between gap-3">
             <div>

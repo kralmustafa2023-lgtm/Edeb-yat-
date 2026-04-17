@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import { Search, Star, BookOpen, Filter } from 'lucide-react';
 import { useApp } from '../context/AppContext';
@@ -16,7 +15,7 @@ const PERIOD_COLORS: Record<string, string> = {
 };
 
 export default function PoetsPage() {
-  const { themeClasses, progress, toggleFavoritePoet, theme } = useApp();
+  const { themeClasses, progress, toggleFavoritePoet, theme, navigate } = useApp();
   const [search, setSearch] = useState('');
   const [activePeriod, setActivePeriod] = useState<string>('all');
 
@@ -83,7 +82,7 @@ export default function PoetsPage() {
               transition={{ delay: i * 0.05 }}
               className="group relative"
             >
-              <Link to={`/sair/${poet.id}`}>
+              <div onClick={() => navigate('sair-detail', poet.id)} className="cursor-pointer">
                 <div className={`${card} overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer`}>
                   {/* Cover Image */}
                   <div className="relative h-44 overflow-hidden bg-black/10">
@@ -117,7 +116,7 @@ export default function PoetsPage() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
               {/* Fav button */}
               <button
                 onClick={(e) => { e.preventDefault(); toggleFavoritePoet(poet.id); }}

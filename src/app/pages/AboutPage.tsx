@@ -16,7 +16,7 @@ export default function AboutPage() {
 
       {/* TopNavBar */}
       <nav className="fixed top-0 left-0 w-full flex justify-between items-center px-8 md:px-12 py-8 z-50">
-        <div className="text-2xl font-black tracking-tighter text-white cursor-pointer" onClick={() => navigate('/')}>
+        <div className="text-2xl font-black tracking-tighter text-white cursor-pointer" onClick={() => navigate('login')}>
           Nizip Sosyal Bilimler Lisesi
         </div>
         <div className="hidden md:flex gap-10 items-center">
