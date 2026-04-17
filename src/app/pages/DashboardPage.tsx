@@ -9,7 +9,6 @@ import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recha
 import { useApp } from '../context/AppContext';
 import { POETS } from '../data/poetsData';
 import { onMessagesChange, type Message } from '../firebase/database';
-import { FirebaseDebug } from '../components/FirebaseDebug';
 
 const DAYS = ['Paz', 'Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt'];
 
@@ -50,7 +49,6 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
-      <FirebaseDebug />
       {/* Header */}
       <div className="flex justify-between items-start relative z-50">
         <div>
