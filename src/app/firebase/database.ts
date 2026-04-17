@@ -84,7 +84,16 @@ export async function getProgress(username: string): Promise<Progress | null> {
 }
 
 export async function saveProgress(username: string, progress: Progress): Promise<void> {
-  await set(ref(db, `progress/${username}`), progress);
+  console.log('[Firebase] saveProgress called:', username, progress.totalXP);
+  try {
+    const progressRef = ref(db, `progress/${username}`);
+    console.log('[Firebase] Writing to path:', `progress/${username}`);
+    await set(progressRef, progress);
+    console.log('[Firebase] saveProgress completed successfully');
+  } catch (error) {
+    console.error('[Firebase] saveProgress ERROR:', error);
+    throw error;
+  }
 }
 
 export async function updateProgress(username: string, partial: Partial<Progress>): Promise<void> {

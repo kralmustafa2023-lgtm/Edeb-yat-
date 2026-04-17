@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Test</title>
+</head>
+<body>
+  <h1>Firebase Connection Test</h1>
+  <button onclick="testWrite()">Test Write</button>
+  <button onclick="testRead()">Test Read</button>
+  <div id="output"></div>
+
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getDatabase, ref, set, get } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDRvNPR8DRBim9XZxXqWIrl3VvJsaW8ZSE",
+      authDomain: "edebiat-470ce.firebaseapp.com",
+      databaseURL: "https://edebiat-470ce-default-rtdb.firebaseio.com",
+      projectId: "edebiat-470ce",
+      storageBucket: "edebiat-470ce.firebasestorage.app",
+      messagingSenderId: "936006843933",
+      appId: "1:936006843933:web:aebcc6c3a016da026d10f4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.testWrite = async function() {
+      const output = document.getElementById('output');
+      try {
+        output.innerHTML = 'Writing test data...';
+        await set(ref(db, 'test/connection'), {
+          timestamp: Date.now(),
+          message: 'Test write successful'
+        });
+        output.innerHTML = '<span style="color: green;">✓ Write successful!</span>';
+      } catch (error) {
+        output.innerHTML = '<span style="color: red;">✗ Write failed: ' + error.message + '</span>';
+        console.error('Write error:', error);
+      }
+    };
+
+    window.testRead = async function() {
+      const output = document.getElementById('output');
+      try {
+        output.innerHTML = 'Reading test data...';
+        const snapshot = await get(ref(db, 'test/connection'));
+        if (snapshot.exists()) {
+          output.innerHTML = '<span style="color: green;">✓ Read successful: ' + JSON.stringify(snapshot.val()) + '</span>';
+        } else {
+          output.innerHTML = '<span style="color: orange;">⚠ No data found</span>';
+        }
+      } catch (error) {
+        output.innerHTML = '<span style="color: red;">✗ Read failed: ' + error.message + '</span>';
+        console.error('Read error:', error);
+      }
+    };
+  </script>
+</body>
+</html>
