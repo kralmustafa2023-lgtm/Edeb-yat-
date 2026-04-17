@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, CheckCircle, RotateCcw, Trophy } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useApp } from '../context/AppContext';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../firebase/config';
+import { MATCHING_GAMES } from '../data/matchingData';
 
 interface MatchingPair {
   left: string;
@@ -42,21 +41,8 @@ export default function MatchingPage() {
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    const gamesRef = ref(db, 'matching');
-    const unsubscribe = onValue(gamesRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const list: MatchingGame[] = Object.entries(data).map(([key, val]: any) => ({
-          id: key,
-          ...val,
-          color: val.color || 'from-indigo-500 to-purple-600',
-          pairs: val.pairs.map((p: any, idx: number) => ({ ...p, id: `p-${idx}` }))
-        }));
-        setGames(list);
-      }
-      setLoading(false);
-    });
-    return () => unsubscribe();
+    setGames(MATCHING_GAMES);
+    setLoading(false);
   }, []);
 
   useEffect(() => {

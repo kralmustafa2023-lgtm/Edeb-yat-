@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FileQuestion, Plus, Pencil, Trash2, Save, X, Search } from 'lucide-react';
-import { db } from '../../firebase/config';
-import { ref, onValue, push, set, remove, update } from 'firebase/database';
 
 interface Question {
   id: string;
@@ -42,31 +40,14 @@ export default function TeacherQuestionsPage() {
   const [formCategory, setFormCategory] = useState(CATEGORIES[0].id);
 
   useEffect(() => {
-    const questionsRef = ref(db, 'questions');
-    const unsubscribe = onValue(questionsRef, (snapshot) => {
-      try {
-        const data = snapshot.val();
-        if (data) {
-          const list: Question[] = [];
-          Object.entries(data).forEach(([catId, catQuestions]: [string, any]) => {
-            if (typeof catQuestions === 'object' && catQuestions !== null) {
-              Object.entries(catQuestions).forEach(([qId, qData]: [string, any]) => {
-                list.push({ id: qId, category: catId, unit: catId, ...qData });
-              });
-            }
-          });
-          setQuestions(list);
-        } else {
-          setQuestions([]);
-        }
-      } catch (err) {
-        console.error("Data processing error:", err);
-      } finally {
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
+    // OFFLINE MODE: Load custom questions from localStorage
+    const saved = localStorage.getItem('custom_questions');
+    if (saved) {
+      setQuestions(JSON.parse(saved));
+    } else {
+      setQuestions([]);
+    }
+    setLoading(false);
   }, []);
 
   const resetForm = () => {
@@ -86,34 +67,32 @@ export default function TeacherQuestionsPage() {
     }
 
     const questionData = {
+      id: editingQuestion ? editingQuestion.id : Date.now().toString(),
       question: formQuestion,
       options: formOptions,
       correct: formCorrect,
       explanation: formExplanation,
       difficulty: formDifficulty,
-      unit: formCategory // Explicitly store unit ID
+      category: formCategory,
+      unit: formCategory
     };
 
     try {
+      let updated: Question[];
       if (editingQuestion) {
-        if (editingQuestion.category !== formCategory) {
-          await remove(ref(db, `questions/${editingQuestion.category}/${editingQuestion.id}`));
-          await set(ref(db, `questions/${formCategory}/${editingQuestion.id}`), questionData);
-        } else {
-          await update(ref(db, `questions/${formCategory}/${editingQuestion.id}`), questionData);
-        }
+        updated = questions.map(q => q.id === editingQuestion.id ? questionData : q);
       } else {
-        const newRef = push(ref(db, `questions/${formCategory}`));
-        await set(newRef, questionData);
+        updated = [...questions, questionData];
       }
+      
+      localStorage.setItem('custom_questions', JSON.stringify(updated));
+      setQuestions(updated);
       setIsModalOpen(false);
       resetForm();
     } catch (err) {
-      console.error(err);
-      alert('Kaydedilirken bir hata oluştu.');
+      alert('Soru kaydedilirken bir hata oluştu.');
     }
   };
-
 
   const handleEdit = (q: Question) => {
     setEditingQuestion(q);
@@ -128,7 +107,9 @@ export default function TeacherQuestionsPage() {
 
   const handleDelete = async (q: Question) => {
     if (window.confirm('Bu soruyu silmek istediğinizden emin misiniz?')) {
-      await remove(ref(db, `questions/${q.category}/${q.id}`));
+      const updated = questions.filter(item => item.id !== q.id);
+      localStorage.setItem('custom_questions', JSON.stringify(updated));
+      setQuestions(updated);
     }
   };
 

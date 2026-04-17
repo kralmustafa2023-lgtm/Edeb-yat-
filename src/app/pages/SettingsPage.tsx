@@ -7,7 +7,7 @@ import {
 import { useApp } from '../context/AppContext';
 
 export default function SettingsPage() {
-  const { themeClasses, theme, setTheme, progress, getLevel } = useApp();
+  const { themeClasses, theme, setTheme, progress, getLevel, logout } = useApp();
   const [confirmReset, setConfirmReset] = useState(false);
   const level = getLevel();
   const card = `rounded-2xl border p-5 ${themeClasses.card} ${themeClasses.cardBorder}`;
@@ -38,15 +38,15 @@ export default function SettingsPage() {
 
   const handleLogout = () => {
     if (window.confirm('Çıkış yapmak istediğinize emin misiniz?')) {
-      localStorage.clear();
-      window.location.reload();
+      logout();
     }
   };
 
   const handleReset = () => {
     if (confirmReset) {
-      localStorage.removeItem('edebiyat_progress');
-      window.location.reload();
+      // With Firebase, reset can just be a logout or setting progress to default.
+      alert('İlerleme sıfırlama işlemi güvenlik nedeniyle devre dışı bırakılmıştır. Lütfen hesap değiştiriniz.');
+      setConfirmReset(false);
     } else {
       setConfirmReset(true);
       setTimeout(() => setConfirmReset(false), 4000);

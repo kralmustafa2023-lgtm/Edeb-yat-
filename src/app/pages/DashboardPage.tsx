@@ -6,8 +6,6 @@ import {
   Star, ChevronRight, Target, TrendingUp, Award, Users, Bell, X
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../firebase/config';
 import { useApp } from '../context/AppContext';
 import { POETS } from '../data/poetsData';
 
@@ -29,20 +27,15 @@ export default function DashboardPage() {
   const [showNotifications, setShowNotifications] = useState(false);
 
   useEffect(() => {
-    const notifRef = ref(db, 'announcements');
-    const unsubscribe = onValue(notifRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        const notifList = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
-        })).sort((a, b) => b.timestamp - a.timestamp);
-        setNotifications(notifList);
-      } else {
+    // OFFLINE MODE: Load announcements from localStorage
+    const saved = localStorage.getItem('announcements');
+    if (saved) {
+      try {
+        setNotifications(JSON.parse(saved));
+      } catch (e) {
         setNotifications([]);
       }
-    });
-    return () => unsubscribe();
+    }
   }, []);
 
 

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Rocket, Youtube, Link as LinkIcon, Trash2 } from 'lucide-react';
-import { db } from '../../firebase/config';
-import { ref, push, onValue, serverTimestamp, remove } from 'firebase/database';
 
 interface Message {
   id: string;
@@ -22,20 +20,11 @@ export default function TeacherMessagesPage() {
   const [sending, setSending] = useState(false);
 
   useEffect(() => {
-    const messagesRef = ref(db, 'announcements');
-    const unsubscribe = onValue(messagesRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const list: Message[] = Object.entries(data).map(([key, value]) => ({
-          id: key,
-          ...(value as any)
-        })).sort((a, b) => b.timestamp - a.timestamp);
-        setMessages(list);
-      } else {
-        setMessages([]);
-      }
-    });
-    return () => unsubscribe();
+    // OFFLINE MODE: Load announcements from localStorage
+    const saved = localStorage.getItem('announcements');
+    if (saved) {
+      setMessages(JSON.parse(saved));
+    }
   }, []);
 
   const extractYoutubeId = (url: string) => {
@@ -54,23 +43,25 @@ export default function TeacherMessagesPage() {
     try {
       const ytId = extractYoutubeId(content);
       const newMessage = {
+        id: Date.now().toString(),
         title,
         content,
         type,
         fileUrl: fileUrl.trim() || null,
         youtubeUrl: ytId ? `https://www.youtube.com/embed/${ytId}` : null,
-        timestamp: serverTimestamp(),
+        timestamp: Date.now(),
       };
 
-      await push(ref(db, 'announcements'), newMessage);
+      const updated = [newMessage, ...messages];
+      localStorage.setItem('announcements', JSON.stringify(updated));
+      setMessages(updated);
       
       setTitle('');
       setContent('');
       setFileUrl('');
-      alert('Mesaj başarıyla gönderildi!');
+      alert('Mesaj yerel hafızaya kaydedildi!');
     } catch (error) {
-      console.error(error);
-      alert('Mesaj gönderilirken bir hata oluştu.');
+      alert('Mesaj kaydedilirken bir hata oluştu.');
     } finally {
       setSending(false);
     }
@@ -78,7 +69,9 @@ export default function TeacherMessagesPage() {
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Bu mesajı silmek istediğinizden emin misiniz?')) {
-      await remove(ref(db, `announcements/${id}`));
+      const updated = messages.filter(m => m.id !== id);
+      localStorage.setItem('announcements', JSON.stringify(updated));
+      setMessages(updated);
     }
   };
 

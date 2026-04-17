@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, Timer, CheckCircle, XCircle, RotateCcw, ChevronRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useApp } from '../context/AppContext';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../firebase/config';
+import { QUIZ_TOPICS } from '../data/quizData';
 
 interface QuizQuestion {
   id: string;
@@ -52,52 +51,33 @@ export default function QuizPage() {
   const [answers, setAnswers] = useState<{ correct: boolean; selected: number }[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Load questions from Firebase
   useEffect(() => {
-    const qRef = ref(db, 'questions');
-    const unsubscribe = onValue(qRef, (snapshot) => {
-      try {
-        const data = snapshot.val();
-        if (data) {
-          const allQuestions: QuizQuestion[] = [];
-
-          // questions node: { 'unit-1': { '-key': { question, options, correct, ... } } }
-          Object.entries(data).forEach(([unitId, unitQuestions]: [string, any]) => {
-            if (typeof unitQuestions === 'object' && unitQuestions !== null) {
-              Object.entries(unitQuestions).forEach(([qId, qData]: [string, any]) => {
-                if (qData && typeof qData === 'object' && qData.question) {
-                  allQuestions.push({
-                    id: qId,
-                    unit: qData.unit || unitId,
-                    question: qData.question,
-                    options: qData.options || [],
-                    correct: qData.correct ?? 0,
-                    explanation: qData.explanation || '',
-                    difficulty: qData.difficulty || 'orta',
-                  });
-                }
-              });
-            }
-          });
-
-          const topics = Object.entries(UNIT_MAP).map(([unitId, meta]) => ({
-            id: unitId,
-            ...meta,
-            questions: allQuestions.filter(q => (q.unit || unitId) === unitId),
-          })).filter(t => t.questions.length > 0);
-
-          setDynamicTopics(topics);
-        } else {
-          setDynamicTopics([]);
-        }
-      } catch (err) {
-        console.error('Quiz load error:', err);
-        setDynamicTopics([]);
-      } finally {
-        setLoading(false);
-      }
+    // 1. QUIZ_TOPICS'ten soruları yükle
+    let allQuestions: QuizQuestion[] = [];
+    QUIZ_TOPICS.forEach((topic) => {
+      topic.questions.forEach((q) => {
+        allQuestions.push({ ...q, unit: topic.id });
+      });
     });
-    return () => unsubscribe();
+
+    // 2. Varsa yerel hafızadaki (Teacher panelden eklenen) soruları da ekle
+    const saved = localStorage.getItem('custom_questions');
+    if (saved) {
+      try {
+        const custom = JSON.parse(saved);
+        allQuestions = [...allQuestions, ...custom];
+      } catch (e) {}
+    }
+
+    // Üniteleri oluştur
+    const topics = Object.entries(UNIT_MAP).map(([unitId, meta]) => ({
+      id: unitId,
+      ...meta,
+      questions: allQuestions.filter(q => q.unit === unitId),
+    })).filter(t => t.questions.length > 0);
+
+    setDynamicTopics(topics);
+    setLoading(false);
   }, []);
 
   // Countdown timer

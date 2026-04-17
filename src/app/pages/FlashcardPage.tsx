@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, CheckCircle, XCircle, RotateCcw } from 'lucide-react';
 import { useApp } from '../context/AppContext';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../firebase/config';
+import { FLASHCARD_DECKS } from '../data/flashcardData';
 
 interface Flashcard {
   id: string;
@@ -33,21 +32,8 @@ export default function FlashcardPage() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const decksRef = ref(db, 'flashcards');
-    const unsubscribe = onValue(decksRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const list: FlashcardDeck[] = Object.entries(data).map(([key, val]: any) => ({
-          id: key,
-          ...val,
-          color: val.color || 'from-violet-500 to-purple-600',
-          cards: (val.cards || []).map((c: any, idx: number) => ({ ...c, id: `c-${idx}` }))
-        }));
-        setDecks(list);
-      }
-      setLoading(false);
-    });
-    return () => unsubscribe();
+    setDecks(FLASHCARD_DECKS);
+    setLoading(false);
   }, []);
 
   const startDeck = (deck: FlashcardDeck) => {

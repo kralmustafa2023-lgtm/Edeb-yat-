@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { User, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
-import { ref, get, set, child } from 'firebase/database';
-import { db } from '../firebase/config';
 import { useApp } from '../context/AppContext';
+import { loginTeacher, loginStudent } from '../firebase/database';
 import '../../styles/login.css';
 
 interface CardContentProps {
@@ -15,9 +14,11 @@ interface CardContentProps {
   setPassword: (val: string) => void;
   setRole: (val: 'ogrenci' | 'ogretmen') => void;
   handleLogin: (e: React.FormEvent) => void;
+  loading?: boolean;
+  error?: string;
 }
 
-const CardContent = ({ type, username, setUsername, password, setPassword, setRole, handleLogin }: CardContentProps) => (
+const CardContent = ({ type, username, setUsername, password, setPassword, setRole, handleLogin, loading, error }: CardContentProps) => (
   <div className="glass-panel rounded-[2rem] p-8 md:p-10 flex flex-col items-center shadow-2xl h-[520px]">
     <header className="text-center mb-6">
       <h1 className="text-2xl md:text-3xl font-black text-amber-950 leading-tight mb-2 tracking-tighter">
@@ -87,12 +88,16 @@ const CardContent = ({ type, username, setUsername, password, setPassword, setRo
       </div>
 
       <div className="pt-2 mt-auto">
+        {error && (
+          <p className="text-red-600 text-xs font-bold text-center mb-3">{error}</p>
+        )}
         <button 
-          className={`w-full text-amber-50 font-black tracking-[0.1em] py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group shadow-xl text-sm ${type === 'ogrenci' ? 'bg-amber-900 hover:bg-amber-950 shadow-amber-950/20' : 'bg-slate-800 hover:bg-slate-950 shadow-slate-950/20'}`}
+          className={`w-full text-amber-50 font-black tracking-[0.1em] py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 group shadow-xl text-sm disabled:opacity-60 ${type === 'ogrenci' ? 'bg-amber-900 hover:bg-amber-950 shadow-amber-950/20' : 'bg-slate-800 hover:bg-slate-950 shadow-slate-950/20'}`}
           type="submit"
+          disabled={loading}
         >
-          {type === 'ogrenci' ? 'SİSTEME GİRİŞ YAP' : 'AKADEMİK GİRİŞ'}
-          <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />
+          {loading ? 'Giriş yapılıyor...' : (type === 'ogrenci' ? 'SİSTEME GİRİŞ YAP' : 'AKADEMİK GİRİŞ')}
+          {!loading && <ArrowRight className="group-hover:translate-x-1 transition-transform" size={18} />}
         </button>
       </div>
     </form>
@@ -109,52 +114,29 @@ export default function LoginPage() {
   const [role, setRole] = useState<'ogrenci' | 'ogretmen'>('ogrenci');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
     try {
-      // Admin bypass for local testing
-      if (username === 'admin' && password === '123456') {
-        login(username, role);
-        navigate(role === 'ogretmen' ? '/teacher/dashboard' : '/');
-        return;
-      }
-
-      // Turkish char normalization
-      const charMap: Record<string, string> = { 'ç':'c', 'ğ':'g', 'ı':'i', 'i':'i', 'ö':'o', 'ş':'s', 'ü':'u', 'Ç':'c', 'Ğ':'g', 'I':'i', 'İ':'i', 'Ö':'o', 'Ş':'s', 'Ü':'u' };
-      const safeUsername = username
-        .trim()
-        .replace(/[çğıiöşüÇĞIİÖŞÜ]/g, m => charMap[m])
-        .toLowerCase()
-        .replace(/[\.\#\$\[\]\s]/g, '');
-        
-      const dbRef = ref(db);
-      const snapshot = await get(child(dbRef, `users/${safeUsername}`));
-      
-      let userRole = role; 
-
-      if (snapshot.exists()) {
-        const userData = snapshot.val();
-        if (userData.password !== password) {
-            alert('Hatalı şifre!');
-            return;
-        }
-        userRole = userData.role;
-      } else {
-        alert(`Kullanıcı bulunamadı!\nSistemin aradığı ad: "${safeUsername}"\nLütfen öğretmeniniz ile iletişime geçin.`);
-        return;
-      }
-
-      login(safeUsername, userRole);
-
-      if (userRole === 'ogretmen') {
+      if (role === 'ogretmen') {
+        const ok = await loginTeacher(username.trim(), password);
+        if (!ok) { setError('Kullanıcı adı veya şifre hatalı.'); return; }
+        login(username.trim(), 'ogretmen', 'Öğretmen');
         navigate('/teacher/dashboard');
       } else {
+        const student = await loginStudent(username.trim(), password);
+        if (!student) { setError('Kullanıcı adı veya şifre hatalı.'); return; }
+        login(student.username, 'ogrenci', student.name);
         navigate('/');
       }
-
-    } catch (error: any) {
-      alert('Giriş başarısız: ' + error.message);
+    } catch {
+      setError('Bağlantı hatası. Lütfen tekrar deneyin.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -191,6 +173,8 @@ export default function LoginPage() {
               setPassword={setPassword} 
               setRole={setRole}
               handleLogin={handleLogin}
+              loading={loading}
+              error={role === 'ogrenci' ? error : ''}
             />
           </div>
 
@@ -206,6 +190,8 @@ export default function LoginPage() {
               setPassword={setPassword} 
               setRole={setRole}
               handleLogin={handleLogin}
+              loading={loading}
+              error={role === 'ogretmen' ? error : ''}
             />
           </div>
         </motion.div>

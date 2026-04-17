@@ -22,7 +22,7 @@ const NAV_ITEMS = [
 const LEVEL_NAMES = ['Çaylak', 'Edebiyatsever', 'Edebiyatçı', 'Usta', 'Üstat'];
 
 export function Sidebar() {
-  const { themeClasses, theme, setTheme, progress, sidebarOpen, setSidebarOpen, getLevel } = useApp();
+  const { themeClasses, theme, setTheme, progress, sidebarOpen, setSidebarOpen, getLevel, logout } = useApp();
   const [showSettings, setShowSettings] = useState(false);
   const navigate = useNavigate();
 
@@ -231,8 +231,7 @@ export function Sidebar() {
           <button
             onClick={() => {
               if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
-                localStorage.clear();
-                window.location.reload();
+                logout();
               }
             }}
             className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-xl hover:bg-red-500/10 text-red-400 transition-colors mt-1`}

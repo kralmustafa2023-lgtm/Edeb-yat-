@@ -1,6 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getDatabase } from "firebase/database";
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDRvNPR8DRBim9XZxXqWIrl3VvJsaW8ZSE",
@@ -9,13 +8,8 @@ const firebaseConfig = {
   projectId: "edebiat-470ce",
   storageBucket: "edebiat-470ce.firebasestorage.app",
   messagingSenderId: "936006843933",
-  appId: "1:936006843933:web:aebcc6c3a016da026d10f4",
-  measurementId: "G-9BBJVCTDPT"
+  appId: "1:936006843933:web:aebcc6c3a016da026d10f4"
 };
 
-
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
-
-export { auth, db };
+export const db = getDatabase(app);

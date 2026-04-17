@@ -3,8 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ArrowLeft, CheckCircle, XCircle, RotateCcw, Lightbulb, Trophy } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useApp } from '../context/AppContext';
-import { ref, onValue } from 'firebase/database';
-import { db } from '../firebase/config';
+import { TABLE_EXERCISES } from '../data/tableData';
 
 interface TableCell {
   value: string;
@@ -45,30 +44,8 @@ export default function FillTablePage() {
   const [totalBlanks, setTotalBlanks] = useState(0);
 
   useEffect(() => {
-    const tablesRef = ref(db, 'tables');
-    const unsubscribe = onValue(tablesRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const list: TableExercise[] = Object.entries(data).map(([key, val]: any) => {
-          // Normalize rows: add unique cell IDs
-          const rows = (val.rows || []).map((row: any, ri: number) => ({
-            cells: (row.cells || []).map((cell: any, ci: number) => ({
-              ...cell,
-              id: `${key}-r${ri}-c${ci}`
-            }))
-          }));
-          return {
-            id: key,
-            ...val,
-            rows,
-            color: val.color || 'from-indigo-400 to-violet-600'
-          };
-        });
-        setExercises(list);
-      }
-      setLoading(false);
-    });
-    return () => unsubscribe();
+    setExercises(TABLE_EXERCISES);
+    setLoading(false);
   }, []);
 
   const startExercise = (ex: TableExercise) => {

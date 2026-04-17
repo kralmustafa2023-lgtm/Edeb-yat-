@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
-import { ref, onValue, set as dbSet } from 'firebase/database';
-import { db } from '../firebase/config';
 
 export type Theme = 'dark' | 'light' | 'sepia';
 
@@ -146,7 +144,7 @@ const DEFAULT_ACHIEVEMENTS: Achievement[] = [
   { id: 'xp_1000', title: 'Edebiyat Uzmanı', desc: '1000 XP kazandın', icon: '🏆', unlocked: false, xp: 0 },
 ];
 
-const DEFAULT_PROGRESS: Progress = {
+const getDefaultProgress = (): Progress => ({
   studiedPoets: [],
   quizScores: [],
   flashcardsDone: 0,
@@ -156,10 +154,10 @@ const DEFAULT_PROGRESS: Progress = {
   streak: 0,
   lastStudyDate: '',
   weeklyActivity: [0, 0, 0, 0, 0, 0, 0],
-  achievements: DEFAULT_ACHIEVEMENTS,
+  achievements: DEFAULT_ACHIEVEMENTS.map(a => ({ ...a })),
   favoritePoets: [],
   notes: {},
-};
+});
 
 const AppContext = createContext<AppContextType | null>(null);
 
@@ -169,88 +167,60 @@ export function AppProvider({ children }: { children: ReactNode }) {
   });
   const [sidebarOpen, setSidebarOpen] = useState(true);
   
-  // Auth state
+  // Auth state - REVERTED TO LOCAL ONLY
   const [user, setUser] = useState<User>(() => {
-    const authenticated = sessionStorage.getItem('authenticated') === 'true';
-    const username = sessionStorage.getItem('currentUsername');
-    const role = sessionStorage.getItem('userRole');
-    return {
-      username: authenticated ? username : null,
-      role: authenticated ? role : null,
-      isAuthenticated: authenticated
-    };
+    const data = sessionStorage.getItem('edebiyat_auth');
+    return data ? JSON.parse(data) : { username: null, role: null, isAuthenticated: false };
   });
 
-  const [progress, setProgress] = useState<Progress>(DEFAULT_PROGRESS);
-  const dataLoaded = useRef(false);
-  const skipNextSync = useRef(false);
+  const [progress, setProgress] = useState<Progress>(() => {
+    if (user.username) {
+      const saved = localStorage.getItem(`progress_${user.username}`);
+      return saved ? JSON.parse(saved) : getDefaultProgress();
+    }
+    return getDefaultProgress();
+  });
 
-  // Login/Logout methods
+  // Reset progress when user changes
+  useEffect(() => {
+    if (user.username) {
+      const saved = localStorage.getItem(`progress_${user.username}`);
+      setProgress(saved ? JSON.parse(saved) : getDefaultProgress());
+    } else {
+      setProgress(getDefaultProgress());
+    }
+  }, [user.username]);
+
   const login = (username: string, role: string) => {
-    sessionStorage.setItem('authenticated', 'true');
-    sessionStorage.setItem('currentUsername', username);
-    sessionStorage.setItem('userRole', role);
-    setUser({ username, role, isAuthenticated: true });
-    dataLoaded.current = false;
+    const newUser = { username, role, isAuthenticated: true };
+    setUser(newUser);
+    sessionStorage.setItem('edebiyat_auth', JSON.stringify(newUser));
   };
 
   const logout = () => {
-    sessionStorage.clear();
+    sessionStorage.removeItem('edebiyat_auth');
     setUser({ username: null, role: null, isAuthenticated: false });
-    setProgress(DEFAULT_PROGRESS);
-    dataLoaded.current = false;
   };
 
-  // Firebase listener — depends on user.username
-  useEffect(() => {
-    if (!user.username || !user.isAuthenticated) return;
-
-    const progressRef = ref(db, `users/${user.username}/progress`);
-    const unsubscribe = onValue(progressRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        // Map achievements properly
-        const achievements = DEFAULT_ACHIEVEMENTS.map(def => {
-          const found = (data.achievements || []).find((a: Achievement) => a.id === def.id);
-          return found || def;
-        });
-        const merged = { ...DEFAULT_PROGRESS, ...data, achievements };
-        skipNextSync.current = true;
-        setProgress(merged);
-        dataLoaded.current = true;
-      } else {
-        // If no data exists yet, initialize it
-        dataLoaded.current = true;
-        // This will trigger the sync of DEFAULT_PROGRESS to Firebase on next progress change
+  const updateProgress = useCallback((updater: (prev: Progress) => Progress) => {
+    setProgress(prev => {
+      const next = updater(prev);
+      if (user.username) {
+        localStorage.setItem(`progress_${user.username}`, JSON.stringify(next));
       }
+      return next;
     });
+  }, [user.username]);
 
-    return () => unsubscribe();
-  }, [user.username, user.isAuthenticated]);
-
-  // Sync to Firebase
-  useEffect(() => {
-    if (!dataLoaded.current || !user.username || !user.isAuthenticated) return;
-
-    if (skipNextSync.current) {
-      skipNextSync.current = false;
-      return;
-    }
-
-    dbSet(ref(db, `users/${user.username}/progress`), progress).catch(err => {
-      console.error('Firebase sync hatası:', err);
-    });
-  }, [progress, user.username, user.isAuthenticated]);
-
-  // Local storage for theme only
+  // Local storage for theme
   useEffect(() => {
     localStorage.setItem('edebiyat_theme', theme);
   }, [theme]);
 
   const setTheme = (t: Theme) => setThemeState(t);
 
-  const addXP = useCallback((amount: number) => {
-    setProgress(prev => {
+  const addXP = (amount: number) => {
+    updateProgress(prev => {
       const newXP = prev.totalXP + amount;
       const today = new Date().toDateString();
       const dayIndex = new Date().getDay();
@@ -287,10 +257,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         achievements: newAchievements
       };
     });
-  }, []);
+  };
 
   const markPoetStudied = (id: string) => {
-    setProgress(prev => {
+    updateProgress(prev => {
       if (prev.studiedPoets.includes(id)) return prev;
       const newStudied = [...prev.studiedPoets, id];
       const newAchievements = [...prev.achievements];
@@ -304,7 +274,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const addQuizScore = (topic: string, score: number, total: number) => {
-    setProgress(prev => {
+    updateProgress(prev => {
       const entry = { topic, score, total, date: new Date().toLocaleDateString('tr-TR') };
       const newScores = [...prev.quizScores, entry];
       const newAchievements = [...prev.achievements];
@@ -322,7 +292,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const toggleFavoritePoet = (id: string) => {
-    setProgress(prev => {
+    updateProgress(prev => {
       const favs = prev.favoritePoets.includes(id)
         ? prev.favoritePoets.filter(f => f !== id)
         : [...prev.favoritePoets, id];
@@ -331,7 +301,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const incrementFlashcard = () => {
-    setProgress(prev => {
+    updateProgress(prev => {
       const newCount = prev.flashcardsDone + 1;
       const newAch = [...prev.achievements];
       if (newCount >= 50) {
@@ -344,7 +314,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const incrementMatching = () => {
-    setProgress(prev => {
+    updateProgress(prev => {
       const newCount = prev.matchingDone + 1;
       const newAch = [...prev.achievements];
       if (newCount >= 5) {
@@ -357,12 +327,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const incrementTable = () => {
-    setProgress(prev => ({ ...prev, tableDone: prev.tableDone + 1 }));
+    updateProgress(prev => ({ ...prev, tableDone: prev.tableDone + 1 }));
     addXP(25);
   };
 
   const updateNote = (key: string, value: string) => {
-    setProgress(prev => ({ ...prev, notes: { ...prev.notes, [key]: value } }));
+    updateProgress(prev => ({ ...prev, notes: { ...prev.notes, [key]: value } }));
   };
 
   const getLevel = () => {
