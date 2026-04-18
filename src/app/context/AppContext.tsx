@@ -90,6 +90,7 @@ interface AppContextType {
   currentPage: PageId;
   pageParam: string;
   navigate: (page: PageId, param?: string) => void;
+  isLoading: boolean;
 }
 
 // ─── Defaults ─────────────────────────────────────────────────────────────────
@@ -240,23 +241,28 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    // Listen to realtime changes from Firebase
-    const unsub = onProgressChange(user.username, (fbProgress) => {
-      if (isSaving.current) return; // Skip echo from our own save
-      if (fbProgress) {
-        // Merge with defaults to ensure all fields exist
-        setProgress(prev => ({
-          ...DEFAULT_PROGRESS,
-          ...fbProgress,
-          achievements: fbProgress.achievements?.length
-            ? fbProgress.achievements
-            : prev.achievements,
-        }));
-      }
-      setLoaded(true);
-    });
+    try {
+      // Listen to realtime changes from Firebase
+      const unsub = onProgressChange(user.username, (fbProgress) => {
+        if (isSaving.current) return; // Skip echo from our own save
+        if (fbProgress) {
+          // Merge with defaults to ensure all fields exist
+          setProgress(prev => ({
+            ...DEFAULT_PROGRESS,
+            ...fbProgress,
+            achievements: fbProgress.achievements?.length
+              ? fbProgress.achievements
+              : prev.achievements,
+          }));
+        }
+        setLoaded(true);
+      });
 
-    return unsub;
+      return unsub;
+    } catch (error) {
+      console.error('Firebase connection error:', error);
+      setLoaded(true); // Hata durumunda da yükleme tamam oldu olarak iaretle
+    }
   }, [user.isAuthenticated, user.username, user.role]);
 
   // ── Save progress to Firebase whenever it changes ──
@@ -435,6 +441,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         currentPage,
         pageParam,
         navigate,
+        isLoading: !loaded,
       }}
     >
       {children}

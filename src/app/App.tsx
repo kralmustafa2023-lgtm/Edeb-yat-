@@ -48,9 +48,18 @@ const TEACHER_PAGES: Record<string, React.FC> = {
 };
 
 function AppRouter() {
-  const { currentPage, user } = useApp();
+  const { currentPage, user, isLoading } = useApp();
 
   console.log('🔍 AppRouter - currentPage:', currentPage, 'user:', user);
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <div className="text-6xl">⏳️</div>
+        <p className="text-xl opacity-60">Yükleniyor...</p>
+      </div>
+    );
+  }
 
   // Public pages (no layout)
   if (currentPage === 'login') return <LoginPage />;
