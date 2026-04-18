@@ -204,11 +204,18 @@ export function useApp(): AppContextType {
 // ─── Provider ─────────────────────────────────────────────────────────────────
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
+  console.log('AppProvider initializing...');
+  
   const [user, setUser] = useState<User>(() => {
     try {
       const saved = localStorage.getItem('edebiyat_user');
-      return saved ? JSON.parse(saved) : DEFAULT_USER;
-    } catch { return DEFAULT_USER; }
+      const parsedUser = saved ? JSON.parse(saved) : DEFAULT_USER;
+      console.log('AppProvider - Initial user from localStorage:', parsedUser);
+      return parsedUser;
+    } catch (error) {
+      console.error('AppProvider - Error parsing user from localStorage:', error);
+      return DEFAULT_USER;
+    }
   });
 
   const [progress, setProgress] = useState<Progress>(DEFAULT_PROGRESS);
@@ -236,31 +243,48 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // ── Load progress from Firebase on login ──
   useEffect(() => {
+    console.log('AppProvider - Firebase useEffect triggered:', { 
+      isAuthenticated: user.isAuthenticated, 
+      role: user.role, 
+      username: user.username 
+    });
+    
     if (!user.isAuthenticated || user.role !== 'ogrenci') {
+      console.log('AppProvider - Skipping Firebase load - not authenticated student');
       setLoaded(true);
       return;
     }
 
+    console.log('AppProvider - Starting Firebase connection for user:', user.username);
+    
     try {
       // Listen to realtime changes from Firebase
       const unsub = onProgressChange(user.username, (fbProgress) => {
+        console.log('AppProvider - Firebase data received:', { username: user.username, hasData: !!fbProgress });
+        
         if (isSaving.current) return; // Skip echo from our own save
         if (fbProgress) {
           // Merge with defaults to ensure all fields exist
-          setProgress(prev => ({
-            ...DEFAULT_PROGRESS,
-            ...fbProgress,
-            achievements: fbProgress.achievements?.length
-              ? fbProgress.achievements
-              : prev.achievements,
-          }));
+          setProgress(prev => {
+            const merged = {
+              ...DEFAULT_PROGRESS,
+              ...fbProgress,
+              achievements: fbProgress.achievements?.length
+                ? fbProgress.achievements
+                : prev.achievements,
+            };
+            console.log('AppProvider - Progress updated:', merged);
+            return merged;
+          });
         }
         setLoaded(true);
+        console.log('AppProvider - Firebase loading completed successfully');
       });
 
+      console.log('AppProvider - Firebase listener setup completed');
       return unsub;
     } catch (error) {
-      console.error('Firebase connection error:', error);
+      console.error('AppProvider - Firebase connection error:', error);
       setLoaded(true); // Hata durumunda da yükleme tamam oldu olarak iaretle
     }
   }, [user.isAuthenticated, user.username, user.role]);

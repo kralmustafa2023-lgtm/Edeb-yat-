@@ -21,7 +21,7 @@ const QUICK_LINKS = [
 ];
 
 export default function DashboardPage() {
-  const { themeClasses, progress, theme, getLevel } = useApp();
+  const { themeClasses, progress, theme, getLevel, navigate } = useApp();
   const level = getLevel();
   const [notifications, setNotifications] = useState<Message[]>([]);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -221,18 +221,18 @@ export default function DashboardPage() {
             <p className={`text-sm mb-3 ${themeClasses.textMuted}`} style={{ fontWeight: 600 }}>Hızlı Erişim</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {QUICK_LINKS.map(({ to, icon: Icon, label, desc, color }) => (
-                <Link key={to} to={to}>
-                  <motion.div
-                    className={`${card} hover:scale-[1.02] transition-all duration-200 cursor-pointer group`}
-                    whileHover={{ y: -2 }}
-                  >
-                    <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center mb-2`}>
-                      <Icon size={18} className="text-white" />
-                    </div>
-                    <p className={`text-sm ${themeClasses.text}`} style={{ fontWeight: 600 }}>{label}</p>
-                    <p className={`text-xs ${themeClasses.textMuted} mt-0.5`}>{desc}</p>
-                  </motion.div>
-                </Link>
+                <motion.div
+                  key={to}
+                  className={`${card} hover:scale-[1.02] transition-all duration-200 cursor-pointer group`}
+                  whileHover={{ y: -2 }}
+                  onClick={() => navigate(to.replace('/', '') as any)}
+                >
+                  <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center mb-2`}>
+                    <Icon size={18} className="text-white" />
+                  </div>
+                  <p className={`text-sm ${themeClasses.text}`} style={{ fontWeight: 600 }}>{label}</p>
+                  <p className={`text-xs ${themeClasses.textMuted} mt-0.5`}>{desc}</p>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -284,17 +284,19 @@ export default function DashboardPage() {
             ) : (
               <div className="space-y-2">
                 {POETS.filter(p => progress.favoritePoets.includes(p.id)).slice(0, 4).map(poet => (
-                  <Link key={poet.id} to={`/sair/${poet.id}`}>
-                    <div className={`flex items-center gap-2 py-1.5 px-2 rounded-lg ${themeClasses.hover} cursor-pointer`}>
-                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${poet.gradientFrom} ${poet.gradientTo} flex items-center justify-center text-sm`}>
-                        {poet.emoji}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={`text-xs ${themeClasses.text} truncate`} style={{ fontWeight: 500 }}>{poet.name}</p>
-                        <p className={`text-xs ${themeClasses.textMuted} truncate`}>{poet.period}</p>
-                      </div>
+                  <div 
+                    key={poet.id}
+                    className={`flex items-center gap-2 py-1.5 px-2 rounded-lg ${themeClasses.hover} cursor-pointer`}
+                    onClick={() => navigate('sair-detail', poet.id)}
+                  >
+                    <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${poet.gradientFrom} ${poet.gradientTo} flex items-center justify-center text-sm`}>
+                      {poet.emoji}
                     </div>
-                  </Link>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-xs ${themeClasses.text} truncate`} style={{ fontWeight: 500 }}>{poet.name}</p>
+                      <p className={`text-xs ${themeClasses.textMuted} truncate`}>{poet.period}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             )}

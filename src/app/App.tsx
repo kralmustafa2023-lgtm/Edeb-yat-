@@ -2,6 +2,8 @@ import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import type { PageId } from './context/AppContext';
 import { Layout } from './components/Layout';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { FirebaseTest } from './components/FirebaseTest';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import HelpPage from './pages/HelpPage';
@@ -111,8 +113,11 @@ function AppRouter() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <AppRouter />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <FirebaseTest />
+        <AppRouter />
+      </AppProvider>
+    </ErrorBoundary>
   );
 }
