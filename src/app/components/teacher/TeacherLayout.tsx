@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { 
-  BarChart2, Users, Mail, FileQuestion, Settings, LogOut
+  BarChart2, Users, Mail, Settings, LogOut
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 
@@ -23,7 +23,6 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
     { name: 'Skor Tablosu', icon: BarChart2, page: 'teacher-dashboard' as const },
     { name: 'Öğrenciler', icon: Users, page: 'teacher-classes' as const },
     { name: 'Mesajlar', icon: Mail, page: 'teacher-messages' as const },
-    { name: 'Sorular', icon: FileQuestion, page: 'teacher-questions' as const },
     { name: 'Ayarlar', icon: Settings, page: 'teacher-settings' as const }
   ];
 

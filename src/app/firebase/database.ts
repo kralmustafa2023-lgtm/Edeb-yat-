@@ -25,9 +25,11 @@ export interface StudentRecord {
 
 // ─── Auth ─────────────────────────────────────────────────────────────────────
 
-/** Öğretmen girişi: sadece test/test */
+/** Öğretmen girişi: localStorage'dan güncellenen şifre veya varsayılan test/test */
 export async function loginTeacher(username: string, password: string): Promise<boolean> {
-  return username === 'test' && password === 'test';
+  const savedPassword = typeof window !== 'undefined' ? localStorage.getItem('teacher_password') : null;
+  const teacherPassword = savedPassword || 'test';
+  return username === 'test' && password === teacherPassword;
 }
 
 /** Öğrenci girişi: Firebase users/ tablosundan kontrol */

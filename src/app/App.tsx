@@ -21,6 +21,7 @@ import TeacherDashboardPage from './pages/teacher/TeacherDashboardPage';
 import TeacherClassesPage from './pages/teacher/TeacherClassesPage';
 import TeacherMessagesPage from './pages/teacher/TeacherMessagesPage';
 import TeacherQuestionsPage from './pages/teacher/TeacherQuestionsPage';
+import TeacherSettingsPage from './pages/teacher/TeacherSettingsPage';
 
 const STUDENT_PAGES: Record<string, React.FC> = {
   'dashboard': DashboardPage,
@@ -40,12 +41,7 @@ const TEACHER_PAGES: Record<string, React.FC> = {
   'teacher-classes': TeacherClassesPage,
   'teacher-messages': TeacherMessagesPage,
   'teacher-questions': TeacherQuestionsPage,
-  'teacher-settings': () => (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-      <div className="text-6xl">🔧</div>
-      <p className="text-xl opacity-60">Ayarlar sayfası yakında</p>
-    </div>
-  ),
+  'teacher-settings': TeacherSettingsPage,
 };
 
 function AppRouter() {

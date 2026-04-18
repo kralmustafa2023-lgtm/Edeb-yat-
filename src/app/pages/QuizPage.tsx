@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, Timer, CheckCircle, XCircle, RotateCcw, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Timer, CheckCircle, XCircle, RotateCcw, ChevronRight, Star, Zap, Flame } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useApp } from '../context/AppContext';
 import { QUIZ_TOPICS } from '../data/quizData';
@@ -23,13 +23,15 @@ interface QuizTopic {
   questions: QuizQuestion[];
 }
 
-type Screen = 'select' | 'quiz' | 'result';
+type Difficulty = 'kolay' | 'orta' | 'zor' | 'karisik';
+type Screen = 'select' | 'difficulty' | 'quiz' | 'result';
 
 export default function QuizPage() {
   const { themeClasses, theme, addQuizScore } = useApp();
   const [screen, setScreen] = useState<Screen>('select');
   const [dynamicTopics, setDynamicTopics] = useState<QuizTopic[]>([]);
   const [selectedTopic, setSelectedTopic] = useState<QuizTopic | null>(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty>('karisik');
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -68,15 +70,35 @@ export default function QuizPage() {
     return () => clearTimeout(t);
   }, [screen, timeLeft, answered]);
 
-  const startQuiz = (topic: QuizTopic) => {
+  const selectTopic = (topic: QuizTopic) => {
     setSelectedTopic(topic);
-    const shuffled = [...topic.questions].sort(() => Math.random() - 0.5).slice(0, Math.min(10, topic.questions.length));
+    setScreen('difficulty');
+  };
+
+  const getTimeForDifficulty = (diff: Difficulty): number => {
+    if (diff === 'kolay') return 30;
+    if (diff === 'orta') return 20;
+    if (diff === 'zor') return 15;
+    return 20; // karışık
+  };
+
+  const startQuiz = (difficulty: Difficulty) => {
+    if (!selectedTopic) return;
+    setSelectedDifficulty(difficulty);
+
+    let filtered = [...selectedTopic.questions];
+    if (difficulty !== 'karisik') {
+      filtered = filtered.filter(q => q.difficulty === difficulty);
+    }
+
+    // Karıştır ve en fazla 10 soru al
+    const shuffled = filtered.sort(() => Math.random() - 0.5).slice(0, Math.min(10, filtered.length));
     setQuestions(shuffled);
     setCurrent(0);
     setScore(0);
     setSelected(null);
     setAnswered(false);
-    setTimeLeft(20);
+    setTimeLeft(getTimeForDifficulty(difficulty));
     setAnswers([]);
     setScreen('quiz');
   };
@@ -106,18 +128,22 @@ export default function QuizPage() {
       setCurrent(c => c + 1);
       setSelected(null);
       setAnswered(false);
-      setTimeLeft(20);
+      setTimeLeft(getTimeForDifficulty(selectedDifficulty));
     }
   };
 
   const card = `rounded-2xl border ${themeClasses.card} ${themeClasses.cardBorder}`;
+
+  const getDifficultyCount = (topic: QuizTopic, diff: string) => {
+    return topic.questions.filter(q => q.difficulty === diff).length;
+  };
 
   // ── SELECT SCREEN ──────────────────────────────────────────────
   if (screen === 'select') return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div>
         <h1 className={`text-2xl ${themeClasses.text}`} style={{ fontWeight: 700 }}>Quiz</h1>
-        <p className={`text-sm ${themeClasses.textMuted} mt-1`}>Öğretmeniniz tarafından hazırlanan güncel sorularla bilginizi test edin.</p>
+        <p className={`text-sm ${themeClasses.textMuted} mt-1`}>Bilginizi test edin. Konu seçin, zorluk belirleyin!</p>
       </div>
 
       {loading ? (
@@ -129,7 +155,6 @@ export default function QuizPage() {
         <div className={`p-12 text-center rounded-3xl border border-dashed ${themeClasses.cardBorder} ${themeClasses.card}`}>
           <div className="text-4xl mb-4">📭</div>
           <p className={`text-sm ${themeClasses.textMuted} font-bold`}>Şu an için yayında olan bir quiz bulunmuyor.</p>
-          <p className={`text-xs ${themeClasses.textMuted} mt-2`}>Öğretmeniniz soru ekledikçe buraya yansıyacak.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -139,7 +164,7 @@ export default function QuizPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.08 }}
-              onClick={() => startQuiz(topic)}
+              onClick={() => selectTopic(topic)}
               className={`${card} p-5 text-left hover:shadow-xl transition-all duration-200 hover:-translate-y-1 group`}
             >
               <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${topic.color} flex items-center justify-center text-2xl mb-4 shadow-lg shadow-black/5`}>
@@ -147,8 +172,13 @@ export default function QuizPage() {
               </div>
               <p className={`${themeClasses.text} text-base`} style={{ fontWeight: 700 }}>{topic.title}</p>
               <p className={`text-xs ${themeClasses.textMuted} mt-1 font-bold`}>{topic.questions.length} soru mevcut</p>
+              <div className="flex items-center gap-2 mt-3">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-500 font-bold">🟢 {getDifficultyCount(topic, 'kolay')}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-500 font-bold">🟡 {getDifficultyCount(topic, 'orta')}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-500/15 text-red-500 font-bold">🔴 {getDifficultyCount(topic, 'zor')}</span>
+              </div>
               <div className="flex items-center gap-1 mt-4">
-                <span className={`text-xs ${themeClasses.textFaint} font-black uppercase tracking-widest`}>HEMEN BAŞLA</span>
+                <span className={`text-xs ${themeClasses.textFaint} font-black uppercase tracking-widest`}>KONU SEÇ</span>
                 <ChevronRight size={12} className={`${themeClasses.textFaint} group-hover:translate-x-1 transition-transform`} />
               </div>
             </motion.button>
@@ -157,6 +187,66 @@ export default function QuizPage() {
       )}
     </div>
   );
+
+  // ── DIFFICULTY SELECT SCREEN ────────────────────────────────────
+  if (screen === 'difficulty' && selectedTopic) {
+    const difficulties: { id: Difficulty; label: string; icon: React.ReactNode; desc: string; color: string; time: string; count: number }[] = [
+      {
+        id: 'kolay', label: 'Kolay', icon: <Star size={28} />, desc: 'Temel bilgiler, basit sorular',
+        color: 'from-emerald-500 to-green-600', time: '30 saniye', count: getDifficultyCount(selectedTopic, 'kolay')
+      },
+      {
+        id: 'orta', label: 'Orta', icon: <Zap size={28} />, desc: 'Orta seviye, daha dikkat gerektirir',
+        color: 'from-amber-500 to-orange-600', time: '20 saniye', count: getDifficultyCount(selectedTopic, 'orta')
+      },
+      {
+        id: 'zor', label: 'Zor', icon: <Flame size={28} />, desc: 'İleri seviye, detaylı bilgi gerektirir',
+        color: 'from-red-500 to-rose-600', time: '15 saniye', count: getDifficultyCount(selectedTopic, 'zor')
+      },
+      {
+        id: 'karisik', label: 'Karışık', icon: <span className="text-2xl">🎲</span>, desc: 'Her seviyeden rastgele sorular',
+        color: 'from-purple-500 to-indigo-600', time: '20 saniye', count: selectedTopic.questions.length
+      },
+    ];
+
+    return (
+      <div className="max-w-2xl mx-auto space-y-6">
+        <div className="flex items-center gap-4">
+          <button onClick={() => setScreen('select')} className={`p-2 rounded-xl ${themeClasses.hover} ${themeClasses.textMuted}`}>
+            <ArrowLeft size={20} />
+          </button>
+          <div>
+            <h1 className={`text-2xl ${themeClasses.text}`} style={{ fontWeight: 700 }}>{selectedTopic.title}</h1>
+            <p className={`text-sm ${themeClasses.textMuted} mt-1`}>Zorluk seviyesini belirleyin</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {difficulties.map((diff, i) => (
+            <motion.button
+              key={diff.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              onClick={() => diff.count > 0 ? startQuiz(diff.id) : null}
+              disabled={diff.count === 0}
+              className={`${card} p-6 text-left transition-all duration-200 group ${diff.count > 0 ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' : 'opacity-40 cursor-not-allowed'}`}
+            >
+              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${diff.color} flex items-center justify-center text-white mb-4 shadow-lg`}>
+                {diff.icon}
+              </div>
+              <p className={`${themeClasses.text} text-lg`} style={{ fontWeight: 700 }}>{diff.label}</p>
+              <p className={`text-xs ${themeClasses.textMuted} mt-1`}>{diff.desc}</p>
+              <div className={`flex items-center justify-between mt-4 pt-3 border-t ${themeClasses.divider}`}>
+                <span className={`text-xs ${themeClasses.textMuted} font-bold`}>{diff.count} soru</span>
+                <span className={`text-xs ${themeClasses.textFaint} font-bold`}>⏱ {diff.time}</span>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   // ── QUIZ SCREEN ────────────────────────────────────────────────
   if (screen === 'quiz' && questions.length > 0) {
@@ -264,7 +354,7 @@ export default function QuizPage() {
           </div>
 
           <div className="flex gap-3 mt-6">
-            <button onClick={() => startQuiz(selectedTopic!)} className={`flex-1 py-3 rounded-xl border ${themeClasses.cardBorder} ${themeClasses.textMuted} ${themeClasses.hover} text-sm flex items-center justify-center gap-2`}>
+            <button onClick={() => startQuiz(selectedDifficulty)} className={`flex-1 py-3 rounded-xl border ${themeClasses.cardBorder} ${themeClasses.textMuted} ${themeClasses.hover} text-sm flex items-center justify-center gap-2`}>
               <RotateCcw size={14} /> Tekrar
             </button>
             <button onClick={() => setScreen('select')} className="flex-1 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-sm" style={{ fontWeight: 600 }}>
