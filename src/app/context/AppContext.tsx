@@ -90,7 +90,6 @@ interface AppContextType {
   currentPage: PageId;
   pageParam: string;
   navigate: (page: PageId, param?: string) => void;
-  isLoading: boolean;
 }
 
 // ─── Defaults ─────────────────────────────────────────────────────────────────
@@ -234,14 +233,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return 'login';
   });
   const [pageParam, setPageParam] = useState('');
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
 
   // Ref to track if we're currently saving, to avoid re-saving Firebase updates
   const isSaving = useRef(false);
   const progressRef = useRef(progress);
   progressRef.current = progress;
 
-  // ── Load progress from Firebase on login ──
+  // Load progress from Firebase on login (only for authenticated students)
   useEffect(() => {
     console.log('AppProvider - Firebase useEffect triggered:', { 
       isAuthenticated: user.isAuthenticated, 
@@ -251,7 +250,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     
     if (!user.isAuthenticated || user.role !== 'ogrenci') {
       console.log('AppProvider - Skipping Firebase load - not authenticated student');
-      setLoaded(true);
       return;
     }
 
@@ -277,7 +275,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             return merged;
           });
         }
-        setLoaded(true);
         console.log('AppProvider - Firebase loading completed successfully');
       });
 
@@ -285,13 +282,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return unsub;
     } catch (error) {
       console.error('AppProvider - Firebase connection error:', error);
-      setLoaded(true); // Hata durumunda da yükleme tamam oldu olarak iaretle
     }
   }, [user.isAuthenticated, user.username, user.role]);
 
   // ── Save progress to Firebase whenever it changes ──
   useEffect(() => {
-    if (!user.isAuthenticated || user.role !== 'ogrenci' || !loaded) return;
+    if (!user.isAuthenticated || user.role !== 'ogrenci') return;
 
     const timeout = setTimeout(() => {
       isSaving.current = true;
@@ -465,7 +461,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         currentPage,
         pageParam,
         navigate,
-        isLoading: !loaded,
       }}
     >
       {children}
