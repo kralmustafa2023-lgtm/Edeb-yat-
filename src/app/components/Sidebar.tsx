@@ -4,7 +4,6 @@ import {
   BookOpen, Brain, Zap, Table2, Shuffle, BarChart3,
   Settings, ChevronLeft, ChevronRight, Users, Home,
   Star, Flame, Trophy, LogOut, Sun, Moon, Coffee,
-  Info, Phone
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import type { PageId } from '../context/AppContext';
@@ -18,8 +17,6 @@ const NAV_ITEMS: { page: PageId; icon: any; label: string }[] = [
   { page: 'tablo', icon: Table2, label: 'Tablo Doldurma' },
   { page: 'eslestirme', icon: Shuffle, label: 'Eşleştirme' },
   { page: 'istatistik', icon: BarChart3, label: 'İstatistik' },
-  { page: 'about', icon: Info, label: 'Hakkında' },
-  { page: 'help', icon: Phone, label: 'Yardım' },
 ];
 
 const LEVEL_NAMES = ['Çaylak', 'Edebiyatsever', 'Edebiyatçı', 'Usta', 'Üstat'];
