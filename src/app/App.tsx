@@ -54,43 +54,59 @@ function AppRouter() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
-        <div className="text-6xl">⏳️</div>
-        <p className="text-xl opacity-60">Yükleniyor...</p>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 gap-4">
+        <div className="text-6xl">Yükleniyor...</div>
+        <p className="text-xl opacity-60">Lütfen bekleyin...</p>
       </div>
     );
   }
 
-  // Public pages (no layout)
-  if (currentPage === 'login') return <LoginPage />;
-  if (currentPage === 'about') return <AboutPage />;
-  if (currentPage === 'help') return <HelpPage />;
+  try {
+    // Public pages (no layout)
+    if (currentPage === 'login') return <LoginPage />;
+    if (currentPage === 'about') return <AboutPage />;
+    if (currentPage === 'help') return <HelpPage />;
 
-  // Auth guard
-  if (!user.isAuthenticated) {
-    console.log('⚠️ User not authenticated, showing LoginPage');
-    return <LoginPage />;
-  }
+    // Auth guard
+    if (!user.isAuthenticated) {
+      console.log('⚠️ User not authenticated, showing LoginPage');
+      return <LoginPage />;
+    }
 
-  // Teacher pages
-  if (currentPage.startsWith('teacher')) {
-    console.log('👩‍🏫 Rendering teacher page:', currentPage);
-    const TeacherPage = TEACHER_PAGES[currentPage];
+    // Teacher pages
+    if (currentPage.startsWith('teacher')) {
+      console.log('👩‍🏫 Rendering teacher page:', currentPage);
+      const TeacherPage = TEACHER_PAGES[currentPage];
+      return (
+        <TeacherLayout>
+          {TeacherPage ? <TeacherPage /> : <div className="p-8 text-center">Sayfa bulunamadı</div>}
+        </TeacherLayout>
+      );
+    }
+
+    // Student pages
+    console.log('👨‍🎓 Rendering student page:', currentPage);
+    const StudentPage = STUDENT_PAGES[currentPage];
     return (
-      <TeacherLayout>
-        {TeacherPage ? <TeacherPage /> : <div>Sayfa bulunamadı</div>}
-      </TeacherLayout>
+      <Layout>
+        {StudentPage ? <StudentPage /> : <DashboardPage />}
+      </Layout>
+    );
+  } catch (error) {
+    console.error('AppRouter error:', error);
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 gap-4 p-8">
+        <div className="text-6xl">Hata</div>
+        <p className="text-xl text-red-600">Bir hata oluştu. Sayfayı yenileyin.</p>
+        <button 
+          onClick={() => window.location.reload()} 
+          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Yenile
+        </button>
+      </div>
     );
   }
-
-  // Student pages
-  console.log('👨‍🎓 Rendering student page:', currentPage);
-  const StudentPage = STUDENT_PAGES[currentPage];
-  return (
-    <Layout>
-      {StudentPage ? <StudentPage /> : <DashboardPage />}
-    </Layout>
-  );
 }
 
 export default function App() {
