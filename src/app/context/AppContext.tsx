@@ -206,15 +206,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   console.log('AppProvider initializing...');
   
   const [user, setUser] = useState<User>(() => {
-    try {
-      const saved = localStorage.getItem('edebiyat_user');
-      const parsedUser = saved ? JSON.parse(saved) : DEFAULT_USER;
-      console.log('AppProvider - Initial user from localStorage:', parsedUser);
-      return parsedUser;
-    } catch (error) {
-      console.error('AppProvider - Error parsing user from localStorage:', error);
-      return DEFAULT_USER;
-    }
+    // Her ziyarette kullanıcı yeniden giriş yapmalı
+    localStorage.removeItem('edebiyat_user');
+    return DEFAULT_USER;
   });
 
   const [progress, setProgress] = useState<Progress>(DEFAULT_PROGRESS);
@@ -222,16 +216,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return (localStorage.getItem('edebiyat_theme') as ThemeId) || 'dark';
   });
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [currentPage, setCurrentPage] = useState<PageId>(() => {
-    try {
-      const saved = localStorage.getItem('edebiyat_user');
-      if (saved) {
-        const u = JSON.parse(saved);
-        if (u.isAuthenticated) return u.role === 'ogretmen' ? 'teacher-dashboard' : 'dashboard';
-      }
-    } catch {}
-    return 'login';
-  });
+  const [currentPage, setCurrentPage] = useState<PageId>('login');
   const [pageParam, setPageParam] = useState('');
   const [loaded, setLoaded] = useState(true);
 

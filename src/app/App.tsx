@@ -3,7 +3,6 @@ import { AppProvider, useApp } from './context/AppContext';
 import type { PageId } from './context/AppContext';
 import { Layout } from './components/Layout';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { FirebaseTest } from './components/FirebaseTest';
 import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import HelpPage from './pages/HelpPage';
@@ -106,7 +105,6 @@ export default function App() {
   return (
     <ErrorBoundary>
       <AppProvider>
-        <FirebaseTest />
         <AppRouter />
       </AppProvider>
     </ErrorBoundary>
