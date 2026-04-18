@@ -32,6 +32,10 @@ export async function loginTeacher(username: string, password: string): Promise<
 
 /** Öğrenci girişi: Firebase users/ tablosundan kontrol */
 export async function loginStudent(username: string, password: string): Promise<StudentRecord | null> {
+  if (!username || username.trim() === '') {
+    console.error('Firebase loginStudent: username is undefined or empty');
+    return null;
+  }
   const snap = await get(ref(db, `users/${username}`));
   if (!snap.exists()) return null;
   const data = snap.val() as StudentRecord;
@@ -78,12 +82,20 @@ export function onStudentsChange(callback: (students: StudentRecord[]) => void):
 // ─── Progress ─────────────────────────────────────────────────────────────────
 
 export async function getProgress(username: string): Promise<Progress | null> {
+  if (!username || username.trim() === '') {
+    console.error('Firebase getProgress: username is undefined or empty');
+    return null;
+  }
   const snap = await get(ref(db, `progress/${username}`));
   if (!snap.exists()) return null;
   return snap.val() as Progress;
 }
 
 export async function saveProgress(username: string, progress: Progress): Promise<void> {
+  if (!username || username.trim() === '') {
+    console.error('Firebase saveProgress: username is undefined or empty');
+    return;
+  }
   try {
     await set(ref(db, `progress/${username}`), progress);
   } catch (error) {
@@ -98,6 +110,10 @@ export async function updateProgress(username: string, partial: Partial<Progress
 
 /** Realtime listener for a single student's progress */
 export function onProgressChange(username: string, callback: (progress: Progress | null) => void): () => void {
+  if (!username || username.trim() === '') {
+    console.error('Firebase onProgressChange: username is undefined or empty');
+    return () => {}; // Return empty unsubscribe function
+  }
   const r = ref(db, `progress/${username}`);
   const handler = (snap: DataSnapshot) => {
     callback(snap.exists() ? (snap.val() as Progress) : null);
