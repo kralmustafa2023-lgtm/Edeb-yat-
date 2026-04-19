@@ -91,8 +91,8 @@ export default function QuizPage() {
       filtered = filtered.filter(q => q.difficulty === difficulty);
     }
 
-    // Karıştır ve en fazla 10 soru al
-    const shuffled = filtered.sort(() => Math.random() - 0.5).slice(0, Math.min(10, filtered.length));
+    // Karıştır ve en fazla 20 soru al
+    const shuffled = filtered.sort(() => Math.random() - 0.5).slice(0, Math.min(20, filtered.length));
     setQuestions(shuffled);
     setCurrent(0);
     setScore(0);
