@@ -65,10 +65,27 @@ export default function QuizPage() {
   // Countdown timer
   useEffect(() => {
     if (screen !== 'quiz' || answered) return;
-    if (timeLeft <= 0) { handleAnswer(-1); return; }
-    const t = setTimeout(() => setTimeLeft(prev => prev - 1), 1000);
-    return () => clearTimeout(t);
-  }, [screen, timeLeft, answered]);
+    
+    // Stabil bir zamanlayıcı için setInterval kullanıyoruz
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0; // handleAnswer(-1) will be triggered by another effect
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [screen, answered, current]);
+
+  // Zaman dolduğunda cevapsız (-1) kabul et
+  useEffect(() => {
+    if (timeLeft === 0 && !answered && screen === 'quiz') {
+      handleAnswer(-1);
+    }
+  }, [timeLeft, answered, screen]);
 
   const selectTopic = (topic: QuizTopic) => {
     setSelectedTopic(topic);
@@ -118,10 +135,10 @@ export default function QuizPage() {
 
   const nextQuestion = () => {
     if (current + 1 >= questions.length) {
-      const finalScore = score + (answers[answers.length - 1]?.correct ? 1 : 0);
-      addQuizScore(selectedTopic!.title, finalScore, questions.length);
+      // score değişkeni halihazırda güncel olduğu için +1 eklememize gerek yok
+      addQuizScore(selectedTopic!.title, score, questions.length);
       setScreen('result');
-      if (finalScore === questions.length) {
+      if (score === questions.length) {
         setTimeout(() => confetti({ particleCount: 120, spread: 90, origin: { y: 0.5 } }), 200);
       }
     } else {
@@ -251,7 +268,8 @@ export default function QuizPage() {
   // ── QUIZ SCREEN ────────────────────────────────────────────────
   if (screen === 'quiz' && questions.length > 0) {
     const q = questions[current];
-    const progress = (current / questions.length) * 100;
+    // Soru sayacı barının 0% yerine bulunduğumuz sorudan başlaması (örn 1/20 ise %5)
+    const progress = ((current + 1) / questions.length) * 100;
     return (
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex items-center gap-4">

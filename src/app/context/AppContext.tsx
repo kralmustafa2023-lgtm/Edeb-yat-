@@ -211,7 +211,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return DEFAULT_USER;
   });
 
-  const [progress, setProgress] = useState<Progress>(DEFAULT_PROGRESS);
+  const [progress, setProgress] = useState<Progress>(() => {
+    try {
+      const saved = localStorage.getItem('edebiyat_progress');
+      if (saved) {
+        return { ...DEFAULT_PROGRESS, ...JSON.parse(saved) };
+      }
+    } catch (e) {
+      console.error('Failed to parse offline progress data');
+    }
+    return DEFAULT_PROGRESS;
+  });
   const [theme, setThemeState] = useState<ThemeId>(() => {
     return (localStorage.getItem('edebiyat_theme') as ThemeId) || 'dark';
   });
@@ -270,14 +280,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user.isAuthenticated, user.username, user.role]);
 
-  // ── Save progress to Firebase whenever it changes ──
+  // ── Save progress to Firebase and localStorage whenever it changes ──
   useEffect(() => {
     if (!user.isAuthenticated || user.role !== 'ogrenci') return;
+
+    // Her durumda localStorage'da (çevrimdışı modu) sakla
+    localStorage.setItem('edebiyat_progress', JSON.stringify(progress));
 
     const timeout = setTimeout(() => {
       isSaving.current = true;
       saveProgress(user.username, progress)
-        .catch(err => console.error('[Firebase save error]', err))
+        .catch(err => console.warn('[Firebase offline / save error]', err))
         .finally(() => {
           setTimeout(() => { isSaving.current = false; }, 1000);
         });
@@ -383,7 +396,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const addQuizScore = useCallback((topic: string, score: number, total: number) => {
-    addXP(score * 10, prev => ({
+    addXP(score * 20, prev => ({
       ...prev,
       quizScores: [...prev.quizScores, { topic, score, total }],
     }));
