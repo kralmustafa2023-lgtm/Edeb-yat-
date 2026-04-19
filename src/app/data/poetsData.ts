@@ -4,6 +4,7 @@ export interface AnnotatedWord {
   text: string;
   tags: AnalysisTag[];
   tooltip?: string;
+  attach?: boolean;
 }
 
 export interface PoemStanza {
@@ -111,6 +112,9 @@ export const ANALYSIS_META: Record<AnalysisTag, { title: string; color: string; 
 const w = (text: string): AnnotatedWord => ({ text, tags: [] });
 // Helper: create word with tags
 const wt = (text: string, tags: AnalysisTag[], tooltip?: string): AnnotatedWord => ({ text, tags, tooltip });
+// Helper: create word that attaches to the next word (no margin)
+const a = (text: string): AnnotatedWord => ({ text, tags: [], attach: true });
+const at = (text: string, tags: AnalysisTag[], tooltip?: string): AnnotatedWord => ({ text, tags, tooltip, attach: true });
 
 // ─────────────────────────────────────────────────────────────────────────────
 // POEM 1: "Otuz Beş Yaş" – Cahit Sıtkı Tarancı
@@ -118,51 +122,82 @@ const wt = (text: string, tags: AnalysisTag[], tooltip?: string): AnnotatedWord 
 const otuzBesYas: Poem = {
   id: 'otuz-bes-yas',
   title: 'Otuz Beş Yaş',
-  form: '11\'li Hece Ölçüsü · Dörtlük',
+  form: '11\'li Hece Ölçüsü · Bent',
   period: 'Cumhuriyet Dönemi',
-  bio: 'Cahit Sıtkı Tarancı\'nın 1946\'da yazdığı bu şiir, şairin 35. yaş gününde hayatı sorgulamasını konu alır.',
+  bio: 'Cahit Sıtkı Tarancı\'nın 1946\'da yazdığı başyapıtıdır. İnsanın ömür yolculuğunu, gençliğin yitişini, yaşlanma ve ölüm korkusunu eşsiz bir ahenkle anlatır.',
   stanzas: [
     {
       lines: [
-        [wt('Yarim', ['olcu'], '11\'li hecede 1. hece'), w('ağlar,'), wt('ben', ['olcu'], ''), w('de'), wt('ağlarım,', ['kafiye', 'redif'], 'Redif: -ım eki; Kafiye: ağlar-')],
-        [w('Ne'), w('şiş'), w('yanacak'), w('ne'), wt('kebap.', ['kafiye'], 'Yarım kafiye: -ap sesi')],
-        [w('Akşam'), w('olunca'), w('serinler'), w('bu'), wt('hararet,', ['kafiye'], 'Yarım kafiye: -at sesi')],
-        [wt('Ölüm', ['tema'], 'Tema: ölüm ve geçicilik'), w('asıl'), wt('şimdi', ['tema'], ''), w('başlıyor'), wt('sanırsın.', ['redif'], 'Redif: -sın/-sin eki')],
+        [wt('Yaş', ['olcu'], '11\'li hece: İlk hece'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), a('ed'), at('er.', ['kafiye'], 'Tam Kafiye: -er')],
+        [wt('Dante', ['edebiSanat'], 'Telmih (Dante\'nin İlahi Komedya\'sına gönderme)'), w('gibi'), w('ortasındayız'), a('ömr'), at('ün.', ['kafiye'], 'Tam Kafiye: -ün')],
+        [w('Delikanlı'), w('çağımızdaki'), a('cevh'), at('er,', ['kafiye'], 'Tam Kafiye: -er')],
+        [w('Yalvarmak,'), w('yakarmak'), w('nafile'), a('bug'), at('ün,', ['kafiye'], 'Tam Kafiye: -ün')],
+        [w('Gözünün'), w('yaşına'), w('bakmadan'), a('gid'), at('er.', ['kafiye'], '')],
       ],
     },
     {
       lines: [
-        [wt('Otuz', ['konu'], 'Konu: Şairin yaş kriziyle yüzleşmesi'), wt('beş', ['konu'], ''), w('yaş!'), wt('İşte', ['nazimBirimi'], 'Dörtlüğün ilk dizesi'), w('pişmanlık'), w('vaktî;')],
-        [wt('Dante', ['edebiSanat'], 'Teşbih: Dante\'ye benzetme – İlahi Komedya\'da Dante de 35 yaşındaydı'), w('gibi,'), w('ortasındayım'), wt('ömrün.', ['tema'], 'Tema: Ömrün yarısında durma hissi')],
-        [w('Ne'), w('cehennem'), w('ne'), w('cennet'), wt('–', ['edebiSanat'], 'Tezat: cennet/cehennem zıtlığı')],
-        [w('Öyle'), w('bir'), w('yerdeyim'), w('ki,'), w('yolun'), w('tam'), w('ortasında.')],
+        [w('Şakaklarıma'), w('kar'), w('mı'), w('yağdı'), w('ne'), a('v'), at('ar?', ['kafiye'], 'Tam Kafiye: -ar (Redif yok çünkü \"var\" kök)')],
+        [w('Benim'), w('mi'), w('Allah\'ım'), w('bu'), w('çizgili'), a('y'), at('üz?', ['kafiye'], 'Tam Kafiye: -üz')],
+        [w('Ya'), w('gözler'), w('altındaki'), w('mor'), a('halkal'), at('ar?', ['kafiye'], 'Tam Kafiye: -ar')],
+        [w('Neden'), w('böyle'), wt('düşman', ['tema'], 'Tema: kendine yabancılaşma'), a('görünürsün'), at('üz,', ['kafiye'], 'Tam Kafiye: -üz')],
+        [wt('Yıllar', ['edebiSanat', 'olcu'], 'Tekrir ve Hece 1-2'), wt('yılı', ['edebiSanat', 'olcu'], ''), w('dost'), w('bildiğim'), a('aynal'), at('ar?', ['kafiye'], 'Tam Kafiye: -ar')],
       ],
     },
     {
       lines: [
-        [w('Dönüp'), w('dönüp'), wt('geliyor', ['edebiSanat'], 'Tekrir: pekiştirme için tekrar'), w('aynı'), wt('soru:', ['konu'], 'Konu: varoluşsal sorgu')],
-        [wt('Ne', ['tema'], 'Tema: anlamsızlık, yalnızlık'), w('yaptım'), w('ben,'), w('ne'), w('yapmalıydım?')],
-        [wt('Yaşamak', ['tema'], 'Tema: yaşamın anlamı'), w('bu'), w('kadar'), w('mı'), w('zor')],
-        [w('Bu'), w('dünyada'), wt('mutlu', ['kafiye'], 'Kafiye: -u sesi'), w('olmak?')],
+        [w('Zamanla'), w('nasıl'), w('değişiyor'), a('ins'), at('an!', ['kafiye'], 'Tam Kafiye: -an')],
+        [w('Hangi'), w('resmime'), w('baksam'), w('ben'), a('değil'), at('im.', ['redif'], 'Redif: değilim kelimesi (redif olarak tekrar eeder)')],
+        [w('Nerde'), w('o'), w('günler,'), w('o'), w('şevk,'), w('o'), a('heyec'), at('an?', ['kafiye'], 'Tam Kafiye: -an')],
+        [w('Bu'), w('güler'), w('yüzlü'), w('adam'), w('ben'), a('değil'), at('im;', ['redif'], '')],
+        [w('Yalandır'), w('kaygısız'), w('olduğum'), a('yal'), at('an.', ['kafiye'], 'Tam Kafiye: -an')],
       ],
     },
     {
       lines: [
-        [wt('Gün', ['olcu'], '11\'li hece'), w('eksilmez'), wt('doğmamakla', ['tema'], 'Tema: zamanın durdurulamazlığı'), w('yeni'), w('bir'), wt('güne;', ['kafiye'], 'Kafiye: -e sesi')],
-        [w('Şu'), w('anda'), w('daha'), wt('sevgi', ['tema'], 'Tema: sevgiye duyulan özlem'), w('istiyor')],
-        [wt('İnsan.', ['konu'], 'Konu: insanın arzuları ve pişmanlıkları'), wt('Yarim', ['redif'], 'Redif: Şiirin başına dönüş, dairesel yapı'), w('ağlar,'), w('ben'), w('de')],
-        [wt('Ağlarım,', ['redif', 'kafiye'], 'Redif ve kafiye birlikte'), w('artık'), wt('anlıyorum.', ['konu'], '')],
+        [w('Hayal'), w('meyal'), w('şeylerden'), w('ilk'), a('aşk'), at('ımız;', ['redif'], 'Redif: -ımız eki')],
+        [w('Hatırası'), w('bile'), w('yabancı'), a('gel'), at('ir.', ['kafiye'], 'Tam Kafiye: -ir')],
+        [w('Hayata'), w('beraber'), a('başladığ'), at('ımız,', ['redif'], 'Redif: -ımız eki')],
+        [w('Dostlarla'), w('da'), w('yollar'), w('ayrıldı'), w('bir'), a('b'), at('ir;', ['kafiye'], '')],
+        [w('Gittikçe'), w('artıyor'), a('yalnızlığ'), at('ımız.', ['redif'], 'Redif: -ımız eki')],
+      ],
+    },
+    {
+      lines: [
+        [w('Gökyüzünün'), w('başka'), w('rengi'), w('de'), a('v'), at('ar', ['kafiye'], 'Tam Kafiye: -ar'), at('mış!', ['redif'], 'Redif: -miş/mış ek eylem')],
+        [w('Geç'), w('farkettim'), a('s'), at('ert', ['kafiye'], 'Zengin Kafiye: -ert'), a('olduğun'), at('u.', ['redif'], 'Redif: olduğunu sözcüğü')],
+        [w('Su'), wt('insanı', ['edebiSanat'], 'İntak / Teşhis: Suyun boğması'), w('boğar,'), w('ateş'), a('yak'), at('ar', ['kafiye'], ''), at('mış!', ['redif'], '')],
+        [w('Her'), w('doğan'), w('günün'), w('bir'), a('d'), at('ert', ['kafiye'], ''), a('olduğun'), at('u,', ['redif'], '')],
+        [w('İnsan'), w('bu'), w('yaşa'), w('gelince'), a('anl'), at('ar', ['kafiye'], ''), at('mış.', ['redif'], '')],
+      ],
+    },
+    {
+      lines: [
+        [w('Ayva'), wt('sarı', ['konu'], ''), w('nar'), wt('kırmızı', ['konu'], 'Konu: Sonbahar imgeleri'), a('sonbah'), at('ar!', ['kafiye'], 'Tam Kafiye: -ar')],
+        [w('Her'), w('yıl'), w('biraz'), w('daha'), a('benimsediğ'), at('im.', ['kafiye'], 'Yarım kafiye: -im')],
+        [w('Ne'), w('dönüp'), w('duruyor'), w('havada'), a('kuşl'), at('ar?', ['kafiye'], 'Tam Kafiye: -ar')],
+        [w('Nerden'), w('çıktı'), w('bu'), w('cenaze?'), w('Ölen'), a('k'), at('im?', ['kafiye'], '')],
+        [w('Bu'), w('kaçıncı'), w('bahçe'), w('gördüm'), a('tarum'), at('ar?', ['kafiye'], 'Tam Kafiye: -ar')],
+      ],
+    },
+    {
+      lines: [
+        [w('N\'eylersin'), wt('ölüm', ['tema'], 'Tema: Ölüm'), w('herkesin'), a('baş'), at('ında.', ['redif'], 'Redif: -ında eki')],
+        [w('Uyudun'), w('uyanamadın'), at('olacak.', ['redif'], 'Redif: olacak sözcüğü')],
+        [w('Kimbilir'), w('nerde,'), w('nasıl,'), w('kaç'), a('yaş'), at('ında?', ['redif'], 'Redif: -ında eki')],
+        [w('Bir'), w('namazlık'), w('saltanatın'), at('olacak,', ['redif'], '')],
+        [w('Taht'), wt('misali', ['edebiSanat'], 'Teşbih: Musalla taşı tahta benzetilmiş'), w('o'), w('musalla'), a('taş'), at('ında.', ['redif'], '')],
       ],
     },
   ],
   analysisDetails: {
-    redif: { description: '"-ım/-im" eki ile biten dizeler redif oluşturur. Şiirin hem başında hem sonunda "ağlarım" ile döngüsel bir yapı kurulmuştur.', count: 4 },
-    kafiye: { description: 'Şiirde yarım kafiye (ağlar-/kebap/hararet/güne) kullanılmıştır. Kafiye şeması çapraz kafiye (ABAB) eğilimindedir.', count: 6 },
-    olcu: { description: 'Şiir 11\'li hece ölçüsüyle yazılmıştır. Her dize 11 heceden oluşur ve duraksama (4+4+3) şeklinde gerçekleşir.', count: 5 },
-    nazimBirimi: { description: 'Nazım birimi dörtlüktür (4 dize). Şiir 4 dörtlükten oluşmakta, her dörtlük bağımsız bir düşünce birimini temsil etmektedir.', count: 4 },
-    edebiSanat: { description: 'Teşbih (Dante gibi), Tezat (cennet/cehennem), Tekrir (dönüp dönüp) sanatları kullanılmıştır. Dante\'ye yapılan gönderme en belirgin edebi sanattır.', count: 3 },
-    tema: { description: 'Şiirin ana teması ölüm korkusu ve hayatın geçiciliğidir. "Ölüm asıl şimdi başlıyor" ve "yaşamak bu kadar mı zor" dizeleri temayı en iyi özetler.', count: 6 },
-    konu: { description: 'Konusu: 35 yaşına giren şairin hayatını sorgulaması ve Dante\'nin İlahi Komedya\'sındaki gibi "ömrün ortasında" olma hissidir.', count: 4 },
+    redif: { description: 'Şiirde "-ında, -ımız" gibi ek rediflerin yanında "değilim, olmak" gibi sözcük halinde redifler kullanılmıştır.', count: 12 },
+    kafiye: { description: 'Her bentte (a b a b a) kafiye düzeni hâkimdir. Tam kafiyeler ve zengin kafiyeler şiirin ahengini güçlendirir.', count: 21 },
+    olcu: { description: 'Şiir bütünüyle 11\'li hece ölçüsüyle yazılmıştır.', count: 4 },
+    nazimBirimi: { description: 'Beş dizeden oluşan bentler kullanılmıştır. Toplam 7 bentten oluşur.', count: 0 },
+    edebiSanat: { description: 'Telmih (Dante\'ye), Teşbih (musalla taşı - taht) ve İstifham (Soru sorma: Benim mi Allah\'ım bu çizgili yüz) sanatları yoğundur.', count: 5 },
+    tema: { description: 'Gençliğin yitişi, yaşlanma hüznü, ölüm gerçeği ve değişen dünya.', count: 3 },
+    konu: { description: 'Şairin 35. yaş dönemine girerek hayatı, ölümü ve geçmiş günleri sorgulaması.', count: 3 },
   },
 };
 

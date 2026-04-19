@@ -168,7 +168,7 @@ export default function PoetDetailPage() {
                             return (
                               <span key={wi} className="relative group/word inline-block">
                                 <span
-                                  className={`${cls} transition-all duration-200 mx-0.5 ${activeAnalyses.size > 0 && word.tags.some(t => activeAnalyses.has(t)) ? 'cursor-help' : ''}`}
+                                  className={`${cls} transition-all duration-200 ${word.attach ? '' : 'mr-1.5'} ${activeAnalyses.size > 0 && word.tags.some(t => activeAnalyses.has(t)) ? 'cursor-help' : ''}`}
                                 >
                                   {word.text}
                                 </span>
