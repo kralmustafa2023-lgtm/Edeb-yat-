@@ -135,9 +135,9 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Artık'), w('demir'), w('alsak'), w('mıranadan'), wt('gidelim,', ['kafiye'], 'Kafiye: gidelim')],
+            [w('Artık'), w('demir'), w('alsak'), w('mıranadan'), wt('gidelim,', ['kafiye'], 'Kafiye: gidelim-gidelim')],
             [w('Dört'), w('tarafı'), w('sarmış'), w('ateşlerden'), wt('gidelim.', ['kafiye'], '')],
-            [wt('Dünyanın', ['redif'], 'Redif: tekrarlanan satır'), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim,', ['redif'], '')],
+            [wt('Dünyanın', ['redif'], 'Redif: Dünyanın bir ucuna gidelim'), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim,', ['redif'], '')],
             [wt('Dünyanın', ['redif'], ''), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim.', ['redif'], '')]
           ]
         },
@@ -145,19 +145,27 @@ export const POETS: Poet[] = [
           lines: [
             [w('Bir'), w('gün'), w('herkes'), w('ölür,'), w('bilinmez'), w('ne'), wt('zamandır,', ['kafiye'], 'Kafiye: zamandır-fayda')],
             [w('Ölümden'), w('evvel'), w('ölümü'), w('görmektir'), wt('fayda.', ['kafiye'], '')],
-            [wt('Dünyanın', ['redif'], 'Redif'), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim,', ['redif'], '')],
+            [wt('Dünyanın', ['redif'], ''), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim,', ['redif'], '')],
+            [wt('Dünyanın', ['redif'], ''), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim.', ['redif'], '')]
+          ]
+        },
+        {
+          lines: [
+            [w('Bir'), w('gün'), w('herkes'), w('ölür,'), w('bilinmez'), w('ne'), wt('zamandır,', ['kafiye'], '')],
+            [w('Ölümden'), w('evvel'), w('ölümü'), w('görmektir'), wt('fayda.', ['kafiye'], '')],
+            [wt('Dünyanın', ['redif'], ''), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim,', ['redif'], '')],
             [wt('Dünyanın', ['redif'], ''), wt('bir', ['redif'], ''), wt('ucuna', ['redif'], ''), wt('gidelim.', ['redif'], '')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: '"Dünyanın bir ucuna gidelim" — tekrarlanır.', count: 16 },
-        kafiye: { description: 'Düz kafiye. gidelim-gidelim, zamandır-fayda.', count: 4 },
-        olcu: { description: 'Hece ölçüsü.', count: 8 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 2 },
+        redif: { description: '"Dünyanın bir ucuna gidelim" — 3.-4., 7.-8., 11.-12. mısralarda tekrarlanır (toplam 6 kez).', count: 24 },
+        kafiye: { description: 'Düz kafiye (aabb / ccdd...). 1.-2. mısra (gidelim-gidelim), 5.-6. mısra (zamandır-fayda) şeklinde düz kafiye.', count: 8 },
+        olcu: { description: 'Hece ölçüsü — 11\'li hece ölçüsü.', count: 12 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 3 },
         edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Ölüm / Kaçış.', count: 0 },
-        konu: { description: 'Dünyadan uzaklaşma arzusu.', count: 0 }
+        tema: { description: 'Ölüm / Kaçış. Hayattan bıkma, dünyadan uzaklaşma arzusu.', count: 0 },
+        konu: { description: 'Şair, dünyanın ateşlerle sarıldığını, ölümden evvel ölümü görmek istediğini, dünyanın bir ucuna kaçma arzusunu anlatır.', count: 0 }
       }
     },
     color: '#059669',
@@ -193,29 +201,37 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Yaş'), w('otuz'), w('beş!'), w('Yolun'), w('yarısı'), wt('eder,', ['kafiye'], 'Kafiye: eder-cevher')],
-            [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], 'Kafiye: ömrün-önün')],
+            [w('Yaş'), w('otuz'), w('beş!'), w('Yolun'), w('yarısı'), wt('eder,', ['kafiye'], 'Kafiye: eder-ömrün (yanlış eşleşme pdfte eder-ömrün demiş)')],
+            [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], '')],
+            [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], 'Kafiye: cevher-önün')],
+            [w('Yalvarırım,'), w('eğilme'), w('onun'), wt('önün.', ['kafiye'], '')]
+          ]
+        },
+        {
+          lines: [
+            [w('Yaş'), w('otuz'), w('beş!'), w('Yolun'), w('yarısı'), wt('eder,', ['kafiye'], '')],
+            [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], '')],
             [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], '')],
             [w('Yalvarırım,'), w('eğilme'), w('onun'), wt('önün.', ['kafiye'], '')]
           ]
         },
         {
           lines: [
-            [w('Şakaklarıma'), w('kar'), w('mı'), w('yağdı'), w('ne'), wt('var?', ['kafiye'], 'Kafiye: var-halkalar')],
-            [w('Benim'), w('mi'), w('Allah\'ım'), w('bu'), w('çizgili'), wt('yüz?', ['kafiye'], 'Kafiye: yüz-görünürsünüz')],
-            [w('Ya'), w('gözler'), w('altındaki'), w('mor'), wt('halkalar?', ['kafiye'], '')],
-            [w('Neden'), w('böyle'), w('düşman'), w('görünürsünüz'), wt('yüz,', ['kafiye'], '')]
+            [w('Yaş'), w('otuz'), w('beş!'), w('Yolun'), w('yarısı'), wt('eder,', ['kafiye'], '')],
+            [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], '')],
+            [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], '')],
+            [w('Yalvarırım,'), w('eğilme'), w('onun'), wt('önün.', ['kafiye'], '')]
           ]
         }
       ],
       analysisDetails: {
         redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Düz kafiye. eder-ömrün, cevher-önün.', count: 4 },
-        olcu: { description: 'Aruz ölçüsü.', count: 4 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 1 },
+        kafiye: { description: 'Düz kafiye (aabb / ccdd...). 1.-2. mısra (eder-ömrün), 3.-4. mısra (cevher-önün) şeklinde düz kafiye.', count: 12 },
+        olcu: { description: 'Aruz ölçüsü — Fâilâtün / Fâilâtün / Fâilâtün / Fâilün kalıbı.', count: 12 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 3 },
         edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Yaşlanma / Hayatın anlamı.', count: 0 },
-        konu: { description: 'Otuz beş yaşında hayatın ortasında olma duygusu.', count: 0 }
+        tema: { description: 'Yaşlanma / Hayatın anlamı. Otuz beş yaşında hayatın ortasında olma duygusu.', count: 0 },
+        konu: { description: 'Şair, otuz beş yaşında hayatın ortasında olduğunu, Dante\'nin Inferno\'suna gönderme yaparak, gençlik çağındaki değerlerin kaybolmaması gerektiğini, yaşlanmanın getirdiği sorumlulukları anlatır.', count: 0 }
       }
     },
     color: '#db2777',
