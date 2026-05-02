@@ -41,20 +41,16 @@ export default function PoetsPage() {
                       alt={poet.name}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    {/* Gradient overlay */}
-                    <div className={`absolute inset-0 bg-gradient-to-t ${poet.gradientFrom} ${poet.gradientTo} opacity-40`} />
                     {/* Period badge */}
-                    <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full">
+                    <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full shadow-md">
                       {poet.period}
                     </div>
                     {/* Studied badge */}
                     {isStudied && (
-                      <div className="absolute top-3 right-12 bg-emerald-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                      <div className="absolute top-3 right-3 bg-emerald-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-md">
                         <BookOpen size={10} /> İncelendi
                       </div>
                     )}
-                    {/* Emoji */}
-                    <div className="absolute bottom-3 left-3 text-4xl">{poet.emoji}</div>
                   </div>
 
                   {/* Info */}
@@ -77,7 +73,7 @@ export default function PoetsPage() {
                     </div>
 
                     {/* CTA */}
-                    <div className={`mt-4 w-full py-3 rounded-xl text-center text-sm font-semibold bg-gradient-to-r ${poet.gradientFrom} ${poet.gradientTo} text-white opacity-90 group-hover:opacity-100 transition-opacity`}>
+                    <div className="mt-4 w-full py-3 rounded-xl text-center text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-colors">
                       Şiiri İncele →
                     </div>
                   </div>

@@ -132,7 +132,6 @@ export default function PoetDetailPage() {
                     <p className={`text-xs ${themeClasses.textMuted} mt-1`}>{poem.form}</p>
                     <p className={`text-xs ${themeClasses.textFaint} mt-0.5`}>{poem.period}</p>
                   </div>
-                  <div className="text-3xl">{poet.emoji}</div>
                 </div>
 
                 {/* Legend */}
@@ -291,12 +290,12 @@ export default function PoetDetailPage() {
         {activeTab === 'bio' && (
           <motion.div key="bio" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className={`${card} p-6 max-w-2xl`}>
-              <div className={`h-40 rounded-xl bg-gradient-to-br ${poet.gradientFrom} ${poet.gradientTo} flex items-center justify-center mb-6 relative overflow-hidden`}>
-                <img src={poet.image} alt="" className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" />
+              <div className="h-40 rounded-xl bg-black/10 flex items-center justify-center mb-6 relative overflow-hidden">
+                <img src={poet.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/40" /> {/* Dark overlay to make text readable */}
                 <div className="text-center relative z-10">
-                  <div className="text-6xl mb-2">{poet.emoji}</div>
                   <p className="text-white text-lg" style={{ fontWeight: 700 }}>{poet.name}</p>
-                  <p className="text-white/70 text-sm">{poet.years}</p>
+                  <p className="text-white/80 text-sm">{poet.years}</p>
                 </div>
               </div>
               <div className="space-y-4">
@@ -322,7 +321,7 @@ export default function PoetDetailPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.08 }}
                 >
-                  <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${poet.gradientFrom} ${poet.gradientTo} flex items-center justify-center text-sm mb-3`}>
+                  <div className="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-500 flex items-center justify-center text-sm mb-3">
                     💡
                   </div>
                   <p className={`text-sm ${themeClasses.text} leading-relaxed`}>{fact}</p>
