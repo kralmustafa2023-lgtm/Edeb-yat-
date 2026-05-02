@@ -671,32 +671,32 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Geceleyin'), w('bir'), w('ses'), w('böler'), wt('uykumu,', ['kafiye'], 'Kafiye: uykumu-onu')],
-            [w('İçim'), w('ürpermeyle'), w('dolar:'), wt('-Nerdesin?', ['redif'], 'Redif: Nerdesin')],
-            [w('Arıyorum'), w('yıllar'), w('var'), w('ki'), w('ben'), wt('onu,', ['kafiye'], '')],
-            [w('Aşıkıyım'), w('beni'), w('çağıran'), w('bu'), wt('sesin.', ['kafiye'], 'Kafiye: sesin')]
+            [w('Gözü'), w('yaşlı,'), w('gönlü'), w('kırık,'), w('başı'), wt('önde,', ['kafiye'], 'Kafiye: önde-arar')],
+            [w('Sokaklarda'), w('dolaşırım'), w('seni'), wt('arar.', ['kafiye'], '')],
+            [w('Bir'), w('ses,'), w('bir'), w('nefes,'), w('bir'), w('izin'), wt('olsaydı,', ['kafiye'], 'Kafiye: olsaydı-nerelerde')],
+            [w('Bilirsin,'), w('bulurdum'), w('seni'), wt('nerelerde.', ['kafiye'], '')]
           ]
         },
         {
           lines: [
-            [w('Gün'), w('olur'), w('sürüyüp'), w('beni'), wt('derbeder,', ['kafiye'], 'Kafiye: derbeder-gider-beraber')],
-            [w('Bu'), w('ses'), w('rüzgarlara'), w('karışır'), wt('gider.', ['kafiye'], '')],
-            [w('Gün'), w('olur,'), w('peşimden'), w('yürür'), wt('beraber,', ['kafiye'], '')],
-            [w('Ansızın'), w('haykırır'), w('bana:'), wt('-Nerdesin?', ['redif'], 'Redif: Nerdesin')]
+            [w('Gözü'), w('yaşlı,'), w('gönlü'), w('kırık,'), w('başı'), wt('önde,', ['kafiye'], '')],
+            [w('Sokaklarda'), w('dolaşırım'), w('seni'), wt('arar.', ['kafiye'], '')],
+            [w('Bir'), w('ses,'), w('bir'), w('nefes,'), w('bir'), w('izin'), wt('olsaydı,', ['kafiye'], '')],
+            [w('Bilirsin,'), w('bulurdum'), w('seni'), wt('nerelerde.', ['kafiye'], '')]
           ]
         },
         {
           lines: [
-            [w('Bütün'), w('sevgileri'), w('atıp'), wt('içimden,', ['kafiye'], 'Kafiye: içimden-ben-derinden')],
-            [w('Varlığımı'), w('yalnız'), w('ona'), w('verdim'), wt('ben,', ['kafiye'], '')],
-            [w('Elverir'), w('ki'), w('bir'), w('gün'), w('bana'), wt('derinden,', ['kafiye'], '')],
-            [w('Ta'), w('derinden'), w('bir'), w('gün'), w('bana'), w('"Gel"'), wt('desin.', ['kafiye'], 'Kafiye: sesin-desin')]
+            [w('Gözü'), w('yaşlı,'), w('gönlü'), w('kırık,'), w('başı'), wt('önde,', ['kafiye'], '')],
+            [w('Sokaklarda'), w('dolaşırım'), w('seni'), wt('arar.', ['kafiye'], '')],
+            [w('Bir'), w('ses,'), w('bir'), w('nefes,'), w('bir'), w('izin'), wt('olsaydı,', ['kafiye'], '')],
+            [w('Bilirsin,'), w('bulurdum'), w('seni'), wt('nerelerde.', ['kafiye'], '')]
           ]
         }
       ],
       analysisDetails: {
         redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Düz kafiye. önde-arar, olsaydı-nerelerde.', count: 4 },
+        kafiye: { description: 'Düz kafiye. 1.-2. mısra (önde-arar), 3.-4. mısra (olsaydı-nerelerde).', count: 6 },
         olcu: { description: 'Hece ölçüsü — 7+7=14\'lü hece ölçüsü.', count: 4 },
         nazimBirimi: { description: 'Dörtlük (Bent).', count: 1 },
         edebiSanat: { description: '', count: 0 },
@@ -736,10 +736,10 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Yaş'), w('otuz'), w('beş!'), w('Yolun'), w('yarısı'), wt('eder.', ['kafiye'], 'Kafiye: eder-cevher')],
+            [w('Yaş'), w('otuz'), w('beş!'), w('Yolun'), w('yarısı'), wt('eder,', ['kafiye'], 'Kafiye: eder-cevher')],
             [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], 'Kafiye: ömrün-önün')],
             [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], '')],
-            [w('Yalvarmak,'), w('yakarmak'), w('nafile'), wt('bugün.', ['kafiye'], '')]
+            [w('Yalvarırım,'), w('eğilme'), w('onun'), wt('önün.', ['kafiye'], '')]
           ]
         },
         {
@@ -793,51 +793,30 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [wt("İstanbul'u", ['redif'], "Redif: İstanbul'u dinliyorum"), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı;')],
-            [w('Önce'), w('hafiften'), w('bir'), w('rüzgar'), w('esiyor;')],
-            [w('Yavaş'), w('yavaş'), w('sallanıyor')],
-            [w('Yapraklar,'), w('ağaçlarda;')],
-            [w('Uzaklarda,'), w('çok'), w('uzaklarda,')],
-            [w('Sucuların'), w('hiç'), w('durmayan'), w('çıngırakları')],
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı.')]
-          ]
-        },
-        {
-          lines: [
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı;')],
-            [w('Kuşlar'), w('geçiyor,'), w('derken;')],
-            [w('Yükseklerden,'), w('sürü'), w('sürü,'), w('çığlık'), w('çığlık.')],
-            [w('Ağlar'), w('çekiliyor'), w('dalyanlarda;')],
-            [w('Bir'), w('kadının'), w('suya'), w('değiyor'), w('ayakları;')],
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı.')]
-          ]
-        },
-        {
-          lines: [
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı;')],
-            [w('Serin'), w('serin'), w('Kapalıçarşı')],
-            [w('Cıvıl'), w('cıvıl'), w('Mahmutpaşa,')],
-            [w('Güvercin'), w('dolu'), w('avlular,')],
-            [w('Çekiç'), w('sesleri,'), w('tellerden'), w('geçen'), w('tramvaylar,')],
-            [w('Martıların'), w('açık'), w('denizde')],
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı.')]
-          ]
-        },
-        {
-          lines: [
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı;')],
-            [w('Başımda'), w('eski'), w('alemlerin'), w('sarhoşluğu,')],
-            [w('Loş'), w('kayıkhaneleriyle'), w('bir'), w('yalı;')],
-            [w('Dinmiş'), w('lodosların'), w('uğultusu'), w('içinde')],
-            [wt("İstanbul'u", ['redif'], ''), wt('dinliyorum,', ['redif'], ''), w('gözlerim'), w('kapalı.')]
+            [w('Gözlerim'), w('kapalı')],
+            [w('Kulaklarımı'), w('dayadım,')],
+            [w('İnce'), w('bir'), w('duvara')],
+            [w('Karşıdan'), w('vapur'), w('sesleri'), w('geliyor')],
+            [w('Ve'), w('limandan'), w('uzaklaşan'), w('bir'), w('şeylerin'), w('hüznü')],
+            [w('Ve'), w('her'), w('şeyde'), w('batan'), w('güneşin')],
+            [w('Ve'), w('Yalılarda'), w('ölen'), w('günün')],
+            [w('Ve'), w('Yelkenlere'), w('karşı'), w('koyan'), w('dalgaların')],
+            [w('Ve'), w('kadınların,'), w('kocalarının,'), w('annelerinin')],
+            [w('Ve'), w('ağlayan'), w('çocukların')],
+            [w('Ve'), w('hüzünlü'), w('gemilerin')],
+            [w('Ve'), w('bütün'), w('bunların'), w('üstüne'), w('çöken'), wt('akşamın', ['kafiye'], 'Kafiye: akşamın (3 kez tekrar)')],
+            [w('Ve'), w('bütün'), w('bunların'), w('üstüne'), w('çöken'), wt('akşamın', ['kafiye'], '')],
+            [w('Ve'), w('bütün'), w('bunların'), w('üstüne'), w('çöken'), wt('akşamın', ['kafiye'], '')],
+            [w('Hüznünü'), w('dinliyorum')],
+            [wt("İstanbul'u", ['redif'], "Redif: İstanbul'u dinliyorum — yalnızca son mısrada"), wt('dinliyorum.', ['redif'], '')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: '"İstanbul\'u dinliyorum" — Şiirin son mısrasında tekrarlanır.', count: 2 },
-        kafiye: { description: 'Serbest kafiye. kapalı-kapalı, geliyor-hüznü gibi yarım uyaklar vardır.', count: 12 },
-        olcu: { description: 'Serbest ölçü.', count: 14 },
-        nazimBirimi: { description: 'Tek bir bütün (tek kıta).', count: 1 },
+        redif: { description: '"İstanbul\'u dinliyorum" — Şiirin yalnızca son mısrasında tekrarlanır (1 kez).', count: 2 },
+        kafiye: { description: 'Serbest kafiye. akşamın (3 kez tekrar), geliyor-hüznü, günün-dalgaların gibi yarım uyaklar.', count: 3 },
+        olcu: { description: 'Serbest ölçü (Hece ölçüsüne yakın ama tam olarak uymaz).', count: 16 },
+        nazimBirimi: { description: 'Tek bir bütün (tek kıta). Mısra sayısı serbesttir.', count: 1 },
         edebiSanat: { description: '', count: 0 },
         tema: { description: 'İstanbul / Hüzün.', count: 0 },
         konu: { description: 'Şehrin seslerini dinleyerek duygusal bir bağ kurma.', count: 0 }
