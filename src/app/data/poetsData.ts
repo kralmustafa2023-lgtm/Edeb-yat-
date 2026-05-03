@@ -195,11 +195,11 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Yaş'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), wt('ed', ['kafiye'], 'Kafiye: ed (Tam Kafiye)'), wt('er.', ['redif'], 'Redif: -er (geniş zaman eki)')],
+            [w('Yaş'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), wt('ed', ['kafiye'], 'Kafiye: ed (Tam Kafiye)'), wt('er .', ['redif'], 'Redif: -er (geniş zaman eki)')],
             [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], '')],
-            [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], '')],
+            [w('Delikanlı'), w('çağımızdaki'), wt('cevher ,', ['kafiye'], '')],
             [w('Yalvarmak,'), w('yakarmak'), w('nafile'), wt('bugün,', ['kafiye'], '')],
-            [w('Gözünün'), w('yaşına'), w('bakmadan'), wt('gid', ['kafiye'], 'Kafiye: id (Tam Kafiye)'), wt('er.', ['redif'], 'Redif: -er (geniş zaman eki)')]
+            [w('Gözünün'), w('yaşına'), w('bakmadan'), wt('gid', ['kafiye'], 'Kafiye: id (Tam Kafiye)'), wt('er .', ['redif'], 'Redif: -er (geniş zaman eki)')]
           ]
         },
         {
@@ -207,7 +207,7 @@ export const POETS: Poet[] = [
             [w('Şakaklarıma'), w('kar'), w('mı'), w('yağdı'), w('ne'), wt('var?', ['kafiye'], '')],
             [w('Benim'), w('mi'), w('Allahım'), w('bu'), w('çizgili'), wt('yüz?', ['kafiye'], '')],
             [w('Ya'), w('gözler'), w('altındaki'), w('mor'), wt('halkalar?', ['kafiye'], '')],
-            [w('Neden'), w('böyle'), w('düşman'), w('görünürsünüz,'), wt('', [], '')],
+            [w('Neden'), w('böyle'), w('düşman'), w('görünürsünüz,'), w('')],
             [w('Yıllar'), w('yılı'), w('dost'), w('bildiğim'), wt('aynalar?', ['kafiye'], '')]
           ]
         }
@@ -264,7 +264,7 @@ export const POETS: Poet[] = [
         },
         {
           lines: [
-            [wt("İstanbul'u", ['redif'], "Redif: Nakarat"), wt('dinliyorum,', ['redif'], ''), wt('gözlerim', ['redif'], ''), wt('kapalı;')],
+            [wt("İstanbul'u", ['redif'], "Redif: Nakarat"), wt('dinliyorum,', ['redif'], ''), wt('gözlerim', ['redif'], ''), wt('kapalı;', ['redif'], '')],
             [w('Kuşlar'), w('geçiyor,'), w('derken;')],
             [w('Yükseklerden,'), w('sürü'), w('sürü,'), w('çığlık'), w('çığlık.')],
             [w('Ağlar'), w('çekiliyor'), w('dalyanlarda;')],
