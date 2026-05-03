@@ -132,23 +132,23 @@ export const POETS: Poet[] = [
       form: 'Mesnevi',
       period: 'Milli Edebiyat',
       bio: 'Ölümün bir gemi yolculuğuna benzetilerek anlatılması ve geride kalanların üzüntüsü.',
-      stanzas: [
+       stanzas: [
         {
           lines: [
-            [w('Artık'), w('demir'), w('almak'), w('günü'), w('gelmişse'), at('zaman', ['kafiye'], 'Kafiye: -man (Zengin Kafiye)'), wt('dan,', ['redif'], 'Redif: -dan (ayrılma hal eki)')],
-            [w('Meçhule'), w('giden'), w('bir'), w('gemi'), w('kalkar'), w('bu'), at('liman', ['kafiye'], ''), wt('dan.', ['redif'], '')]
+            [w('Artık'), w('demir'), w('almak'), w('günü'), w('gelmişse'), wt('zamandan,', ['kafiye', 'redif'], 'Kafiye: -man (Zengin Kafiye) / Redif: -dan (ayrılma hal eki)')],
+            [w('Meçhule'), w('giden'), w('bir'), w('gemi'), w('kalkar'), w('bu'), wt('limandan.', ['kafiye', 'redif'], 'Kafiye: -man (Zengin Kafiye) / Redif: -dan (ayrılma hal eki)')]
           ]
         },
         {
           lines: [
             [w('Hiç'), w('yolcusu'), w('yokmuş'), w('gibi'), w('sessizce'), w('alır'), wt('yol;', ['kafiye'], 'Kafiye: -ol (Tam Kafiye)')],
-            [w('Sallanmaz'), w('o'), w('kalkışta'), w('ne'), w('mendil'), w('ne'), w('de'), w('bir'), wt('kol.', ['kafiye'], '')]
+            [w('Sallanmaz'), w('o'), w('kalkışta'), w('ne'), w('mendil'), w('ne'), w('de'), w('bir'), wt('kol.', ['kafiye'], 'Kafiye: -ol (Tam Kafiye)')]
           ]
         },
         {
           lines: [
             [w('Rıhtımda'), w('kalanlar'), w('bu'), w('seyahatten'), wt('elemli,', ['kafiye'], 'Kafiye: -emli')],
-            [w('Günlerce'), w('siyah'), w('ufka'), w('bakar'), w('gözleri'), wt('nemli.', ['kafiye'], '')]
+            [w('Günlerce'), w('siyah'), w('ufka'), w('bakar'), w('gözleri'), wt('nemli.', ['kafiye'], 'Kafiye: -emli')]
           ]
         }
       ],
@@ -195,11 +195,11 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Yaş'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), at('ed', ['kafiye'], 'Kafiye: \'ed\' sesleri tam kafiyedir (a-b-a-b-a)'), wt('er.', ['redif'], 'Redif: -er (geniş zaman eki)')],
+            [w('Yaş'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), wt('eder.', ['kafiye', 'redif'], 'Kafiye: \'ed\' sesleri tam kafiyedir / Redif: -er (geniş zaman eki)')],
             [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], 'Kafiye: -ün (b kafiyesi)')],
             [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], 'Kafiye: -er (a kafiyesi)')],
             [w('Yalvarmak,'), w('yakarmak'), w('nafile'), wt('bugün,', ['kafiye'], 'Kafiye: -ün (b kafiyesi)')],
-            [w('Gözünün'), w('yaşına'), w('bakmadan'), at('gid', ['kafiye'], 'Kafiye: \'ed\' sesleri tam kafiyedir (a-b-a-b-a)'), wt('er.', ['redif'], 'Redif: -er (geniş zaman eki)')]
+            [w('Gözünün'), w('yaşına'), w('bakmadan'), wt('gider.', ['kafiye', 'redif'], 'Kafiye: \'ed\' sesleri tam kafiyedir / Redif: -er (geniş zaman eki)')]
           ]
         },
         {
