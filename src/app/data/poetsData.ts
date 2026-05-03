@@ -254,27 +254,27 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [wt("İstanbul'u", ['redif'], "Redif: Nakarat"), wt('dinliyorum,', ['redif'], ''), wt('gözlerim', ['redif'], ''), wt('kapalı;', ['redif'], '')],
+            [wt("İstanbul'u dinliyorum, gözlerim kapalı;", ['redif'], "Redif: Nakarat (Dize Tekrarı)")],
             [w('Önce'), w('hafiften'), w('bir'), w('rüzgar'), w('esiyor;')],
             [w('Yavaş'), w('yavaş'), w('sallanıyor')],
             [w('Yapraklar,'), w('ağaçlarda;')],
             [w('Sucuların'), w('hiç'), w('dinmeyen'), w('çıngırakları;')],
-            [wt("İstanbul'u", ['redif'], "Redif: Nakarat"), wt('dinliyorum,', ['redif'], ''), wt('gözlerim', ['redif'], ''), wt('kapalı.', ['redif'], '')]
+            [wt("İstanbul'u dinliyorum, gözlerim kapalı.", ['redif'], "Redif: Nakarat (Dize Tekrarı)")]
           ]
         },
         {
           lines: [
-            [wt("İstanbul'u", ['redif'], "Redif: Nakarat"), wt('dinliyorum,', ['redif'], ''), wt('gözlerim', ['redif'], ''), wt('kapalı;', ['redif'], '')],
+            [wt("İstanbul'u dinliyorum, gözlerim kapalı;", ['redif'], "Redif: Nakarat (Dize Tekrarı)")],
             [w('Kuşlar'), w('geçiyor,'), w('derken;')],
             [w('Yükseklerden,'), w('sürü'), w('sürü,'), w('çığlık'), w('çığlık.')],
             [w('Ağlar'), w('çekiliyor'), w('dalyanlarda;')],
             [w('Bir'), w('kadının'), w('suya'), w('değiyor'), w('ayakları;')],
-            [wt("İstanbul'u", ['redif'], "Redif: Nakarat"), wt('dinliyorum,', ['redif'], ''), wt('gözlerim', ['redif'], ''), wt('kapalı.', ['redif'], '')]
+            [wt("İstanbul'u dinliyorum, gözlerim kapalı.", ['redif'], "Redif: Nakarat (Dize Tekrarı)")]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: 'Şiir serbest olduğu için geleneksel rediften ziyade dize tekrarları ön plandadır. "İstanbul\'u dinliyorum, gözlerim kapalı" dizesi nakarat olarak ahengi sağlar.', count: 16 },
+        redif: { description: 'Şiir serbest olduğu için geleneksel rediften ziyade dize tekrarları ön plandadır. "İstanbul\'u dinliyorum, gözlerim kapalı" dizesi nakarat olarak ahengi sağlar.', count: 4 },
         kafiye: { description: 'Belirli bir kafiye şeması yoktur, serbest kafiye kullanılmıştır.', count: 0 },
         olcu: { description: 'Serbest ölçü. Kelime ve dize tekrarları (nakaratlar) ile ahenk sağlanmıştır.', count: 12 },
         nazimBirimi: { description: 'Bent (Serbest bölükler)', count: 2 },
