@@ -255,10 +255,11 @@ export const POETS: Poet[] = [
         {
           lines: [
             [wt("İstanbul'u dinliyorum, gözlerim kapalı;", ['redif'], "Redif: Nakarat (Dize Tekrarı)")],
-            [w('Önce'), w('hafiften'), w('bir'), w('rüzgar'), w('esiyor;')],
+            [w('Önce'), w('hafiften'), w('bir'), w('rüzgâr'), w('esiyor;')],
             [w('Yavaş'), w('yavaş'), w('sallanıyor')],
             [w('Yapraklar,'), w('ağaçlarda;')],
-            [w('Sucuların'), w('hiç'), w('dinmeyen'), w('çıngırakları;')],
+            [w('Uzaklarda,'), w('çok'), w('uzaklarda,')],
+            [w('Sucuların'), w('hiç'), w('durmayan'), w('çıngırakları;')],
             [wt("İstanbul'u dinliyorum, gözlerim kapalı.", ['redif'], "Redif: Nakarat (Dize Tekrarı)")]
           ]
         },
