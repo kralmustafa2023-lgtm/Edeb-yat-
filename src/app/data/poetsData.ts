@@ -143,18 +143,18 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Ben'), w('yürürüm'), wt('yane', ['kafiye'], ''), wt('yane', ['kafiye'], '')],
-            [w('Aşk'), w('boyadı'), w('beni'), wt('kane', ['kafiye'], '')],
-            [w('Ne'), w('âkilem'), w('ne'), wt('divane', ['kafiye'], '')],
-            [wt('Gel', ['redif'], ''), wt('gör', ['redif'], ''), wt('beni', ['redif'], ''), wt('aşk', ['redif'], ''), wt('neyledi', ['redif'], 'Her dörtlüğün son mısrası')]
+            [w('Ben'), w('yürürüm'), wt('yane', ['kafiye'], 'Kafiye: -ane'), wt('yane', ['kafiye'], 'Kafiye: -ane')],
+            [w('Aşk'), w('boyadı'), w('beni'), wt('kane', ['kafiye'], 'Kafiye: -ane')],
+            [w('Ne'), w('âkilem'), w('ne'), wt('divane', ['kafiye'], 'Kafiye: -ane')],
+            [wt('Gel', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gör', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('beni', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('aşk', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('neyledi', ['redif'], 'Her dörtlüğün son mısrası')]
           ]
         },
         {
           lines: [
-            [w('Gâh'), w('eserim'), w('yeller'), wt('gibi', ['kafiye'], '')],
-            [w('Gâh'), w('tozarım'), w('yollar'), wt('gibi', ['kafiye'], '')],
-            [w('Gâh'), w('akarım'), w('seller'), wt('gibi', ['kafiye'], '')],
-            [wt('Gel', ['redif'], ''), wt('gör', ['redif'], ''), wt('beni', ['redif'], ''), wt('aşk', ['redif'], ''), wt('neyledi', ['redif'], '')]
+            [w('Gâh'), w('eserim'), w('yeller'), wt('gibi', ['kafiye'], 'Kafiye: gibi (Redif/Kafiye)')],
+            [w('Gâh'), w('tozarım'), w('yollar'), wt('gibi', ['kafiye'], 'Kafiye: gibi (Redif/Kafiye)')],
+            [w('Gâh'), w('akarım'), w('seller'), wt('gibi', ['kafiye'], 'Kafiye: gibi (Redif/Kafiye)')],
+            [wt('Gel', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gör', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('beni', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('aşk', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('neyledi', ['redif'], 'Redif: Nakarat (Dize Tekrarı)')]
           ]
         }
       ],
@@ -223,26 +223,26 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Bu'), w('şehr-i'), w('Stanbul'), w('ki'), w('bî-misâl-ü'), wt('bî-nazîrdir,', ['kafiye'], 'dir')],
-            [w('Ger'), w('sâkî-i'), w('cihan-ı'), w('cihan'), w('olmaya'), wt('hakkıdır.', ['kafiye'], 'dir')]
+            [w('Bu'), w('şehr-i'), w('Stanbul'), w('ki'), w('bî-misâl-ü'), wt('bî-nazîrdir,', ['kafiye'], 'Kafiye: -dir')],
+            [w('Ger'), w('sâkî-i'), w('cihan-ı'), w('cihan'), w('olmaya'), wt('hakkıdır.', ['kafiye'], 'Kafiye: -dir')]
           ]
         },
         {
           lines: [
-            [w('Bir'), w('sâye-i'), w('hümâyûn'), w('ki'), w('bihişte'), w('menzîl'), wt('olur,', ['kafiye'], 'olur')],
-            [w('Nâzânînlerin'), w('teşrîf-i'), w('pây-bûsû'), wt('olur.', ['kafiye'], 'olur')]
+            [w('Bir'), w('sâye-i'), w('hümâyûn'), w('ki'), w('bihişte'), w('menzîl'), wt('olur,', ['kafiye'], 'Kafiye: -olur')],
+            [w('Nâzânînlerin'), w('teşrîf-i'), w('pây-bûsû'), wt('olur.', ['kafiye'], 'Kafiye: -olur')]
           ]
         },
         {
           lines: [
-            [w('Kim'), w('bilir'), w('bu'), w('ne'), w('şehrdir'), w('ki'), w('âlemde'), w('nâmı'), wt('yok,', ['kafiye'], 'yok-tok')],
-            [w('Feth'), w('olunmadıkça'), w('olmaz'), w('devlet-i'), w('İslâm'), wt('tok.', ['kafiye'], 'yok-tok')]
+            [w('Kim'), w('bilir'), w('bu'), w('ne'), w('şehrdir'), w('ki'), w('âlemde'), w('nâmı'), wt('yok,', ['kafiye'], 'Kafiye: -ok')],
+            [w('Feth'), w('olunmadıkça'), w('olmaz'), w('devlet-i'), w('İslâm'), wt('tok.', ['kafiye'], 'Kafiye: -ok')]
           ]
         },
         {
           lines: [
-            [w('Sâye-i'), w('saadetinde'), w('bin'), w('âlem'), w('nûrân'), wt('olur,', ['kafiye'], 'olur')],
-            [w('Sâye-i'), w('saadetinde'), w('bin'), w('âlem'), w('nûrân'), wt('olur.', ['kafiye'], 'olur')]
+            [w('Sâye-i'), w('saadetinde'), w('bin'), w('âlem'), w('nûrân'), wt('olur,', ['kafiye'], 'Kafiye: -olur')],
+            [w('Sâye-i'), w('saadetinde'), w('bin'), w('âlem'), w('nûrân'), wt('olur.', ['kafiye'], 'Kafiye: -olur')]
           ]
         }
       ],
@@ -313,18 +313,18 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Efsunî'), w('bir'), w('bahar'), wt('gecesidir', ['kafiye'], 'gece-gece'), w('bu'), wt('gece,', ['kafiye'], '')],
-            [w('Şu'), w('gök'), w('kubbe'), w('altında'), w('nice'), w('nice'), wt('gece!', ['kafiye'], '')],
-            [wt('Bu', ['redif'], ''), wt('gece', ['redif'], ''), w('Sultan'), w("Süleyman'ın"), w('ruhu'), wt('gezer,', ['kafiye'], 'gezer-gezer')],
-            [wt('Bu', ['redif'], ''), wt('gece', ['redif'], ''), wt('Kanûnî', ['redif'], ''), wt('Sultan', ['redif'], ''), wt('Süleyman', ['redif'], ''), wt('gezer.', ['redif'], 'Redif')]
+            [w('Efsunî'), w('bir'), w('bahar'), wt('gecesidir', ['kafiye'], 'Kafiye: gece'), w('bu'), wt('gece,', ['kafiye'], 'Kafiye: gece')],
+            [w('Şu'), w('gök'), w('kubbe'), w('altında'), w('nice'), w('nice'), wt('gece!', ['kafiye'], 'Kafiye: gece')],
+            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), w('Sultan'), w("Süleyman'ın"), w('ruhu'), wt('gezer,', ['kafiye'], 'Kafiye: gezer')],
+            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Kanûnî', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Sultan', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Süleyman', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gezer.', ['redif'], 'Redif')]
           ]
         },
         {
           lines: [
-            [w('O,'), w('bu'), w('şehr-i'), w("Stanbul'u"), w('aldığı'), wt('gecedir,', ['kafiye'], 'gecedir-gecedir')],
-            [w('Bu,'), w('onun'), w('ruhunun'), w('dolaştığı'), wt('gecedir.', ['kafiye'], 'gecedir-gecedir')],
-            [wt('Bu', ['redif'], ''), wt('gece', ['redif'], ''), w('Sultan'), w("Süleyman'ın"), w('ruhu'), wt('gezer,', ['kafiye'], 'gezer-gezer')],
-            [wt('Bu', ['redif'], ''), wt('gece', ['redif'], ''), wt('Kanûnî', ['redif'], ''), wt('Sultan', ['redif'], ''), wt('Süleyman', ['redif'], ''), wt('gezer.', ['redif'], 'Redif')]
+            [w('O,'), w('bu'), w('şehr-i'), w("Stanbul'u"), w('aldığı'), wt('gecedir,', ['kafiye'], 'Kafiye: gecedir')],
+            [w('Bu,'), w('onun'), w('ruhunun'), w('dolaştığı'), wt('gecedir.', ['kafiye'], 'Kafiye: gecedir')],
+            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), w('Sultan'), w("Süleyman'ın"), w('ruhu'), wt('gezer,', ['kafiye'], 'Kafiye: gezer')],
+            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Kanûnî', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Sultan', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Süleyman', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gezer.', ['redif'], 'Redif')]
           ]
         }
       ],
@@ -395,10 +395,10 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Köroğlu'), w('geliyor'), wt('hiddetli,', ['kafiye'], 'hiddetli-gitmiş')],
-            [w('Atı'), w('Mahmura'), w('binmiş'), wt('gitmiş.', ['kafiye'], 'hiddetli-gitmiş')],
-            [w('Köroğlu'), w('geliyor'), wt('hiddetli,', ['kafiye'], '')],
-            [w('Atı'), w('Mahmura'), w('binmiş'), wt('gitmiş.', ['kafiye'], '')]
+            [w('Köroğlu'), w('geliyor'), wt('hiddetli,', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')],
+            [w('Atı'), w('Mahmura'), w('binmiş'), wt('gitmiş.', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')],
+            [w('Köroğlu'), w('geliyor'), wt('hiddetli,', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')],
+            [w('Atı'), w('Mahmura'), w('binmiş'), wt('gitmiş.', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')]
           ]
         }
       ],
@@ -469,14 +469,14 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Ey'), w('şehid'), w('oğlu'), w('şehid,'), w('isteme'), w('benden'), wt('makber,', ['kafiye'], 'makber')],
-            [w('Sana'), w('âgûşunu'), w('açmış'), w('duruyor'), wt('Peygamber.', ['kafiye'], 'Peygamber')]
+            [w('Ey'), w('şehid'), w('oğlu'), w('şehid,'), w('isteme'), w('benden'), wt('makber,', ['kafiye'], 'Kafiye: -ber')],
+            [w('Sana'), w('âgûşunu'), w('açmış'), w('duruyor'), wt('Peygamber.', ['kafiye'], 'Kafiye: -ber')]
           ]
         },
         {
           lines: [
-            [w('Hür'), w('yaşamış,'), w('hür'), w('yaşarım,'), w('hür'), w('yaşamam'), wt('hüryetsiz,', ['redif', 'kafiye'], '')],
-            [w('Hürriyet'), w('uğruna'), w('can'), w('vermekten'), w('usanmam'), wt('hüryetsiz.', ['redif', 'kafiye'], '')]
+            [w('Hür'), w('yaşamış,'), w('hür'), w('yaşarım,'), w('hür'), w('yaşamam'), wt('hüryetsiz,', ['redif', 'kafiye'], 'Kafiye ve Redif: -hüryetsiz')],
+            [w('Hürriyet'), w('uğruna'), w('can'), w('vermekten'), w('usanmam'), wt('hüryetsiz.', ['redif', 'kafiye'], 'Kafiye ve Redif: -hüryetsiz')]
           ]
         }
       ],
@@ -545,10 +545,10 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Gözlerim'), w('kapalı,'), w('başımı'), w('geriye'), wt('atmış,', ['kafiye'], '')],
-            [w('Bir'), w('şey'), w('düşünmeden,'), w('sadece'), wt('hissederek,', ['kafiye'], '')],
-            [w('Sisli'), w('bir'), w('akşamda,'), w("İstanbul'un"), wt('boğazında,', ['kafiye'], '')],
-            [w('Bir'), w('vapurdum,'), w('sessizce'), wt('ilerleyerek.', ['kafiye'], '')]
+            [w('Gözlerim'), w('kapalı,'), w('başımı'), w('geriye'), wt('atmış,', ['kafiye'], 'Kafiye: -atmış / -erek (Yarım uyak)')],
+            [w('Bir'), w('şey'), w('düşünmeden,'), w('sadece'), wt('hissederek,', ['kafiye'], 'Kafiye: -atmış / -erek (Yarım uyak)')],
+            [w('Sisli'), w('bir'), w('akşamda,'), w("İstanbul'un"), wt('boğazında,', ['kafiye'], 'Kafiye: -ında / -erek (Yarım uyak)')],
+            [w('Bir'), w('vapurdum,'), w('sessizce'), wt('ilerleyerek.', ['kafiye'], 'Kafiye: -ında / -erek (Yarım uyak)')]
           ]
         }
       ],
@@ -619,18 +619,18 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Korkma,'), w('sönmez'), w('bu'), w('şafaklarda'), w('yüzen'), w('al'), wt('sancak;', ['kafiye'], '')],
-            [w('Sönmeden'), w('yurdumun'), w('üstünde'), w('tüten'), w('en'), w('son'), wt('ocak.', ['kafiye'], '')],
-            [w('O'), w('benim'), w('milletimin'), w('yıldızıdır,'), wt('parlayacak;', ['kafiye'], '')],
-            [w('O'), w('benimdir,'), w('o'), w('benim'), w('milletimindir'), wt('ancak.', ['kafiye'], '')]
+            [w('Korkma,'), w('sönmez'), w('bu'), w('şafaklarda'), w('yüzen'), w('al'), wt('sancak;', ['kafiye'], 'Kafiye: -cak')],
+            [w('Sönmeden'), w('yurdumun'), w('üstünde'), w('tüten'), w('en'), w('son'), wt('ocak.', ['kafiye'], 'Kafiye: -cak')],
+            [w('O'), w('benim'), w('milletimin'), w('yıldızıdır,'), wt('parlayacak;', ['kafiye'], 'Kafiye: -cak')],
+            [w('O'), w('benimdir,'), w('o'), w('benim'), w('milletimindir'), wt('ancak.', ['kafiye'], 'Kafiye: -cak')]
           ]
         },
         {
           lines: [
-            [w('Çatma,'), w('kurban'), w('olayım,'), w('çehreni'), w('ey'), w('nazlı'), wt('hilâl!', ['kafiye'], '')],
-            [w('Kahraman'), w('ırkıma'), w('bir'), w('gül...'), w('Ne'), w('bu'), w('şiddet,'), w('bu'), wt('celâl?', ['kafiye'], '')],
-            [w('Sana'), w('olmaz'), w('dökülen'), w('kanlarımız'), w('sonra'), wt('helâl;', ['kafiye'], '')],
-            [w('Hakkıdır,'), w("Hakk'a"), w('tapan,'), w('milletimin'), wt('istiklâl.', ['kafiye'], '')]
+            [w('Çatma,'), w('kurban'), w('olayım,'), w('çehreni'), w('ey'), w('nazlı'), wt('hilâl!', ['kafiye'], 'Kafiye: -lâl')],
+            [w('Kahraman'), w('ırkıma'), w('bir'), w('gül...'), w('Ne'), w('bu'), w('şiddet,'), w('bu'), wt('celâl?', ['kafiye'], 'Kafiye: -lâl')],
+            [w('Sana'), w('olmaz'), w('dökülen'), w('kanlarımız'), w('sonra'), wt('helâl;', ['kafiye'], 'Kafiye: -lâl')],
+            [w('Hakkıdır,'), w("Hakk'a"), w('tapan,'), w('milletimin'), wt('istiklâl.', ['kafiye'], 'Kafiye: -lâl')]
           ]
         }
       ],
@@ -759,10 +759,10 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Duvarlara'), w('konan'), wt('gölgeler,', ['kafiye'], '')],
-            [w('Birer'), w('hayal,'), w('birer'), wt('hatıra.', ['kafiye'], '')],
-            [w('Bu'), w('han'), w('ne'), w('kadar'), w('sessiz,'), w('ne'), w('kadar'), wt('kimsesiz,', ['kafiye'], '')],
-            [w('Ne'), w('kadar'), w('ıssız,'), w('ne'), w('kadar'), wt('harabe.', ['kafiye'], '')]
+            [w('Duvarlara'), w('konan'), wt('gölgeler,', ['kafiye'], 'Kafiye: -geler / -tıra')],
+            [w('Birer'), w('hayal,'), w('birer'), wt('hatıra.', ['kafiye'], 'Kafiye: -geler / -tıra')],
+            [w('Bu'), w('han'), w('ne'), w('kadar'), w('sessiz,'), w('ne'), w('kadar'), wt('kimsesiz,', ['kafiye'], 'Kafiye: -siz / -be')],
+            [w('Ne'), w('kadar'), w('ıssız,'), w('ne'), w('kadar'), wt('harabe.', ['kafiye'], 'Kafiye: -siz / -be')]
           ]
         }
       ],
@@ -831,10 +831,10 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Gözü'), w('yaşlı,'), w('gönlü'), w('kırık,'), w('başı'), wt('önde,', ['kafiye'], '')],
-            [w('Sokaklarda'), w('dolaşırım'), w('seni'), wt('arar.', ['kafiye'], '')],
-            [w('Bir'), w('ses,'), w('bir'), w('nefes,'), w('bir'), w('izin'), wt('olsaydı,', ['kafiye'], '')],
-            [w('Bilirsin,'), w('bulurdum'), w('seni'), wt('nerelerde.', ['kafiye'], '')]
+            [w('Gözü'), w('yaşlı,'), w('gönlü'), w('kırık,'), w('başı'), wt('önde,', ['kafiye'], 'Kafiye: -de / -rar')],
+            [w('Sokaklarda'), w('dolaşırım'), w('seni'), wt('arar.', ['kafiye'], 'Kafiye: -de / -rar')],
+            [w('Bir'), w('ses,'), w('bir'), w('nefes,'), w('bir'), w('izin'), wt('olsaydı,', ['kafiye'], 'Kafiye: -dı / -de')],
+            [w('Bilirsin,'), w('bulurdum'), w('seni'), wt('nerelerde.', ['kafiye'], 'Kafiye: -dı / -de')]
           ]
         }
       ],
