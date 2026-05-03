@@ -145,27 +145,35 @@ export const POETS: Poet[] = [
           lines: [
             [w('Ben'), w('yürürüm'), wt('yane', ['kafiye'], 'Kafiye: -ane'), wt('yane', ['kafiye'], 'Kafiye: -ane')],
             [w('Aşk'), w('boyadı'), w('beni'), wt('kane', ['kafiye'], 'Kafiye: -ane')],
-            [w('Ne'), w('âkilem'), w('ne'), wt('divane', ['kafiye'], 'Kafiye: -ane')],
-            [wt('Gel', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gör', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('beni', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('aşk', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('neyledi', ['redif'], 'Her dörtlüğün son mısrası')]
+            [w('Ne'), w('akîlem'), w('ne'), wt('divane', ['kafiye'], 'Kafiye: -ane')],
+            [wt('Gel', ['redif'], 'Redif: Her bendin son mısrası'), wt('gör', ['redif'], 'Redif'), wt('beni', ['redif'], 'Redif'), wt('aşk', ['redif'], 'Redif'), wt('neyledi', ['redif'], 'Redif: 7 kez tekrarlanır')]
           ]
         },
         {
           lines: [
-            [w('Gâh'), w('eserim'), w('yeller'), wt('gibi', ['kafiye'], 'Kafiye: gibi (Redif/Kafiye)')],
-            [w('Gâh'), w('tozarım'), w('yollar'), wt('gibi', ['kafiye'], 'Kafiye: gibi (Redif/Kafiye)')],
-            [w('Gâh'), w('akarım'), w('seller'), wt('gibi', ['kafiye'], 'Kafiye: gibi (Redif/Kafiye)')],
-            [wt('Gel', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gör', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('beni', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('aşk', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('neyledi', ['redif'], 'Redif: Nakarat (Dize Tekrarı)')]
+            [w('Gah'), w('eserim'), w('yeller'), wt('gibi', ['kafiye'], 'Kafiye: -gibi')],
+            [w('Gah'), w('coşarım'), w('seller'), wt('gibi', ['kafiye'], 'Kafiye: -gibi')],
+            [w('Gah'), w('tozarım'), w('yollar'), wt('gibi', ['kafiye'], 'Kafiye: -gibi')],
+            [wt('Gel', ['redif'], 'Redif'), wt('gör', ['redif'], 'Redif'), wt('beni', ['redif'], 'Redif'), wt('aşk', ['redif'], 'Redif'), wt('neyledi', ['redif'], 'Redif')]
+          ]
+        },
+        {
+          lines: [
+            [w('Ben'), w('Yunus-u'), wt('biçareyim', ['kafiye'], 'Kafiye: -eyim')],
+            [w('Aşk'), w('elinden'), wt('avareyim', ['kafiye'], 'Kafiye: -eyim')],
+            [w('Baştan'), w('ayağa'), wt('yâreyim', ['kafiye'], 'Kafiye: -eyim')],
+            [wt('Gel', ['redif'], 'Redif'), wt('gör', ['redif'], 'Redif'), wt('beni', ['redif'], 'Redif'), wt('aşk', ['redif'], 'Redif'), wt('neyledi', ['redif'], 'Redif')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: '"Gel gör beni aşk neyledi" — Her dörtlüğün (bent) son mısrasında tekrarlanır.', count: 10 },
-        kafiye: { description: 'Düz kafiye (aaab / cccb...). yane-kane-divane, gibi-gibi-gibi kafiyelidir.', count: 7 },
-        olcu: { description: 'Hece ölçüsü — 7+7=14\'lü hece ölçüsü.', count: 8 },
-        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 2 },
-        edebiSanat: { description: 'İlahi aşk (aşk-ı hakiki)', count: 0 },
-        tema: { description: 'Aşk (ilahi aşk / aşk-ı hakiki). Allah sevgisi ve bu sevginin insanı dönüştürmesi.', count: 0 },
-        konu: { description: 'Şair, ilahi aşkın etkisiyle divane olmuş, kendini tanıyamaz hale gelmiştir.', count: 0 }
+        redif: { description: '"Gel gör beni aşk neyledi" dizesi 7 kez tekrarlanır. Her bendin son mısrasını oluşturur.', count: 28 },
+        kafiye: { description: 'aaab/cccb/dddb şeklinde düz kafiye. Yarım, tam ve zengin kafiyeler mevcuttur. yane-kane-divane, gibi-gibi-gibi, biçareyim-avareyim-yâreyim.', count: 9 },
+        olcu: { description: '8\'li hece ölçüsü (4+4). Hece ölçüsünün en yaygın kalıplarından biridir.', count: 12 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur. Toplam 7 bent (28 mısra).', count: 7 },
+        edebiSanat: { description: 'Tasavvuf dili, ilahi aşk imgesi.', count: 0 },
+        tema: { description: 'Aşk (İlahi aşk / aşk-ı hakiki). Allah sevgisi ve bu sevginin insanı dönüştürmesi.', count: 0 },
+        konu: { description: 'Şair, ilahi aşkın etkisiyle divane olmuş, kendini tanıyamaz hale gelmiştir. Şeyhe yalvarır, Mecnun gibi yârini arar.', count: 0 }
       }
     },
 
@@ -223,37 +231,31 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Bu'), w('şehr-i'), w('Stanbul'), w('ki'), w('bî-misâl-ü'), wt('bî-nazîrdir,', ['kafiye'], 'Kafiye: -dir')],
-            [w('Ger'), w('sâkî-i'), w('cihan-ı'), w('cihan'), w('olmaya'), wt('hakkıdır.', ['kafiye'], 'Kafiye: -dir')]
+            [w('Sana'), w('dün'), w('bir'), w('tepeden'), w('baktım'), w('aziz'), wt('İstanbul!', ['kafiye'], 'Kafiye: -ul')],
+            [w('Görmedim'), w('gezmediğim,'), w('sevmediğim'), w('hiçbir'), wt('yer.', ['kafiye'], 'Kafiye: -er')]
           ]
         },
         {
           lines: [
-            [w('Bir'), w('sâye-i'), w('hümâyûn'), w('ki'), w('bihişte'), w('menzîl'), wt('olur,', ['kafiye'], 'Kafiye: -olur')],
-            [w('Nâzânînlerin'), w('teşrîf-i'), w('pây-bûsû'), wt('olur.', ['kafiye'], 'Kafiye: -olur')]
+            [w('Ömrüm'), w('oldukça,'), w('gönül'), w('tahtıma'), w('keyfince'), wt('kurul!', ['kafiye'], 'Kafiye: -ul')],
+            [w('Sade'), w('bir'), w('semtini'), w('sevmek'), w('bile'), w('bir'), w('ömre'), wt('değer.', ['kafiye'], 'Kafiye: -er')]
           ]
         },
         {
           lines: [
-            [w('Kim'), w('bilir'), w('bu'), w('ne'), w('şehrdir'), w('ki'), w('âlemde'), w('nâmı'), wt('yok,', ['kafiye'], 'Kafiye: -ok')],
-            [w('Feth'), w('olunmadıkça'), w('olmaz'), w('devlet-i'), w('İslâm'), wt('tok.', ['kafiye'], 'Kafiye: -ok')]
-          ]
-        },
-        {
-          lines: [
-            [w('Sâye-i'), w('saadetinde'), w('bin'), w('âlem'), w('nûrân'), wt('olur,', ['kafiye'], 'Kafiye: -olur')],
-            [w('Sâye-i'), w('saadetinde'), w('bin'), w('âlem'), w('nûrân'), wt('olur.', ['kafiye'], 'Kafiye: -olur')]
+            [w('Nice'), w('revnaklı'), w('şehirler'), w('görülür'), wt('dünyada,', ['kafiye'], 'Kafiye: -da')],
+            [w('Lakin'), w('efsunlu'), w('güzellikleri'), w('sensin'), wt('yaratan.', ['kafiye'], 'Kafiye: -an')]
           ]
         }
       ],
       analysisDetails: {
         redif: { description: 'Redif yoktur. Gazel nazım şeklinde redif kullanılmaz, sadece kafiye vardır.', count: 0 },
-        kafiye: { description: 'Düz kafiye. 1.-2. mısra (dir-dir), 3.-4. mısra (olur-olur), 5.-6. mısra (yok-tok), 7.-8. mısra (olur-olur) kafiyelidir.', count: 8 },
-        olcu: { description: 'Aruz ölçüsü — Fâilâtün / Fâilâtün / Fâilâtün / Fâilün kalıbı.', count: 8 },
-        nazimBirimi: { description: 'Beyit (ikişer mısradan oluşan birim).', count: 4 },
-        edebiSanat: { description: '', count: 0 },
+        kafiye: { description: 'Düz kafiye (aa / bb / cc / dd). 1-2. mısra (dir-dir), 3-4. mısra (olur-olur). 5-6. mısra (yok-tok), 7-8. mısra (olur-olur) kafiyelidir.', count: 6 },
+        olcu: { description: 'Aruz ölçüsü - Fâilâtün / Fâilâtün / Fâilâtün / Fâilün kalıbı. Her mısra 4 vezinli aruz.', count: 6 },
+        nazimBirimi: { description: 'Beyit (ikişer mısradan oluşan birim). Toplam 4 beyit (8 mısra).', count: 3 },
+        edebiSanat: { description: 'Nida (Aziz İstanbul!), Teşbih (İstanbul\'u sevgiliye benzetme).', count: 0 },
         tema: { description: 'İstanbul\'un güzelliği, ihtişamı ve manevi değeri.', count: 0 },
-        konu: { description: 'İstanbul\'un eşsizliği, cennete benzerliği.', count: 0 }
+        konu: { description: 'İstanbul\'un eşsizliği, cennete benzerliği, İslam dünyası için önemi ve padişahın saadet gölgesi altındaki ihtişamı anlatılır.', count: 0 }
       }
     },
 
@@ -307,35 +309,37 @@ export const POETS: Poet[] = [
     mainPoem: {
       id: 'baki-poem',
       title: 'Kanuni Mersiyesi',
-      form: 'Mersiye',
+      form: 'Mersiye (Terkib-i Bent)',
       period: 'Divan Edebiyatı',
-      bio: 'Kanûnî Sultan Süleyman\'ın ölüm yıldönümünde (6 Eylül) İstanbul\'da dolaşan ruhunun hissedilmesi, onun İstanbul\'u fethettiği gecenin anılması.',
+      bio: 'Kanuni Sultan Süleyman\'ın ölümü üzerine Baki tarafından yazılmıştır. Şair, Kanuni\'nin büyüklüğünü, adaletini ve ölümün kaçınılmazlığını vurgular.',
       stanzas: [
         {
           lines: [
-            [w('Efsunî'), w('bir'), w('bahar'), wt('gecesidir', ['kafiye'], 'Kafiye: gece'), w('bu'), wt('gece,', ['kafiye'], 'Kafiye: gece')],
-            [w('Şu'), w('gök'), w('kubbe'), w('altında'), w('nice'), w('nice'), wt('gece!', ['kafiye'], 'Kafiye: gece')],
-            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), w('Sultan'), w("Süleyman'ın"), w('ruhu'), wt('gezer,', ['kafiye'], 'Kafiye: gezer')],
-            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Kanûnî', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Sultan', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Süleyman', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gezer.', ['redif'], 'Redif')]
+            [w('Ey'), w('pây-bend-i'), w('dâm-geh-i'), w('kayd-ı'), w('nâm'), wt('ü', ['kafiye'], 'Kafiye: -eng'), wt('neng', ['kafiye'], 'Kafiye: -eng')],
+            [w('Tâ'), w('key'), w('hevâ-yı'), w('meşgale-i'), w('dehr-i'), w('bî-'), wt('direng', ['kafiye'], 'Kafiye: -eng')]
           ]
         },
         {
           lines: [
-            [w('O,'), w('bu'), w('şehr-i'), w("Stanbul'u"), w('aldığı'), wt('gecedir,', ['kafiye'], 'Kafiye: gecedir')],
-            [w('Bu,'), w('onun'), w('ruhunun'), w('dolaştığı'), wt('gecedir.', ['kafiye'], 'Kafiye: gecedir')],
-            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), w('Sultan'), w("Süleyman'ın"), w('ruhu'), wt('gezer,', ['kafiye'], 'Kafiye: gezer')],
-            [wt('Bu', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gece', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Kanûnî', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Sultan', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('Süleyman', ['redif'], 'Redif: Nakarat (Dize Tekrarı)'), wt('gezer.', ['redif'], 'Redif')]
+            [w('An'), w('ol'), w('günü'), w('ki'), w('âhir'), w('olub'), w('nev-bahâr-ı'), wt('ömr', ['kafiye'], 'Kafiye: -eng')],
+            [w('Berg-i'), w('hazana'), w('dönse'), w('gerek'), w('ruy-ı'), w('lale-'), wt('reng', ['kafiye'], 'Kafiye: -eng')]
+          ]
+        },
+        {
+          lines: [
+            [w('Âhir'), w('mekânın'), w('olsa'), w('gerek'), w('cür\'a'), w('gibi'), wt('hâk', ['kafiye'], 'Kafiye: -eng')],
+            [w('Devrân'), w('elinde'), w('irse'), w('gerek'), w('câm-ı'), w('ayşa'), wt('seng', ['kafiye'], 'Kafiye: -eng')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: '"Bu gece Kanûnî Sultan Süleyman gezer" — tekrarlanır.', count: 12 },
-        kafiye: { description: 'Düz kafiye. gece-gece, gezer-gezer, gecedir-gecedir kafiyelidir.', count: 6 },
-        olcu: { description: 'Hece ölçüsü — 11\'li hece ölçüsü.', count: 8 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 2 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Ölüm / Tarihî şahsiyeti anma.', count: 0 },
-        konu: { description: 'Kanûnî Sultan Süleyman\'ın ölüm yıldönümünde ruhunun hissedilmesi.', count: 0 }
+        redif: { description: 'Kanuni Mersiyesi\'nde redifler beyitlere göre değişir.', count: 0 },
+        kafiye: { description: 'Kanuni Mersiyesi\'nde kafiyeler beyitlere göre değişir. "-eng" sesiyle tam kafiye kullanılmıştır.', count: 6 },
+        olcu: { description: 'Aruz ölçüsü - "mefûlü fâilâtü mefâîlü fâilün" kalıbı.', count: 6 },
+        nazimBirimi: { description: 'Bent (Terkib-i Bent). Kanuni Mersiyesi Terkib-i Bent nazım şekliyle yazılmıştır ve her bent 5-10 beyitten oluşur.', count: 3 },
+        edebiSanat: { description: 'İstiare, telmih, teşbih gibi divan edebiyatı sanatları.', count: 0 },
+        tema: { description: 'Ölüm / Tarihi şahsiyeti anma. Kanuni Sultan Süleyman\'ın ölümü ve ardından duyulan üzüntü.', count: 0 },
+        konu: { description: 'Kanuni Sultan Süleyman\'ın ölümü üzerine Baki tarafından yazılmıştır. Şair, Kanuni\'nin büyüklüğünü, adaletini ve ölümün kaçınılmazlığını vurgular.', count: 0 }
       }
     },
 
@@ -391,33 +395,41 @@ export const POETS: Poet[] = [
       title: 'Köroğlu Koşması',
       form: 'Koşma',
       period: 'Halk Edebiyatı',
-      bio: 'Köroğlu\'nun hiddetli bir şekilde atı Mahmur\'a binerek gelişi anlatılır. Destan geleneğinin tekrarlı anlatım özelliği görülür.',
+      bio: 'Köroğlu\'nun Bolu Beyi\'ne meydan okuması, savaşçı ruhu ve mertliği anlatılır.',
       stanzas: [
         {
           lines: [
-            [w('Köroğlu'), w('geliyor'), wt('hiddetli,', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')],
-            [w('Atı'), w('Mahmura'), w('binmiş'), wt('gitmiş.', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')],
-            [w('Köroğlu'), w('geliyor'), wt('hiddetli,', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')],
-            [w('Atı'), w('Mahmura'), w('binmiş'), wt('gitmiş.', ['kafiye'], 'Kafiye: -li / -miş (Serbest)')]
+            [w('Benden'), w('selâm'), w('eylen'), w('Bolu'), wt('beyine', ['kafiye'], 'Kafiye: -ına/-ıdır')],
+            [w('Çıkıp'), w('şu'), w('dağları'), wt('yaslanmalıdır', ['kafiye'], 'Kafiye: -malıdır')],
+            [w('Ok'), w('gıcırtısından'), w('gürzün'), wt('sesinden', ['kafiye'], 'Kafiye: -den')],
+            [w('Dağlar'), w('seda'), w('verip'), wt('seslenmelidir', ['kafiye'], 'Kafiye: -melidir')]
           ]
         },
         {
           lines: [
-            [w('Dağları'), w('aşar'), w('da'), w('yollar'), w('bitmez,')],
-            [w('Yiğidin'), w('sözü'), w('hiç'), w('yere'), w('düşmez.')],
-            [w('Kılıcı'), w('parlar'), w('da'), w('güneş'), w('gibi,')],
-            [w('Düşmanlar'), w('onu'), w('görünce'), w('titrer.')]
+            [w('Düşman'), w('geldi'), w('tabur'), w('tabur'), wt('dizildi', ['kafiye'], 'Kafiye: -ildi')],
+            [w('Alnımıza'), w('kara'), w('yazı'), wt('yazıldı', ['kafiye'], 'Kafiye: -ildi')],
+            [w('Tüfek'), w('icat'), w('oldu'), w('mertlik'), wt('bozuldu', ['kafiye'], 'Kafiye: -uldu')],
+            [w('Eğri'), w('kılıç'), w('kında'), wt('paslanmalıdır', ['kafiye'], 'Kafiye: -malıdır')]
+          ]
+        },
+        {
+          lines: [
+            [w('Köroğlu'), w('düşer'), w('mi'), w('yine'), wt('şanından', ['kafiye'], 'Kafiye: -ından')],
+            [w('Ayırır'), w('çoğunu'), w('er'), wt('meydanından', ['kafiye'], 'Kafiye: -ından')],
+            [w('Kır'), w('at'), w('köpüğünden'), w('düşman'), wt('kanından', ['kafiye'], 'Kafiye: -ından')],
+            [w('Çevre'), w('dolup'), w('şalvar'), wt('ıslanmalıdır', ['kafiye'], 'Kafiye: -malıdır')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Düz kafiye. 1.-2. mısra (hiddetli-gitmiş) kafiyelidir.', count: 4 },
-        olcu: { description: 'Hece ölçüsü — 7+7=14\'lü hece ölçüsü.', count: 4 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 1 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Kahramanlık / Yiğitlik.', count: 0 },
-        konu: { description: 'Köroğlu\'nun hiddetli bir şekilde atı Mahmur\'a binerek gelişi.', count: 0 }
+        redif: { description: 'Redif yoktur. Koşma nazım şeklinde redif kullanılmaz.', count: 0 },
+        kafiye: { description: 'Düz kafiye (aa / bb / cc…). yaslanmalıdır-seslenmelidir, dizildi-yazıldı şeklinde düz kafiye.', count: 8 },
+        olcu: { description: 'Hece ölçüsü - 7+7=14\'lü hece ölçüsü. Her mısra 7 hecedir.', count: 12 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 3 },
+        edebiSanat: { description: 'Nida, mübalağa (coşkulu anlatım).', count: 0 },
+        tema: { description: 'Kahramanlık / Yiğitlik. Köroğlu destanından bir bölüm.', count: 0 },
+        konu: { description: 'Köroğlu\'nun Bolu Beyi\'ne meydan okuması, savaşçı ruhu ve mertliği anlatılır.', count: 0 }
       }
     },
 
@@ -477,25 +489,31 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Ey'), w('şehid'), w('oğlu'), w('şehid,'), w('isteme'), w('benden'), wt('makber,', ['kafiye'], 'Kafiye: -ber')],
-            [w('Sana'), w('âgûşunu'), w('açmış'), w('duruyor'), wt('Peygamber.', ['kafiye'], 'Kafiye: -ber')]
+            [w('Görüp'), w('ahkâm-ı'), w('asrı'), w('münharif'), w('sıdk'), w('u'), wt('selametten', ['redif'], 'Redif: -etten')],
+            [w('Çekildik'), w('izzet'), w('ü'), w('ikbal'), w('ile'), w('bab-ı'), wt('hükûmetten', ['redif'], 'Redif: -etten')]
           ]
         },
         {
           lines: [
-            [w('Hür'), w('yaşamış,'), w('hür'), w('yaşarım,'), w('hür'), w('yaşamam'), wt('hüryetsiz,', ['redif', 'kafiye'], 'Kafiye ve Redif: -hüryetsiz')],
-            [w('Hürriyet'), w('uğruna'), w('can'), w('vermekten'), w('usanmam'), wt('hüryetsiz.', ['redif', 'kafiye'], 'Kafiye ve Redif: -hüryetsiz')]
+            [w('Usanmaz'), w('kendini'), w('insan'), w('bilenler'), w('halka'), wt('hizmetten', ['redif'], 'Redif: -etten')],
+            [w('Mürüvvet-mend'), w('olan'), w('mazluma'), w('el'), w('çekmez'), wt('ianetten', ['redif'], 'Redif: -etten')]
+          ]
+        },
+        {
+          lines: [
+            [w('Hakir'), w('olduysa'), w('millet'), w('şanına'), w('noksan'), w('gelir'), wt('sanma', ['kafiye'], 'Kafiye: -etten')],
+            [w('Yere'), w('düşmekle'), w('cevher'), w('sakıt'), w('olmaz'), w('kadr'), w('ü'), wt('kıymetten', ['redif'], 'Redif: -etten')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: '"Hüryetsiz" — mısralarda tekrarlanır.', count: 2 },
-        kafiye: { description: 'Düz kafiye. makber-Peygamber, hüryetsiz-hüryetsiz.', count: 4 },
-        olcu: { description: 'Aruz ölçüsü — Fâilâtün / Fâilâtün / Fâilâtün / Fâilün kalıbı.', count: 4 },
-        nazimBirimi: { description: 'Beyit (ikişer mısradan oluşan birim).', count: 2 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Hürriyet / Vatan sevgisi.', count: 0 },
-        konu: { description: 'Şehitlerin manevi değeri, hürriyetin önemi.', count: 0 }
+        redif: { description: '"-etten" redifi. Her beytin sonunda "-etten" eki tekrarlanır.', count: 6 },
+        kafiye: { description: '"-amet" tam kafiye. Beyitlerde "-etten" sesiyle zengin kafiye kullanılmıştır.', count: 6 },
+        olcu: { description: 'Aruz ölçüsü - Fâilâtün / Fâilâtün / Fâilâtün / Fâilün kalıbı.', count: 6 },
+        nazimBirimi: { description: 'Beyit (ikişer mısradan oluşan birim).', count: 3 },
+        edebiSanat: { description: 'Teşbih, istiare, iham.', count: 0 },
+        tema: { description: 'Hürriyet / Vatan sevgisi. Özgürlük uğruna ölümü göze alma.', count: 0 },
+        konu: { description: 'Şehitlerin manevi değeri, hürriyetin önemi ve hürriyet uğruna can verme arzusu anlatılır.', count: 0 }
       }
     },
 
@@ -553,29 +571,31 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Gözlerim'), w('kapalı,'), w('başımı'), w('geriye'), wt('atmış,', ['kafiye'], 'Kafiye: -atmış / -erek (Yarım uyak)')],
-            [w('Bir'), w('şey'), w('düşünmeden,'), w('sadece'), wt('hissederek,', ['kafiye'], 'Kafiye: -atmış / -erek (Yarım uyak)')],
-            [w('Sisli'), w('bir'), w('akşamda,'), w("İstanbul'un"), wt('boğazında,', ['kafiye'], 'Kafiye: -ında / -erek (Yarım uyak)')],
-            [w('Bir'), w('vapurdum,'), w('sessizce'), wt('ilerleyerek.', ['kafiye'], 'Kafiye: -ında / -erek (Yarım uyak)')]
+            [w('Birden'), w('kapandı'), w('birbiri'), w('ardınca'), wt('perdeler...', ['kafiye'], 'Kafiye: -deler/-deler')],
+            [w('Kandilli,'), w('Göksu,'), w('Kanlıca,'), w('İstinye'), wt('nerdeler?', ['kafiye'], 'Kafiye: -deler/-deler')]
           ]
         },
         {
           lines: [
-            [w('Martıların'), w('sesi'), w('yankılanır'), w('uzaklardan,')],
-            [w('Denizin'), w('koynunda'), w('kaybolur'), w('zaman.')],
-            [w('Bir'), w('rüya'), w('gibi'), w('geçip'), w('gider'), w('hayat,')],
-            [w('Sisin'), w('içinde'), w('gizlenen'), w('umutlar.')]
+            [w('Som'), w('zümrüt'), w('ortasında,'), w('muzaffer,'), w('akıp'), wt('giden', ['kafiye'], 'Kafiye: -den')],
+            [w('Firuze'), w('nehri'), w('nerde?'), w('Bugün'), w('saklıdır,'), wt('neden?', ['kafiye'], 'Kafiye: -den')]
+          ]
+        },
+        {
+          lines: [
+            [w('Benzetmek'), w('olmasın'), w('sana'), w('dünyâda'), w('bir'), wt('yeri;', ['kafiye'], 'Kafiye: -leri')],
+            [w('Eylül'), w('sonunda'), w('böyledir'), w('İsviçre'), wt('gölleri.', ['kafiye'], 'Kafiye: -leri')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Yarım uyaklar. atmış-hissederek, boğazında-ilerleyerek gibi yarım uyaklar vardır.', count: 4 },
-        olcu: { description: 'Serbest ölçü.', count: 4 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 1 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Hüzün / Melankoli.', count: 0 },
-        konu: { description: 'Şair, sisli bir akşamda Boğaz\'da bir vapurda hissettiklerini anlatır.', count: 0 }
+        redif: { description: 'Redif yoktur. Serbest nazım özelliği gösterir.', count: 0 },
+        kafiye: { description: 'Yarım uyaklar (zengin kafiye) ve serbest kafiye. perdeler-nerdeler, giden-neden, yeri-gölleri gibi yarım uyaklar vardır.', count: 6 },
+        olcu: { description: 'Serbest ölçü (Hece ölçüsüne yakın ama tam olarak uymaz).', count: 6 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 3 },
+        edebiSanat: { description: 'Coşkulu nida, kişileştirme (İstanbul\'a hitap).', count: 0 },
+        tema: { description: 'Hüzün / Melankoli. Sisli bir İstanbul akşamında duygusal derinlik.', count: 0 },
+        konu: { description: 'Şair, sisli bir akşamda Boğaz\'da bir vapurda hissettiklerini, gözleri kapalı, düşünmeden sadece hissederek yaşadığı mistik anı anlatır.', count: 0 }
       }
     },
 
@@ -628,14 +648,14 @@ export const POETS: Poet[] = [
 
     mainPoem: {
       id: 'mehmet-akif-poem',
-      title: 'İstiklal Marşı',
+      title: 'İstiklal Marşı (İlk Üç Kıta)',
       form: 'Kaside',
       period: 'Milli Edebiyat',
       bio: 'Türk milletinin istiklaline olan inancı, bayrağın ve vatanın kutsallığı, bağımsızlık uğruna kan dökmeye hazır olma anlatılır.',
       stanzas: [
         {
           lines: [
-            [w('Korkma,'), w('sönmez'), w('bu'), w('şafaklarda'), w('yüzen'), w('al'), wt('sancak;', ['kafiye'], 'Kafiye: -cak')],
+            [w('Korkma!'), w('Sönmez'), w('bu'), w('şafaklarda'), w('yüzen'), w('al'), wt('sancak,', ['kafiye'], 'Kafiye: -cak')],
             [w('Sönmeden'), w('yurdumun'), w('üstünde'), w('tüten'), w('en'), w('son'), wt('ocak.', ['kafiye'], 'Kafiye: -cak')],
             [w('O'), w('benim'), w('milletimin'), w('yıldızıdır,'), wt('parlayacak;', ['kafiye'], 'Kafiye: -cak')],
             [w('O'), w('benimdir,'), w('o'), w('benim'), w('milletimindir'), wt('ancak.', ['kafiye'], 'Kafiye: -cak')]
@@ -643,21 +663,29 @@ export const POETS: Poet[] = [
         },
         {
           lines: [
-            [w('Çatma,'), w('kurban'), w('olayım,'), w('çehreni'), w('ey'), w('nazlı'), wt('hilâl!', ['kafiye'], 'Kafiye: -lâl')],
-            [w('Kahraman'), w('ırkıma'), w('bir'), w('gül...'), w('Ne'), w('bu'), w('şiddet,'), w('bu'), wt('celâl?', ['kafiye'], 'Kafiye: -lâl')],
-            [w('Sana'), w('olmaz'), w('dökülen'), w('kanlarımız'), w('sonra'), wt('helâl;', ['kafiye'], 'Kafiye: -lâl')],
-            [w('Hakkıdır,'), w("Hakk'a"), w('tapan,'), w('milletimin'), wt('istiklâl.', ['kafiye'], 'Kafiye: -lâl')]
+            [w('Çatma,'), w('kurban'), w('olayım,'), w('çehreni'), w('ey'), w('nazlı'), wt('hilal!', ['kafiye'], 'Kafiye: -lal')],
+            [w('Kahraman'), w('ırkıma'), w('bir'), w('gül;'), w('ne'), w('bu'), w('şiddet,'), w('bu'), wt('celal?', ['kafiye'], 'Kafiye: -lal')],
+            [w('Sana'), w('olmaz'), w('dökülen'), w('kanlarımız'), w('sonra'), wt('helal…', ['kafiye'], 'Kafiye: -lal')],
+            [w('Hakkıdır,'), w("Hakk\'a"), w('tapan'), w('milletimin'), wt('istiklal.', ['kafiye'], 'Kafiye: -lal')]
+          ]
+        },
+        {
+          lines: [
+            [w('Ben'), w('ezelden'), w('beridir'), w('hür'), w('yaşadım,'), w('hür'), wt('yaşarım,', ['kafiye'], 'Kafiye: -arım')],
+            [w('Hangi'), w('çılgın'), w('bana'), w('zincir'), w('vuracakmış?'), wt('Şaşarım.', ['kafiye'], 'Kafiye: -arım')],
+            [w('Kükremiş'), w('sel'), w('gibiyim,'), w('bendimi'), w('çiğner,'), wt('aşarım,', ['kafiye'], 'Kafiye: -arım')],
+            [w('Yırtarım'), w('dağları,'), w('enginlere'), w('sığmam,'), wt('taşarım.', ['kafiye'], 'Kafiye: -arım')]
           ]
         }
       ],
       analysisDetails: {
         redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Düz kafiye. sancak-ocak, parlayacak-ancak, hilâl-celâl, helâl-istiklâl.', count: 8 },
-        olcu: { description: 'Aruz ölçüsü.', count: 8 },
-        nazimBirimi: { description: 'Dörtlük (Kıta).', count: 2 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Vatan sevgisi / İstiklal.', count: 0 },
-        konu: { description: 'Türk milletinin istiklaline olan inancı.', count: 0 }
+        kafiye: { description: 'Düz kafiye (aabb / ccdd…). sancak-ocak, parlayacak-ancak, hilâl-celâl, helal-istiklâl, yaşarım-şaşarım-aşarım-taşarım.', count: 12 },
+        olcu: { description: 'Aruz ölçüsü - Fâilâtün / Fâilâtün / Fâilâtün / Fâilün kalıbı. Her mısra 4 vezinli aruz.', count: 12 },
+        nazimBirimi: { description: 'Dörtlük (Kıta). Her kıta 4 mısradan oluşur. İlk 3 kıta (12 mısra).', count: 3 },
+        edebiSanat: { description: 'Teşbih, istiare, nida, mübalağa.', count: 0 },
+        tema: { description: 'Vatan sevgisi / İstiklal. Bağımsızlık uğruna mücadele azmi.', count: 0 },
+        konu: { description: 'Türk milletinin istiklaline olan inancı, bayrağın ve vatanın kutsallığı, bağımsızlık uğruna kan dökmeye hazır olma anlatılır.', count: 0 }
       }
     },
 
@@ -704,11 +732,11 @@ export const POETS: Poet[] = [
       form: 'Mesnevi',
       period: 'Milli Edebiyat',
       bio: 'Ölümün bir gemi yolculuğuna benzetilerek anlatılması ve geride kalanların üzüntüsü.',
-       stanzas: [
+      stanzas: [
         {
           lines: [
-            [w('Artık'), w('demir'), w('almak'), w('günü'), w('gelmişse'), wt('zamandan,', ['kafiye', 'redif'], 'Kafiye: -man (Zengin Kafiye) / Redif: -dan (ayrılma hal eki)')],
-            [w('Meçhule'), w('giden'), w('bir'), w('gemi'), w('kalkar'), w('bu'), wt('limandan.', ['kafiye', 'redif'], 'Kafiye: -man (Zengin Kafiye) / Redif: -dan (ayrılma hal eki)')]
+            [w('Artık'), w('demir'), w('almak'), w('günü'), w('gelmişse'), wt('zamandan,', ['kafiye', 'redif'], 'Kafiye: -man (Zengin Kafiye) / Redif: -dan')],
+            [w('Meçhule'), w('giden'), w('bir'), w('gemi'), w('kalkar'), w('bu'), wt('limandan.', ['kafiye', 'redif'], 'Kafiye: -man (Zengin Kafiye) / Redif: -dan')]
           ]
         },
         {
@@ -725,10 +753,10 @@ export const POETS: Poet[] = [
         }
       ],
       analysisDetails: {
-        redif: { description: '1. beyit, 1. ve 2. satır, \'-dan\' ekleri (ayrılma hal eki) rediftir.', count: 2 },
-        kafiye: { description: '1. beyit: \'zaman\' ve \'liman\' kelimelerindeki \'-man\' sesleri zengin kafiyedir. 2. beyit: \'yol\' ve \'kol\' kelimelerindeki \'-ol\' sesleri tam kafiyedir.', count: 6 },
+        redif: { description: '"-dan" redifi. 1. beyitin 1. ve 2. mısrasında "zamandan" ve "limandan" kelimelerindeki "-dan" ekleri (ayrılma hal eki) rediftir.', count: 2 },
+        kafiye: { description: '"-man" tam kafiye. "zaman" ve "liman" kelimelerindeki "-man" sesleri zengin kafiyedir. 2. beyit: "yol" ve "kol" tam kafiye. 3. beyit: elemli-nemli.', count: 6 },
         olcu: { description: 'Aruz ölçüsü (Mef\'ûlü Mefâîlü Mefâîlü Feûlün). Aruz ölçüsü, kafiye ve rediflerle ahenk sağlanmıştır.', count: 6 },
-        nazimBirimi: { description: 'Beyit', count: 3 },
+        nazimBirimi: { description: 'Beyit (ikişer mısradan oluşan birim).', count: 3 },
         edebiSanat: { description: 'İstiare (Gemi tabuta, liman dünyadan ayrılış noktasına benzetilmiştir), Teşhis (Gemiye yolcusu yokmuş gibi davranma özelliği verilmiştir).', count: 2 },
         tema: { description: 'Ölüm ve ebediyete intikal.', count: 0 },
         konu: { description: 'Ölümün bir gemi yolculuğuna benzetilerek anlatılması ve geride kalanların üzüntüsü.', count: 0 }
@@ -775,29 +803,31 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Duvarlara'), w('konan'), wt('gölgeler,', ['kafiye'], 'Kafiye: -geler / -tıra')],
-            [w('Birer'), w('hayal,'), w('birer'), wt('hatıra.', ['kafiye'], 'Kafiye: -geler / -tıra')],
-            [w('Bu'), w('han'), w('ne'), w('kadar'), w('sessiz,'), w('ne'), w('kadar'), wt('kimsesiz,', ['kafiye'], 'Kafiye: -siz / -be')],
-            [w('Ne'), w('kadar'), w('ıssız,'), w('ne'), w('kadar'), wt('harabe.', ['kafiye'], 'Kafiye: -siz / -be')]
+            [w('Yağız'), w('atlar'), w('kişnedi,'), w('meşin'), w('kırbaç'), wt('şakladı,', ['redif'], 'Redif: -ladı')],
+            [w('Bir'), w('dakika'), w('araba'), w('yerinde'), wt('durakladı.', ['redif'], 'Redif: -ladı')]
           ]
         },
         {
           lines: [
-            [w('Yolcular'), w('gelip'), w('geçer'), w('bu'), w('yollardan,')],
-            [w('Kimi'), w('dertli,'), w('kimi'), w('yorgun.')],
-            [w('Hanın'), w('soğuk'), w('odalarında'), w('kalan,')],
-            [w('Sadece'), w('anıların'), w('sessiz'), w('çığlığıdır.')]
+            [w('Neden'), w('sonra'), w('sarsıldı'), w('altımda'), w('demir'), wt('yaylar,', ['kafiye'], 'Kafiye: -aylar')],
+            [w('Gözlerimin'), w('önünden'), w('geçti'), wt('kervansaraylar...', ['kafiye'], 'Kafiye: -aylar')]
+          ]
+        },
+        {
+          lines: [
+            [w('Gidiyordum,'), w('gurbeti'), w('gönlümle'), w('duya'), wt('duya,', ['kafiye'], 'Kafiye: -uya')],
+            [w('Ulukışla'), w('yolundan'), w('Orta'), wt("Anadolu\'ya.", ['kafiye'], 'Kafiye: -uya')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Düz kafiye. gölgeler-hatıra, kimsesiz-harabe.', count: 4 },
-        olcu: { description: 'Hece ölçüsü — 7+7=14\'lü hece ölçüsü.', count: 4 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 1 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Yalnızlık / Hüzün.', count: 0 },
-        konu: { description: 'Terk edilmiş bir hanın atmosferi.', count: 0 }
+        redif: { description: '"-ladı" redifi. "şakladı" ve "durakladı" kelimelerindeki "-ladı" ekleri rediftir.', count: 2 },
+        kafiye: { description: '"-ak" tam kafiye. şakladı-durakladı (redif), yaylar-kervansaraylar, duya-Anadolu\'ya gibi kafiyeler kullanılmıştır.', count: 6 },
+        olcu: { description: '7+7=14\'lü hece ölçüsü.', count: 6 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 3 },
+        edebiSanat: { description: 'Tasvir, coşkulu anlatım, yolculuk motifi.', count: 0 },
+        tema: { description: 'Yalnızlık / Hüzün. Terk edilmiş bir hanın atmosferi.', count: 0 },
+        konu: { description: 'Terke edilmiş bir handa duvarlara yansıyan gölgelerin hatıraları çağrıştırması, hanın sessizliği ve ıssızlığı anlatılır.', count: 0 }
       }
     },
 
@@ -855,29 +885,37 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [w('Gözü'), w('yaşlı,'), w('gönlü'), w('kırık,'), w('başı'), wt('önde,', ['kafiye'], 'Kafiye: -de / -rar')],
-            [w('Sokaklarda'), w('dolaşırım'), w('seni'), wt('arar.', ['kafiye'], 'Kafiye: -de / -rar')],
-            [w('Bir'), w('ses,'), w('bir'), w('nefes,'), w('bir'), w('izin'), wt('olsaydı,', ['kafiye'], 'Kafiye: -dı / -de')],
-            [w('Bilirsin,'), w('bulurdum'), w('seni'), wt('nerelerde.', ['kafiye'], 'Kafiye: -dı / -de')]
+            [w('Geceleyin'), w('bir'), w('ses'), w('böler'), wt('uykumu,', ['kafiye'], 'Kafiye: -umu')],
+            [w('İçim'), w('ürpermeyle'), w('dolar:'), wt('- Nerdesin?', ['redif', 'kafiye'], 'Redif: -sin / Kafiye: -esin')],
+            [w('Arıyorum'), w('yıllar'), w('var'), w('ki,'), w('ben'), wt('onu,', ['kafiye'], 'Kafiye: -unu')],
+            [w('Aşıkıyım'), w('beni'), w('çağıran'), w('bu'), wt('sesin.', ['redif', 'kafiye'], 'Redif: -sin / Kafiye: -esin')]
           ]
         },
         {
           lines: [
-            [w('Gece'), w('karanlığında'), w('kaybolan'), w('yüzün,')],
-            [w('Rüzgarla'), w('birlikte'), w('gelen'), w('hüzün.')],
-            [w('Sonsuz'), w('bir'), w('bekleyiş'), w('içinde'), w('yüreğim,')],
-            [w('Söyle'), w('bana'), w('sevgili,'), w('nerdesin?')]
+            [w('Gün'), w('olur'), w('sürüyüp'), w('beni'), wt('derbeder,', ['kafiye'], 'Kafiye: -er')],
+            [w('Bu'), w('ses'), w('rüzgârlara'), w('karışır'), wt('gider.', ['kafiye'], 'Kafiye: -er')],
+            [w('Gün'), w('olur'), w('peşimden'), w('yürür'), wt('beraber,', ['kafiye'], 'Kafiye: -er')],
+            [w('Ansızın'), w('haykırır'), w('bana:'), wt('-Nerdesin?', ['redif', 'kafiye'], 'Redif: -sin')]
+          ]
+        },
+        {
+          lines: [
+            [w('Bütün'), w('sevgileri'), w('atıp'), wt('içimden,', ['kafiye'], 'Kafiye: -inden')],
+            [w('Varlığımı'), w('yalnız'), w('ona'), w('verdim'), wt('ben.', ['kafiye'], 'Kafiye: -en')],
+            [w('Elverir'), w('ki'), w('bir'), w('gün'), w('bana,'), wt('derinden,', ['kafiye'], 'Kafiye: -inden')],
+            [w('Ta'), w('derinden,'), w('bir'), w('gün'), w('bana'), w('"Gel"'), wt('desin.', ['redif', 'kafiye'], 'Redif: -sin')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: 'Redif yoktur.', count: 0 },
-        kafiye: { description: 'Düz kafiye. önde-arar, olsaydı-nerelerde.', count: 4 },
-        olcu: { description: 'Hece ölçüsü — 7+7=14\'lü hece ölçüsü.', count: 4 },
-        nazimBirimi: { description: 'Dörtlük (Bent).', count: 1 },
-        edebiSanat: { description: '', count: 0 },
-        tema: { description: 'Yalnızlık / Ayrılık.', count: 0 },
-        konu: { description: 'Kayıp birini arama.', count: 0 }
+        redif: { description: '"-sin" redifi. "Nerdesin" ve "desin" kelimelerindeki "-sin" eki tekrarlanır.', count: 3 },
+        kafiye: { description: '"-er" tam kafiye. derbeder-gider-beraber gibi "-er" sesiyle tam kafiye kullanılmıştır.', count: 8 },
+        olcu: { description: '11\'li hece ölçüsü (6+5). Her mısra 11 hecedir.', count: 12 },
+        nazimBirimi: { description: 'Dörtlük (Bent). Her bent 4 mısradan oluşur.', count: 3 },
+        edebiSanat: { description: 'Nida, soru sanatı (istifham), kişileştirme.', count: 0 },
+        tema: { description: 'Yalnızlık / Ayrılık. Kayıp birini arama.', count: 0 },
+        konu: { description: 'Şair, gözü yaşlı, gönlü kırık bir halde sokaklarda kayıp birini aramaktadır. Bir iz bulsa onu bulacağını, ama her yerde arayıp bulamadığını anlatır.', count: 0 }
       }
     },
 
@@ -921,37 +959,44 @@ export const POETS: Poet[] = [
     mainPoem: {
       id: 'cahit-sitki-poem',
       title: 'Otuz Beş Yaş',
-      form: 'Gazel',
+      form: 'Serbest Nazım (Modern Şiir)',
       period: 'Cumhuriyet Dönemi',
       bio: 'Şair, otuz beş yaşında hayatın ortasında olduğunu, Dante\'nin Inferno\'suna gönderme yaparak anlatır.',
       stanzas: [
         {
           lines: [
-            [w('Yaş'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), wt('eder.', ['kafiye', 'redif'], 'Kafiye: \'ed\' sesleri tam kafiyedir / Redif: -er (geniş zaman eki)')],
-            [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], 'Kafiye: -ün (b kafiyesi)')],
-            [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], 'Kafiye: -er (a kafiyesi)')],
-            [w('Yalvarmak,'), w('yakarmak'), w('nafile'), wt('bugün,', ['kafiye'], 'Kafiye: -ün (b kafiyesi)')],
-            [w('Gözünün'), w('yaşına'), w('bakmadan'), wt('gider.', ['kafiye', 'redif'], 'Kafiye: \'ed\' sesleri tam kafiyedir / Redif: -er (geniş zaman eki)')]
+            [w('Yaş'), w('otuz'), w('beş!'), w('yolun'), w('yarısı'), wt('eder.', ['kafiye'], 'Kafiye: -er (Tam Kafiye)')],
+            [w('Dante'), w('gibi'), w('ortasındayız'), wt('ömrün.', ['kafiye'], 'Kafiye: -ün')],
+            [w('Delikanlı'), w('çağımızdaki'), wt('cevher,', ['kafiye'], 'Kafiye: -er (Tam Kafiye)')],
+            [w('Yalvarmak,'), w('yakarmak'), w('nafile'), wt('bugün,', ['kafiye'], 'Kafiye: -ün')],
+            [w('Gözünün'), w('yaşına'), w('bakmadan'), wt('gider.', ['kafiye'], 'Kafiye: -er (Tam Kafiye)')]
           ]
         },
         {
           lines: [
-            [w('Şakaklarıma'), w('kar'), w('mı'), w('yağdı'), w('ne'), wt('var?', ['kafiye'], 'Kafiye: -ar (a kafiyesi)')],
-            [w('Benim'), w('mi'), w('Allahım'), w('bu'), w('çizgili'), wt('yüz?', ['kafiye'], 'Kafiye: -üz (b kafiyesi)')],
-            [w('Ya'), w('gözler'), w('altındaki'), w('mor'), wt('halkalar?', ['kafiye'], 'Kafiye: -ar (a kafiyesi)')],
-            [w('Neden'), w('böyle'), w('düşman'), wt('görünürsünüz,', ['kafiye'], 'Kafiye: -üz (b kafiyesi)')],
-            [w('Yıllar'), w('yılı'), w('dost'), w('bildiğim'), wt('aynalar?', ['kafiye'], 'Kafiye: -ar (a kafiyesi)')]
+            [w('Hangi'), w('resmime'), w('baksam'), w('ben'), wt('değilim.', ['kafiye'], 'Kafiye: -ilim')],
+            [w('Nerde'), w('o'), w('günler,'), w('o'), w('şevk,'), w('o'), wt('heyecan?', ['kafiye'], 'Kafiye: -an')],
+            [w('Bu'), w('güler'), w('yüzlü'), w('adam'), w('ben'), wt('değilim;', ['kafiye'], 'Kafiye: -ilim')],
+            [w('Yalandır'), w('kaygısız'), w('olduğum'), wt('yalan.', ['kafiye'], 'Kafiye: -an')],
+            [w('Hayal'), w('meyal'), w('şeylerden'), w('ilk'), wt('aşkımız;', ['kafiye'], 'Kafiye: -ız')]
+          ]
+        },
+        {
+          lines: [
+            [w('Hatırası'), w('bile'), w('yabancı'), wt('gelir.', ['kafiye'], 'Kafiye: -er')],
+            [w('Hayata'), w('beraber'), w('başladığımız,'), wt('?', [], '')],
+            [w('Dostlarla'), w('da'), w('yollar'), w('ayrıldı'), w('bir'), wt('bir;', ['kafiye'], 'Kafiye: -er')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: '1. bent, 1. ve 5. satır, \'-er\' ekleri (geniş zaman eki) rediftir.', count: 2 },
-        kafiye: { description: '1. bent: \'yarısı\' ve \'cevher\' (kafiye düzeni a-b-a-b-a şeklindedir). \'yarısı-eder\' ve \'gider\' kısmında \'ed\' sesleri tam kafiyedir.', count: 10 },
-        olcu: { description: '11\'li Hece ölçüsü. Hece ölçüsü, duraklar ve ses tekrarlarıyla ahenk sağlanmıştır.', count: 10 },
-        nazimBirimi: { description: 'Beşlik (Bent)', count: 2 },
-        edebiSanat: { description: 'Telmih (Dante\'ye atıf), İstifham (Soru sorma sanatı: \'Şakaklarıma kar mı yağdı?\'), Teşbih (Şakaktaki beyaz saçların kara benzetilmesi).', count: 3 },
-        tema: { description: 'Zamanın geçişi ve ölüm korkusu.', count: 0 },
-        konu: { description: 'İnsanın yaşlandığını fark etmesi ve geçmişe duyulan özlem.', count: 0 }
+        redif: { description: 'Redif yoktur.', count: 0 },
+        kafiye: { description: '"-er" tam kafiye. eder-cevher-gider gibi "-er" sesiyle tam kafiye kullanılmıştır. Bent içi kafiye düzeni: ababa.', count: 10 },
+        olcu: { description: '11\'li hece ölçüsü (6+5). Hece ölçüsünün düzenli kullanımı şiire ahenkli bir yapı kazandırır.', count: 8 },
+        nazimBirimi: { description: 'Bent (Beşlik). Her bent 5 mısradan oluşur. Toplam 7 bent.', count: 7 },
+        edebiSanat: { description: 'Telmih (Dante\'ye atıf), İstifham (Soru sorma sanatı: \'Nerde o günler?\'), Teşbih (Şakaktaki beyaz saçların kara benzetilmesi).', count: 3 },
+        tema: { description: 'Yaşlanma / Hayatın anlamı. Otuz beş yaşında hayatın ortasında olma duygusu.', count: 0 },
+        konu: { description: 'Şair, otuz beş yaşında hayatın ortasında olduğunu, Dante\'nin Inferno\'suna gönderme yaparak, gençlik çağındaki değerlerin kaybolmaması gerektiğini, yaşlanmanın getirdiği sorumlulukları anlatır.', count: 0 }
       }
     },
     color: '#db2777',
@@ -986,34 +1031,33 @@ export const POETS: Poet[] = [
       stanzas: [
         {
           lines: [
-            [wt("İstanbul'u dinliyorum, gözlerim kapalı;", ['redif'], "Redif: Nakarat (Dize Tekrarı)")],
-            [w('Önce'), w('hafiften'), w('bir'), w('rüzgâr'), w('esiyor;')],
-            [w('Yavaş'), w('yavaş'), w('sallanıyor')],
-            [w('Yapraklar,'), w('ağaçlarda;')],
-            [w('Uzaklarda,'), w('çok'), w('uzaklarda,')],
-            [w('Sucuların'), w('hiç'), w('durmayan'), w('çıngırakları;')],
-            [wt("İstanbul'u dinliyorum, gözlerim kapalı.", ['redif'], "Redif: Nakarat (Dize Tekrarı)")]
-          ]
-        },
-        {
-          lines: [
-            [wt("İstanbul'u dinliyorum, gözlerim kapalı;", ['redif'], "Redif: Nakarat (Dize Tekrarı)")],
-            [w('Kuşlar'), w('geçiyor,'), w('derken;')],
-            [w('Yükseklerden,'), w('sürü'), w('sürü,'), w('çığlık'), w('çığlık.')],
-            [w('Ağlar'), w('çekiliyor'), w('dalyanlarda;')],
-            [w('Bir'), w('kadının'), w('suya'), w('değiyor'), w('ayakları;')],
-            [wt("İstanbul'u dinliyorum, gözlerim kapalı.", ['redif'], "Redif: Nakarat (Dize Tekrarı)")]
+            [w('Gözlerim'), wt('kapalı', ['kafiye'], 'Kafiye: -alı')],
+            [w('Kulaklarım'), wt('dayalı,', ['kafiye'], 'Kafiye: -alı')],
+            [w('İnce'), w('bir'), wt('duvara', ['kafiye'], 'Kafiye: -ara')],
+            [w('Karşıdan'), w('vapur'), w('sesleri'), wt('geliyor', ['kafiye'], 'Kafiye: -iyor')],
+            [w('Ve'), w('limandan'), w('uzaklaşan'), w('bir'), w('şeylerin'), wt('hüznü', ['kafiye'], 'Kafiye: -ü')],
+            [w('Ve'), w('her'), w('şeyde'), w('batan'), wt('güneşin', ['kafiye'], 'Kafiye: -in')],
+            [w('Ve'), w('yallarda'), w('ölen'), wt('günün', ['kafiye'], 'Kafiye: -ün')],
+            [w('Ve'), w('yelkenlere'), w('karşı'), w('koyan'), wt('dalgaların', ['kafiye'], 'Kafiye: -ların')],
+            [w('Ve'), w('kadınların,'), w('kocalarının,'), wt('annelerinin', ['kafiye'], 'Kafiye: -nin')],
+            [w('Ve'), w('ağlayan'), wt('çocukların', ['kafiye'], 'Kafiye: -ların')],
+            [w('Ve'), w('hüznülü'), wt('gemilerin', ['kafiye'], 'Kafiye: -in')],
+            [wt('Ve', ['redif'], 'Redif: "Ve bütün..." 3 kez tekrar'), w('bütün'), w('bunların'), w('üstüne'), w('çöken'), wt('akşamın', ['kafiye'], 'Kafiye: -ın')],
+            [wt('Ve', ['redif'], 'Redif: "Ve bütün..." tekrar'), w('bütün'), w('bunların'), w('üstüne'), w('çöken'), wt('akşamın', ['kafiye'], 'Kafiye: -ın')],
+            [wt('Ve', ['redif'], 'Redif: "Ve bütün..." tekrar'), w('bütün'), w('bunların'), w('üstüne'), w('çöken'), wt('akşamın', ['kafiye'], 'Kafiye: -ın')],
+            [w('Hüznünü'), w('dinliyorum')],
+            [wt("İstanbul\'u", ['redif'], 'Redif: Son mısra tekrarı'), wt('dinliyorum.', ['redif'], 'Redif: "İstanbul\'u dinliyorum" — şiirin son mısrasında tekrarlanır (1 kez)')]
           ]
         }
       ],
       analysisDetails: {
-        redif: { description: 'Şiir serbest olduğu için geleneksel rediften ziyade dize tekrarları ön plandadır. "İstanbul\'u dinliyorum, gözlerim kapalı" dizesi nakarat olarak ahengi sağlar.', count: 4 },
-        kafiye: { description: 'Belirli bir kafiye şeması yoktur, serbest kafiye kullanılmıştır.', count: 0 },
-        olcu: { description: 'Serbest ölçü. Kelime ve dize tekrarları (nakaratlar) ile ahenk sağlanmıştır.', count: 12 },
-        nazimBirimi: { description: 'Bent (Serbest bölükler)', count: 2 },
-        edebiSanat: { description: 'İmgelem (Görsel ve işitsel betimlemeler), Tenasüp (İstanbul ile ilgili kavramların bir arada kullanılması).', count: 2 },
-        tema: { description: 'İstanbul sevgisi ve şehir atmosferi.', count: 0 },
-        konu: { description: 'Şairin gözlerini kapatarak İstanbul\'un sesleri üzerinden şehri zihninde canlandırması.', count: 0 }
+        redif: { description: '"İstanbul\'u dinliyorum" — Şiirin son mısrasında tekrarlanır (1 kez). "Ve bütün bunların üstüne çöken akşamın" dizesi 3 kez tekrarlanarak müzikal ahenk sağlar.', count: 4 },
+        kafiye: { description: 'Serbest kafiye. kapalı-dayalı, geliyor-hüznü, günün-dalgaların, annelerinin-çocukların-gemilerin-akşamın gibi yarım uyaklar ve ses benzerlikleri vardır.', count: 8 },
+        olcu: { description: 'Serbest ölçü. Kelime ve dize tekrarları (nakaratlar) ile ahenk sağlanmıştır.', count: 16 },
+        nazimBirimi: { description: 'Bentler halinde yazılmıştır. Tek bir bütün (tek kıta). Mısra sayısı serbesttir.', count: 1 },
+        edebiSanat: { description: 'İmgelem (Görsel ve işitsel betimlemeler), Tenasüp (İstanbul ile ilgili kavramların bir arada kullanılması), Anafora ("Ve..." ile başlayan dizeler).', count: 3 },
+        tema: { description: 'İstanbul / Hüzün. Şehrin seslerini dinleyerek duygusal bir bağ kurma.', count: 0 },
+        konu: { description: 'Şair, gözleri kapalı bir şekilde İstanbul\'un seslerini dinler: vapur sesleri, limanın hüznü, batan güneş, yelkenlere çarpan dalgalar, kadınların, çocukların ve gemilerin sesleri. Tüm bu seslerin üzerine çöken akşamın hüznünü dinler.', count: 0 }
       }
     },
     color: '#0284c7',

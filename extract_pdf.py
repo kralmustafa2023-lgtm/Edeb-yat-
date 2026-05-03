@@ -1,18 +1,17 @@
-import sys
 import PyPDF2
 
-pdf_path = r"C:\Users\pcx\Desktop\siir_analiz_raporu.pdf"
-out_path = r"C:\Users\pcx\Desktop\mstf (5)\New folder (5)\siir_analiz_raporu.txt"
+pdf_path = r"C:\Users\pcx\Desktop\corrected_siir_analizi_with_poems.pdf"
+out_path = r"C:\Users\pcx\Desktop\mstf (5)\New folder (5)\corrected_pdf.txt"
 
-try:
-    with open(pdf_path, 'rb') as f:
-        reader = PyPDF2.PdfReader(f)
-        text = ""
-        for page in reader.pages:
-            text += page.extract_text() + "\n"
-    
-    with open(out_path, 'w', encoding='utf-8') as f:
-        f.write(text)
-    print("Success")
-except Exception as e:
-    print("Error:", e)
+with open(pdf_path, 'rb') as f:
+    reader = PyPDF2.PdfReader(f)
+    text = ""
+    for page in reader.pages:
+        extracted = page.extract_text()
+        if extracted:
+            text += extracted + "\n"
+
+with open(out_path, 'w', encoding='utf-8', errors='replace') as f:
+    f.write(text)
+
+print("Success - Pages:", len(reader.pages))
