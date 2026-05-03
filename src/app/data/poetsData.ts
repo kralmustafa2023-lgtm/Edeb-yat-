@@ -118,14 +118,22 @@ const at = (text: string, tags: AnalysisTag[], tooltip?: string): AnnotatedWord 
 
 // ─────────────────────────────────────────────────────────────────────────────
 export const POETS: Poet[] = [
-  {
-    id: 'yunus-emre',
-    name: 'Yunus Emre',
-    years: '1240 ÔÇô 1321',
-    period: 'Tekke Edebiyat─▒',
-    periodCode: 'tekke',
-    movement: '─░slamiyet D├Ânemi ÔÇô Tasavvuf ┼Şiiri',
-    bio: '13. y├╝zy─▒l─▒n ikinci yar─▒s─▒ ile 14. y├╝zy─▒l─▒n ba┼şlar─▒nda ya┼şam─▒┼ş b├╝y├╝k T├╝rk mutasavv─▒f ve halk ┼şairidir. M├╝r┼şidi Taptuk Emre\'nin derg├óh─▒nda yeti┼şmi┼ş, ilahi a┼şk─▒, insan sevgisini ve ho┼şg├Âr├╝y├╝ sade bir T├╝rk├ğeyle dile getirmi┼ştir. Kendisini "├╝mmi" olarak tan─▒mlasa da ┼şiirlerindeki derin bilgi birikimi medrese e─şitimi ald─▒─ş─▒n─▒ d├╝┼ş├╝nd├╝rmektedir. ─░ki ana eseri vard─▒r: ┼şiirlerinin topland─▒─ş─▒ "Divan" ve didaktik bir mesnevi olan "Risalet├╝\'n-Nushiyye".',
+  {
+
+    id: 'yunus-emre',
+
+    name: 'Yunus Emre',
+
+    years: '1240 ÔÇô 1321',
+
+    period: 'Tekke Edebiyatı',
+
+    periodCode: 'tekke',
+
+    movement: 'İslamiyet Dönemi ÔÇô Tasavvuf Şiiri',
+
+    bio: '13. yüzyılın ikinci yarısı ile 14. yüzyılın başlarında yaşamış büyük Türk mutasavvıf ve halk şairidir. Mürşidi Taptuk Emre\'nin dergâhında yetişmiş, ilahi aşkı, insan sevgisini ve hoşgörüyü sade bir Türkçeyle dile getirmiştir. Kendisini "ümmi" olarak tanımlasa da şiirlerindeki derin bilgi birikimi medrese eğitimi aldığını düşündürmektedir. İki ana eseri vardır: şiirlerinin toplandığı "Divan" ve didaktik bir mesnevi olan "Risaletü\'n-Nushiyye".',
+
     mainPoem: {
       id: 'yunus-emre-poem',
       title: 'Ben Yürürüm Yane Yane',
@@ -159,30 +167,53 @@ export const POETS: Poet[] = [
         tema: { description: 'Aşk (ilahi aşk / aşk-ı hakiki). Allah sevgisi ve bu sevginin insanı dönüştürmesi.', count: 0 },
         konu: { description: 'Şair, ilahi aşkın etkisiyle divane olmuş, kendini tanıyamaz hale gelmiştir.', count: 0 }
       }
-    },
-    color: '#10b981',
-    gradientFrom: 'from-emerald-700',
-    gradientTo: 'to-teal-900',
-    emoji: '­şî┐',
-    image: '/poets/Yunus Emre.jpg',
-    tags: ['─░lahi', 'Tasavvuf', 'Hece ├ûl├ğ├╝s├╝', 'D├Ârtl├╝k'],
-    facts: [
-      'Anadolu\'da T├╝rk├ğe ┼şiirin ├Ânc├╝s├╝ kabul edilir; T├╝rk dilinin geli┼şmesine b├╝y├╝k katk─▒ sa─şlam─▒┼şt─▒r.',
-      '┼Şiirlerinde hem hece hem aruz ├Âl├ğ├╝s├╝ kullanm─▒┼şt─▒r.',
-      'UNESCO, 1991 y─▒l─▒n─▒ "Uluslararas─▒ Yunus Emre Y─▒l─▒", 2021\'i ise vefat─▒n─▒n 700. y─▒l─▒ olarak ilan etmi┼ştir.',
-      'Anadolu\'nun bir├ğok farkl─▒ yerinde Yunus Emre\'ye atfedilen makam ve mezarlar bulunmaktad─▒r.',
-      '"Risalet├╝\'n-Nushiyye" (├û─ş├╝tler Kitab─▒) adl─▒ yakla┼ş─▒k 600 beyitlik didaktik mesnevisi vard─▒r.',
-      'Mevlana ile ayn─▒ d├Ânemde ya┼şam─▒┼ş, ancak Mevlana Fars├ğa yazarken Yunus Emre T├╝rk├ğeyi tercih etmi┼ştir.',
-    ],
+    },
+
+    color: '#10b981',
+
+    gradientFrom: 'from-emerald-700',
+
+    gradientTo: 'to-teal-900',
+
+    emoji: '­şî┐',
+
+    image: '/poets/Yunus Emre.jpg',
+
+    tags: ['İlahi', 'Tasavvuf', 'Hece Ölçüsü', 'Dörtlük'],
+
+    facts: [
+
+      'Anadolu\'da Türkçe şiirin öncüsü kabul edilir; Türk dilinin gelişmesine büyük katkı sağlamıştır.',
+
+      'Şiirlerinde hem hece hem aruz ölçüsü kullanmıştır.',
+
+      'UNESCO, 1991 yılını "Uluslararası Yunus Emre Yılı", 2021\'i ise vefatının 700. yılı olarak ilan etmiştir.',
+
+      'Anadolu\'nun birçok farklı yerinde Yunus Emre\'ye atfedilen makam ve mezarlar bulunmaktadır.',
+
+      '"Risaletü\'n-Nushiyye" (Öğütler Kitabı) adlı yaklaşık 600 beyitlik didaktik mesnevisi vardır.',
+
+      'Mevlana ile aynı dönemde yaşamış, ancak Mevlana Farsça yazarken Yunus Emre Türkçeyi tercih etmiştir.',
+
+    ],
+
   },
-  {
-    id: 'fuzuli',
-    name: 'Fuzuli',
-    years: '1483 ÔÇô 1556',
-    period: 'Divan Edebiyat─▒',
-    periodCode: 'divan',
-    movement: 'Klasik Divan ┼Şiiri',
-    bio: '16. y├╝zy─▒l Divan edebiyat─▒n─▒n en b├╝y├╝k lirik ┼şairidir. As─▒l ad─▒ Mehmed bin S├╝leyman olup, T├╝rk├ğe, Arap├ğa ve Fars├ğa olmak ├╝zere ├╝├ğ dilde divan sahibi nadir ┼şairlerdendir. ├ûmr├╝n├╝n b├╝y├╝k k─▒sm─▒n─▒ Kerbela, Necef ve Ba─şdat civar─▒nda ge├ğirmi┼ştir. "─░limsiz ┼şiir temelsiz duvar gibidir" anlay─▒┼ş─▒n─▒ benimseyerek ┼şiiri derin bilgiyle harmanlam─▒┼şt─▒r. Be┼şeri a┼şk─▒ ilahi a┼şka d├Ân├╝┼şt├╝ren "Leyla v├╝ Mecnun" mesnevisi T├╝rk edebiyat─▒n─▒n ┼şaheserleri aras─▒ndad─▒r.',
+  {
+
+    id: 'fuzuli',
+
+    name: 'Fuzuli',
+
+    years: '1483 ÔÇô 1556',
+
+    period: 'Divan Edebiyatı',
+
+    periodCode: 'divan',
+
+    movement: 'Klasik Divan Şiiri',
+
+    bio: '16. yüzyıl Divan edebiyatının en büyük lirik şairidir. Asıl adı Mehmed bin Süleyman olup, Türkçe, Arapça ve Farsça olmak üzere üç dilde divan sahibi nadir şairlerdendir. Ömrünün büyük kısmını Kerbela, Necef ve Bağdat civarında geçirmiştir. "İlimsiz şiir temelsiz duvar gibidir" anlayışını benimseyerek şiiri derin bilgiyle harmanlamıştır. Beşeri aşkı ilahi aşka dönüştüren "Leyla vü Mecnun" mesnevisi Türk edebiyatının şaheserleri arasındadır.',
+
     mainPoem: {
       id: 'fuzuli-poem',
       title: 'Gazel (Aziz İstanbul)',
@@ -224,31 +255,55 @@ export const POETS: Poet[] = [
         tema: { description: 'İstanbul\'un güzelliği, ihtişamı ve manevi değeri.', count: 0 },
         konu: { description: 'İstanbul\'un eşsizliği, cennete benzerliği.', count: 0 }
       }
-    },
-    color: '#8b5cf6',
-    gradientFrom: 'from-purple-700',
-    gradientTo: 'to-indigo-900',
-    emoji: '­şô£',
-    image: '/poets/Fuzuli.webp',
-    tags: ['Gazel', 'Divan', 'Aruz ├ûl├ğ├╝s├╝', 'Beyit'],
-    facts: [
-      '"Leyla v├╝ Mecnun" mesnevisi, be┼şeri a┼şk─▒ ilahi a┼şka d├Ân├╝┼şt├╝ren bir ba┼şyap─▒tt─▒r.',
-      'T├╝rk├ğe, Arap├ğa ve Fars├ğa olmak ├╝zere ├╝├ğ ayr─▒ dilde divan yazm─▒┼şt─▒r.',
-      '"Su Kasidesi" Hz. Muhammed\'e yaz─▒lm─▒┼ş en g├╝zel naat ├Ârne─şi kabul edilir.',
-      'Kanuni\'nin 1534\'te Ba─şdat\'─▒ fethinden sonra padi┼şaha kasideler sunmu┼ştur.',
-      '"┼Şik├óyetn├óme" adl─▒ ├╝nl├╝ mektubu, kendisine ba─şlanan maa┼ş─▒ alamamas─▒ ├╝zerine yaz─▒lm─▒┼ş hiciv eseridir.',
-      'Alevi-Bekta┼şi gelene─şinde "Yedi Ulu Ozan"dan biri olarak kabul edilir.',
-      '"Hadikat├╝\'s-S├╝eda" adl─▒ eseri Kerbela Vakas─▒\'n─▒ anlatan en ├Ânemli eserlerden biridir.',
-    ],
+    },
+
+    color: '#8b5cf6',
+
+    gradientFrom: 'from-purple-700',
+
+    gradientTo: 'to-indigo-900',
+
+    emoji: '­şô£',
+
+    image: '/poets/Fuzuli.webp',
+
+    tags: ['Gazel', 'Divan', 'Aruz Ölçüsü', 'Beyit'],
+
+    facts: [
+
+      '"Leyla vü Mecnun" mesnevisi, beşeri aşkı ilahi aşka dönüştüren bir başyapıttır.',
+
+      'Türkçe, Arapça ve Farsça olmak üzere üç ayrı dilde divan yazmıştır.',
+
+      '"Su Kasidesi" Hz. Muhammed\'e yazılmış en güzel naat örneği kabul edilir.',
+
+      'Kanuni\'nin 1534\'te Bağdat\'ı fethinden sonra padişaha kasideler sunmuştur.',
+
+      '"Şikâyetnâme" adlı ünlü mektubu, kendisine bağlanan maaşı alamaması üzerine yazılmış hiciv eseridir.',
+
+      'Alevi-Bektaşi geleneğinde "Yedi Ulu Ozan"dan biri olarak kabul edilir.',
+
+      '"Hadikatü\'s-Süeda" adlı eseri Kerbela Vakası\'nı anlatan en önemli eserlerden biridir.',
+
+    ],
+
   },
-  {
-    id: 'baki',
-    name: 'Baki',
-    years: '1526 ÔÇô 1600',
-    period: 'Divan Edebiyat─▒',
-    periodCode: 'divan',
-    movement: 'Klasik Divan ┼Şiiri',
-    bio: '"Sultan├╝\'┼ş-┼Şuara" (┼Şairlerin Sultan─▒) unvan─▒yla an─▒lan Baki, 1526\'da ─░stanbul\'da do─şmu┼ştur. Babas─▒ Fatih Camii m├╝ezzinlerindendi. Gen├ğli─şinde esnaf yan─▒nda ├ğ─▒rakl─▒k yapm─▒┼ş, ard─▒ndan medreseye girerek d├Ânemin ├╝nl├╝ m├╝derrislerinden ders alm─▒┼şt─▒r. Kanuni Sultan S├╝leyman\'─▒n himayesini g├Ârm├╝┼ş, II. Selim, III. Murad ve III. Mehmed d├Ânemlerinde de itibar─▒n─▒ korumu┼ştur. Rindane gazelleri ve Kanuni Mersiyesi ile divan ┼şiirinin zirvesine ula┼şm─▒┼şt─▒r.',
+  {
+
+    id: 'baki',
+
+    name: 'Baki',
+
+    years: '1526 ÔÇô 1600',
+
+    period: 'Divan Edebiyatı',
+
+    periodCode: 'divan',
+
+    movement: 'Klasik Divan Şiiri',
+
+    bio: '"Sultanü\'ş-Şuara" (Şairlerin Sultanı) unvanıyla anılan Baki, 1526\'da İstanbul\'da doğmuştur. Babası Fatih Camii müezzinlerindendi. Gençliğinde esnaf yanında çıraklık yapmış, ardından medreseye girerek dönemin ünlü müderrislerinden ders almıştır. Kanuni Sultan Süleyman\'ın himayesini görmüş, II. Selim, III. Murad ve III. Mehmed dönemlerinde de itibarını korumuştur. Rindane gazelleri ve Kanuni Mersiyesi ile divan şiirinin zirvesine ulaşmıştır.',
+
     mainPoem: {
       id: 'baki-poem',
       title: 'Kanuni Mersiyesi',
@@ -282,31 +337,55 @@ export const POETS: Poet[] = [
         tema: { description: 'Ölüm / Tarihî şahsiyeti anma.', count: 0 },
         konu: { description: 'Kanûnî Sultan Süleyman\'ın ölüm yıldönümünde ruhunun hissedilmesi.', count: 0 }
       }
-    },
-    color: '#6366f1',
-    gradientFrom: 'from-indigo-700',
-    gradientTo: 'to-purple-900',
-    emoji: '­şææ',
-    image: '/poets/Baki.jpg',
-    tags: ['Mersiye', 'Kaside', 'Aruz', 'Terkib-i Bent'],
-    facts: [
-      '"Sultan├╝\'┼ş-┼Şuara" (┼Şairlerin Sultan─▒) unvan─▒n─▒ hen├╝z hayattayken kazanm─▒┼şt─▒r.',
-      'Babas─▒ Fatih Camii m├╝ezzinlerinden Mehmed Efendi\'dir; ─░stanbul\'da do─şmu┼ştur.',
-      'Kanuni Sultan S├╝leyman taraf─▒ndan himaye edilmi┼ş, d├Ârt padi┼şah d├Ânemini g├Ârm├╝┼şt├╝r.',
-      '┼Şiirlerinde d├╝nya zevklerini anlatan "rindane" bir ├╝slup kullanm─▒┼şt─▒r.',
-      'Aruz kusurlar─▒n─▒ (imale ve zihaf) en aza indiren usta bir ┼şairdir.',
-      '┼Şeyh├╝lislam olma arzusu ger├ğekle┼şmeden 1600\'de ─░stanbul\'da vefat etmi┼ştir.',
-      'Mesnevi t├╝r├╝nde eser vermemi┼ş, daha ├ğok gazel ve kaside ustas─▒ olarak ├Âne ├ğ─▒km─▒┼şt─▒r.',
-    ],
+    },
+
+    color: '#6366f1',
+
+    gradientFrom: 'from-indigo-700',
+
+    gradientTo: 'to-purple-900',
+
+    emoji: '­şææ',
+
+    image: '/poets/Baki.jpg',
+
+    tags: ['Mersiye', 'Kaside', 'Aruz', 'Terkib-i Bent'],
+
+    facts: [
+
+      '"Sultanü\'ş-Şuara" (Şairlerin Sultanı) unvanını henüz hayattayken kazanmıştır.',
+
+      'Babası Fatih Camii müezzinlerinden Mehmed Efendi\'dir; İstanbul\'da doğmuştur.',
+
+      'Kanuni Sultan Süleyman tarafından himaye edilmiş, dört padişah dönemini görmüştür.',
+
+      'Şiirlerinde dünya zevklerini anlatan "rindane" bir üslup kullanmıştır.',
+
+      'Aruz kusurlarını (imale ve zihaf) en aza indiren usta bir şairdir.',
+
+      'Şeyhülislam olma arzusu gerçekleşmeden 1600\'de İstanbul\'da vefat etmiştir.',
+
+      'Mesnevi türünde eser vermemiş, daha çok gazel ve kaside ustası olarak öne çıkmıştır.',
+
+    ],
+
   },
-  {
-    id: 'karacaoglan',
-    name: 'Karacao─şlan',
-    years: '1606 ÔÇô 1679',
-    period: 'Halk Edebiyat─▒',
-    periodCode: 'halk',
-    movement: 'A┼ş─▒k Edebiyat─▒',
-    bio: '17. y├╝zy─▒lda ya┼şam─▒┼ş, T├╝rk halk edebiyat─▒n─▒n en b├╝y├╝k a┼ş─▒k ┼şairlerinden biridir. G├Â├ğebe T├╝rkmen obalar─▒nda yeti┼şmi┼ş, hayat─▒n─▒ ├çukurova, Toroslar ve ├ğevresinde ge├ğirmi┼ştir. Do─şa sevgisi, be┼şeri a┼şk ve Anadolu co─şrafyas─▒n─▒ sade ve duru bir T├╝rk├ğeyle ┼şiire ta┼ş─▒m─▒┼şt─▒r. Divan etkisinden tamamen uzak, saf halk diliyle yazan ilk b├╝y├╝k a┼ş─▒k ┼şairlerdendir. G├╝n├╝m├╝ze 500\'den fazla ┼şiiri ula┼şm─▒┼şt─▒r.',
+  {
+
+    id: 'karacaoglan',
+
+    name: 'Karacaoğlan',
+
+    years: '1606 ÔÇô 1679',
+
+    period: 'Halk Edebiyatı',
+
+    periodCode: 'halk',
+
+    movement: 'Aşık Edebiyatı',
+
+    bio: '17. yüzyılda yaşamış, Türk halk edebiyatının en büyük aşık şairlerinden biridir. Göçebe Türkmen obalarında yetişmiş, hayatını Çukurova, Toroslar ve çevresinde geçirmiştir. Doğa sevgisi, beşeri aşk ve Anadolu coğrafyasını sade ve duru bir Türkçeyle şiire taşımıştır. Divan etkisinden tamamen uzak, saf halk diliyle yazan ilk büyük aşık şairlerdendir. Günümüze 500\'den fazla şiiri ulaşmıştır.',
+
     mainPoem: {
       id: 'karacaoglan-poem',
       title: 'Köroğlu Koşması',
@@ -332,31 +411,55 @@ export const POETS: Poet[] = [
         tema: { description: 'Kahramanlık / Yiğitlik.', count: 0 },
         konu: { description: 'Köroğlu\'nun hiddetli bir şekilde atı Mahmur\'a binerek gelişi.', count: 0 }
       }
-    },
-    color: '#ef4444',
-    gradientFrom: 'from-red-700',
-    gradientTo: 'to-rose-900',
-    emoji: '­şÄ©',
-    image: '/poets/Karacao─şlan.jpg',
-    tags: ['Ko┼şma', 'Semai', 'Hece', 'A┼ş─▒k Edebiyat─▒'],
-    facts: [
-      '┼Şiirlerinde hi├ğbir divan etkisi g├Âr├╝lmez; tamamen saf ve duru T├╝rk├ğe kullanm─▒┼şt─▒r.',
-      'Do─şa tasvirlerinde son derece canl─▒ ve ├Âzg├╝n imgeler kullanm─▒┼şt─▒r.',
-      '17. y├╝zy─▒l─▒n en ├Ânemli a┼ş─▒k ┼şairi olarak kabul edilir.',
-      'Kesin do─şum-├Âl├╝m tarihleri ve yeri bilinmez; hayat─▒ efsanelerle kar─▒┼şm─▒┼şt─▒r.',
-      '┼Şiirlerinde s─▒k├ğa ge├ğen Elif, Zeynep ve ─░smikan isimleri sevdi─şi kad─▒nlar olarak edebiyat tarihinde yer alm─▒┼şt─▒r.',
-      'Ko┼şma ve semai naz─▒m bi├ğimlerinin en b├╝y├╝k ustas─▒ say─▒l─▒r.',
-      'Cumhuriyet d├Ânemi ┼şairlerinden Cahit K├╝lebi ve Faruk Nafiz ├çaml─▒bel ├╝zerinde derin etkileri olmu┼ştur.',
-    ],
+    },
+
+    color: '#ef4444',
+
+    gradientFrom: 'from-red-700',
+
+    gradientTo: 'to-rose-900',
+
+    emoji: '­şÄ©',
+
+    image: '/poets/Karacaoğlan.jpg',
+
+    tags: ['Koşma', 'Semai', 'Hece', 'Aşık Edebiyatı'],
+
+    facts: [
+
+      'Şiirlerinde hiçbir divan etkisi görülmez; tamamen saf ve duru Türkçe kullanmıştır.',
+
+      'Doğa tasvirlerinde son derece canlı ve özgün imgeler kullanmıştır.',
+
+      '17. yüzyılın en önemli aşık şairi olarak kabul edilir.',
+
+      'Kesin doğum-ölüm tarihleri ve yeri bilinmez; hayatı efsanelerle karışmıştır.',
+
+      'Şiirlerinde sıkça geçen Elif, Zeynep ve İsmikan isimleri sevdiği kadınlar olarak edebiyat tarihinde yer almıştır.',
+
+      'Koşma ve semai nazım biçimlerinin en büyük ustası sayılır.',
+
+      'Cumhuriyet dönemi şairlerinden Cahit Külebi ve Faruk Nafiz Çamlıbel üzerinde derin etkileri olmuştur.',
+
+    ],
+
   },
-  {
-    id: 'namik-kemal',
-    name: 'Nam─▒k Kemal',
-    years: '1840 ÔÇô 1888',
-    period: 'Tanzimat Edebiyat─▒',
-    periodCode: 'tanzimat',
-    movement: 'Tanzimat Birinci D├Ânem',
-    bio: 'Tanzimat d├Ânemi T├╝rk edebiyat─▒n─▒n en ├Ânemli isimlerinden biri; ┼şair, yazar, gazeteci ve siyasi fikir adam─▒d─▒r. 1840\'ta Tekirda─ş\'da do─şmu┼ş, 1888\'de Sak─▒z Adas─▒\'nda vefat etmi┼ştir. "Vatan ┼Şairi" ve "H├╝rriyet ┼Şairi" olarak an─▒l─▒r. Gen├ğ Osmanl─▒lar cemiyetinin ├Ânde gelen isimlerinden olup, siyasi fikirleri nedeniyle s─▒k s─▒k s├╝rg├╝n edilmi┼ş ve hapis yatm─▒┼şt─▒r. Magosa s├╝rg├╝n├╝, edeb├« hayat─▒n─▒n en verimli d├Ânemlerindendir.',
+  {
+
+    id: 'namik-kemal',
+
+    name: 'Namık Kemal',
+
+    years: '1840 ÔÇô 1888',
+
+    period: 'Tanzimat Edebiyatı',
+
+    periodCode: 'tanzimat',
+
+    movement: 'Tanzimat Birinci Dönem',
+
+    bio: 'Tanzimat dönemi Türk edebiyatının en önemli isimlerinden biri; şair, yazar, gazeteci ve siyasi fikir adamıdır. 1840\'ta Tekirdağ\'da doğmuş, 1888\'de Sakız Adası\'nda vefat etmiştir. "Vatan Şairi" ve "Hürriyet Şairi" olarak anılır. Genç Osmanlılar cemiyetinin önde gelen isimlerinden olup, siyasi fikirleri nedeniyle sık sık sürgün edilmiş ve hapis yatmıştır. Magosa sürgünü, edebî hayatının en verimli dönemlerindendir.',
+
     mainPoem: {
       id: 'namik-kemal-poem',
       title: 'Hürriyet Kasidesi',
@@ -386,30 +489,53 @@ export const POETS: Poet[] = [
         tema: { description: 'Hürriyet / Vatan sevgisi.', count: 0 },
         konu: { description: 'Şehitlerin manevi değeri, hürriyetin önemi.', count: 0 }
       }
-    },
-    color: '#3b82f6',
-    gradientFrom: 'from-blue-700',
-    gradientTo: 'to-cyan-900',
-    emoji: '­şù¢',
-    image: '/poets/Nam─▒k Kemal.jpg',
-    tags: ['Kaside', 'Tiyatro', 'Roman', 'H├╝rriyet'],
-    facts: [
-      '"Vatan", "h├╝rriyet" ve "millet" kavramlar─▒n─▒ T├╝rk edebiyat─▒na kazand─▒rm─▒┼şt─▒r.',
-      '"Vatan Yahut Silistre" T├╝rk edebiyat─▒nda Bat─▒l─▒ anlamda sahnelenen ilk tiyatro eseridir.',
-      '"─░ntibah" T├╝rk edebiyat─▒n─▒n ilk edeb├« roman─▒, "Cezmi" ise ilk tarih├« roman─▒ kabul edilir.',
-      'Siyasi fikirleri nedeniyle Magosa\'ya (K─▒br─▒s) s├╝rg├╝n edilmi┼ştir.',
-      'Tiyatroyu "e─şlencelerin en faydal─▒s─▒" olarak nitelendirmi┼ş, bir okul gibi g├Ârm├╝┼şt├╝r.',
-      'Eserleri ve d├╝┼ş├╝nceleriyle Mustafa Kemal Atat├╝rk dahil bir├ğok fikir insan─▒n─▒ etkilemi┼ştir.',
-    ],
+    },
+
+    color: '#3b82f6',
+
+    gradientFrom: 'from-blue-700',
+
+    gradientTo: 'to-cyan-900',
+
+    emoji: '­şù¢',
+
+    image: '/poets/Namık Kemal.jpg',
+
+    tags: ['Kaside', 'Tiyatro', 'Roman', 'Hürriyet'],
+
+    facts: [
+
+      '"Vatan", "hürriyet" ve "millet" kavramlarını Türk edebiyatına kazandırmıştır.',
+
+      '"Vatan Yahut Silistre" Türk edebiyatında Batılı anlamda sahnelenen ilk tiyatro eseridir.',
+
+      '"İntibah" Türk edebiyatının ilk edebî romanı, "Cezmi" ise ilk tarihî romanı kabul edilir.',
+
+      'Siyasi fikirleri nedeniyle Magosa\'ya (Kıbrıs) sürgün edilmiştir.',
+
+      'Tiyatroyu "eğlencelerin en faydalısı" olarak nitelendirmiş, bir okul gibi görmüştür.',
+
+      'Eserleri ve düşünceleriyle Mustafa Kemal Atatürk dahil birçok fikir insanını etkilemiştir.',
+
+    ],
+
   },
-  {
-    id: 'tevfik-fikret',
-    name: 'Tevfik Fikret',
-    years: '1867 ÔÇô 1915',
-    period: 'Servet-i F├╝nun',
-    periodCode: 'servet-i-funun',
-    movement: 'Edebiyat-─▒ Cedide',
-    bio: 'Servet-i F├╝nun (Edebiyat-─▒ Cedide) d├Âneminin en ├Ânemli ┼şairi ve modern T├╝rk ┼şiirinin kurucular─▒ndan biridir. 1867\'de ─░stanbul\'da do─şmu┼ş, Galatasaray Sultanisi\'ni birincilikle bitirmi┼ştir. 1896-1901 y─▒llar─▒ aras─▒nda Servet-i F├╝nun dergisinin edebiyat b├Âl├╝m├╝n├╝ y├Ânetmi┼ştir. ┼Şiirde bi├ğim kusursuzlu─şuna (Parnasizm etkisi) b├╝y├╝k ├Ânem vermi┼ş, aruz ├Âl├ğ├╝s├╝n├╝ T├╝rk├ğeye ba┼şar─▒yla uygulam─▒┼şt─▒r. Hayat─▒n─▒n son y─▒llar─▒n─▒ Bebek\'teki "A┼şiyan" adl─▒ evinde ge├ğirmi┼ştir.',
+  {
+
+    id: 'tevfik-fikret',
+
+    name: 'Tevfik Fikret',
+
+    years: '1867 ÔÇô 1915',
+
+    period: 'Servet-i Fünun',
+
+    periodCode: 'servet-i-funun',
+
+    movement: 'Edebiyat-ı Cedide',
+
+    bio: 'Servet-i Fünun (Edebiyat-ı Cedide) döneminin en önemli şairi ve modern Türk şiirinin kurucularından biridir. 1867\'de İstanbul\'da doğmuş, Galatasaray Sultanisi\'ni birincilikle bitirmiştir. 1896-1901 yılları arasında Servet-i Fünun dergisinin edebiyat bölümünü yönetmiştir. Şiirde biçim kusursuzluğuna (Parnasizm etkisi) büyük önem vermiş, aruz ölçüsünü Türkçeye başarıyla uygulamıştır. Hayatının son yıllarını Bebek\'teki "Aşiyan" adlı evinde geçirmiştir.',
+
     mainPoem: {
       id: 'tevfik-fikret-poem',
       title: 'Siste Söyleniş (Sis)',
@@ -435,31 +561,55 @@ export const POETS: Poet[] = [
         tema: { description: 'Hüzün / Melankoli.', count: 0 },
         konu: { description: 'Şair, sisli bir akşamda Boğaz\'da bir vapurda hissettiklerini anlatır.', count: 0 }
       }
-    },
-    color: '#0891b2',
-    gradientFrom: 'from-cyan-700',
-    gradientTo: 'to-blue-900',
-    emoji: '­şî½´©Å',
-    image: '/poets/Tevfik Fikret.webp',
-    tags: ['Serbest M├╝stezat', 'Aruz', 'Sosyal Ele┼ştiri'],
-    facts: [
-      'Servet-i F├╝nun dergisinin edebiyat b├Âl├╝m├╝n├╝ y├Âneterek Edebiyat-─▒ Cedide hareketine liderlik etmi┼ştir.',
-      'Klasik m├╝stezat bi├ğimini d├Ân├╝┼şt├╝rerek "serbest m├╝stezat" formunu olu┼şturmu┼ştur.',
-      '"Haluk\'un Defteri" ile gen├ğlere yol g├Âstermeyi hedeflemi┼ştir.',
-      'Galatasaray Sultanisi\'ni birincilikle bitirmi┼ştir.',
-      '"Sis" ┼şiirinde ─░stanbul\'u toplumsal ├ğ├Âk├╝┼ş├╝n sembol├╝ olarak ele alm─▒┼şt─▒r.',
-      '"┼Şermin" adl─▒ eseri, hece ├Âl├ğ├╝s├╝yle ├ğocuklar i├ğin yazd─▒─ş─▒ ┼şiir kitab─▒d─▒r.',
-      'Hayat─▒n─▒n son y─▒llar─▒n─▒ Bebek\'te kendi ├ğizdi─şi "A┼şiyan" (Ku┼ş Yuvas─▒) evinde ge├ğirmi┼ştir.',
-    ],
+    },
+
+    color: '#0891b2',
+
+    gradientFrom: 'from-cyan-700',
+
+    gradientTo: 'to-blue-900',
+
+    emoji: '­şî½´©Å',
+
+    image: '/poets/Tevfik Fikret.webp',
+
+    tags: ['Serbest Müstezat', 'Aruz', 'Sosyal Eleştiri'],
+
+    facts: [
+
+      'Servet-i Fünun dergisinin edebiyat bölümünü yöneterek Edebiyat-ı Cedide hareketine liderlik etmiştir.',
+
+      'Klasik müstezat biçimini dönüştürerek "serbest müstezat" formunu oluşturmuştur.',
+
+      '"Haluk\'un Defteri" ile gençlere yol göstermeyi hedeflemiştir.',
+
+      'Galatasaray Sultanisi\'ni birincilikle bitirmiştir.',
+
+      '"Sis" şiirinde İstanbul\'u toplumsal çöküşün sembolü olarak ele almıştır.',
+
+      '"Şermin" adlı eseri, hece ölçüsüyle çocuklar için yazdığı şiir kitabıdır.',
+
+      'Hayatının son yıllarını Bebek\'te kendi çizdiği "Aşiyan" (Kuş Yuvası) evinde geçirmiştir.',
+
+    ],
+
   },
-  {
-    id: 'mehmet-akif',
-    name: 'Mehmet Akif Ersoy',
-    years: '1873 ÔÇô 1936',
-    period: 'Milli Edebiyat',
-    periodCode: 'milli',
-    movement: 'Milli Edebiyat ÔÇô ─░slam Birli─şi',
-    bio: '"Milli ┼Şair" olarak bilinen Mehmet Akif Ersoy, ─░stiklal Mar┼ş─▒\'n─▒n yazar─▒d─▒r. Veteriner hekim, ├Â─şretmen ve milletvekili olarak g├Ârev yapm─▒┼şt─▒r. ─░slamc─▒l─▒k ak─▒m─▒n─▒n ├Ânc├╝lerinden olup, toplumsal sorunlar─▒ ve milli duygular─▒ g├╝├ğl├╝ bir dille anlatm─▒┼şt─▒r. Aruz ├Âl├ğ├╝s├╝yle halk diliyle yazmay─▒ ba┼şaran nadir ┼şairlerdendir. "Safahat" adl─▒ yedi ciltlik ┼şiir k├╝lliyat─▒ d├Ânemi en iyi yans─▒tan eserdir.',
+  {
+
+    id: 'mehmet-akif',
+
+    name: 'Mehmet Akif Ersoy',
+
+    years: '1873 ÔÇô 1936',
+
+    period: 'Milli Edebiyat',
+
+    periodCode: 'milli',
+
+    movement: 'Milli Edebiyat ÔÇô İslam Birliği',
+
+    bio: '"Milli Şair" olarak bilinen Mehmet Akif Ersoy, İstiklal Marşı\'nın yazarıdır. Veteriner hekim, öğretmen ve milletvekili olarak görev yapmıştır. İslamcılık akımının öncülerinden olup, toplumsal sorunları ve milli duyguları güçlü bir dille anlatmıştır. Aruz ölçüsüyle halk diliyle yazmayı başaran nadir şairlerdendir. "Safahat" adlı yedi ciltlik şiir külliyatı dönemi en iyi yansıtan eserdir.',
+
     mainPoem: {
       id: 'mehmet-akif-poem',
       title: 'İstiklal Marşı',
@@ -493,21 +643,36 @@ export const POETS: Poet[] = [
         tema: { description: 'Vatan sevgisi / İstiklal.', count: 0 },
         konu: { description: 'Türk milletinin istiklaline olan inancı.', count: 0 }
       }
-    },
-    color: '#dc2626',
-    gradientFrom: 'from-red-700',
-    gradientTo: 'to-red-900',
-    emoji: '­şç╣­şçÀ',
-    image: '/poets/Mehmet Akif Ersoy.webp',
-    tags: ['─░stiklal Mar┼ş─▒', 'Safahat', 'Aruz', 'Milli ┼Şiir'],
-    facts: [
-      '─░stiklal Mar┼ş─▒\'n─▒ yazm─▒┼şt─▒r; ├Âd├╝l paras─▒n─▒ reddederek Hilal-i Ahmer\'e ba─ş─▒┼şlam─▒┼şt─▒r.',
-      '"Safahat" 7 kitaptan olu┼şur: Safahat, S├╝leymaniye K├╝rs├╝s├╝nde, Hakk─▒n Sesleri, Fatih K├╝rs├╝s├╝nde, Hat─▒ralar, As─▒m, G├Âlgeler.',
-      'M─▒s─▒r\'da ya┼şad─▒─ş─▒ d├Ânemde Kur\'an mealini T├╝rk├ğeye ├ğevirmi┼ş ancak yay─▒mlanmas─▒n─▒ istememi┼ştir.',
-      'Aruz ├Âl├ğ├╝s├╝yle halk diliyle ┼şiir yazan ilk ve en ba┼şar─▒l─▒ ┼şairlerdendir.',
-      'Veteriner hekim olarak e─şitim alm─▒┼ş, Halkal─▒ Baytar Mektebi\'nden mezun olmu┼ştur.',
-      'Birinci D├╝nya Sava┼ş─▒ s─▒ras─▒nda Te┼şkilat-─▒ Mahsusa ile Berlin ve Arabistan\'a gitmi┼ştir.',
-    ],
+    },
+
+    color: '#dc2626',
+
+    gradientFrom: 'from-red-700',
+
+    gradientTo: 'to-red-900',
+
+    emoji: '­şç╣­şçÀ',
+
+    image: '/poets/Mehmet Akif Ersoy.webp',
+
+    tags: ['İstiklal Marşı', 'Safahat', 'Aruz', 'Milli Şiir'],
+
+    facts: [
+
+      'İstiklal Marşı\'nı yazmıştır; ödül parasını reddederek Hilal-i Ahmer\'e bağışlamıştır.',
+
+      '"Safahat" 7 kitaptan oluşur: Safahat, Süleymaniye Kürsüsünde, Hakkın Sesleri, Fatih Kürsüsünde, Hatıralar, Asım, Gölgeler.',
+
+      'Mısır\'da yaşadığı dönemde Kur\'an mealini Türkçeye çevirmiş ancak yayımlanmasını istememiştir.',
+
+      'Aruz ölçüsüyle halk diliyle şiir yazan ilk ve en başarılı şairlerdendir.',
+
+      'Veteriner hekim olarak eğitim almış, Halkalı Baytar Mektebi\'nden mezun olmuştur.',
+
+      'Birinci Dünya Savaşı sırasında Teşkilat-ı Mahsusa ile Berlin ve Arabistan\'a gitmiştir.',
+
+    ],
+
   },
   {
     id: 'yahya-kemal',
@@ -569,14 +734,22 @@ export const POETS: Poet[] = [
       '"Eğil Dağlar" adlı eseri Milli Mücadele\'yi anlatan önemli bir düzyazıdır.',
     ],
   },
-  {
-    id: 'faruk-nafiz',
-    name: 'Faruk Nafiz ├çaml─▒bel',
-    years: '1898 ÔÇô 1973',
-    period: 'Cumhuriyet D├Ânemi',
-    periodCode: 'cumhuriyet',
-    movement: 'Be┼ş Hececiler',
-    bio: '"Be┼ş Hececiler" grubunun en g├╝├ğl├╝ temsilcisi olan Faruk Nafiz, sade T├╝rk├ğe ve hece ├Âl├ğ├╝s├╝yle milli duygular─▒ ve Anadolu co─şrafyas─▒n─▒ ┼şiire ta┼ş─▒m─▒┼şt─▒r. "Han Duvarlar─▒" adl─▒ ┼şiiri memleket├ği edebiyat─▒n en me┼şhur eserlerinden biri olup, Anadolu\'yu gezerken han duvarlar─▒ndaki isimleri okuyan ┼şairin ge├ğicili─şi sorgulamas─▒n─▒ anlat─▒r. Beh├ğet Kemal ├ça─şlar ile birlikte 10. Y─▒l Mar┼ş─▒\'n─▒ yazm─▒┼şt─▒r.',
+  {
+
+    id: 'faruk-nafiz',
+
+    name: 'Faruk Nafiz Çamlıbel',
+
+    years: '1898 ÔÇô 1973',
+
+    period: 'Cumhuriyet Dönemi',
+
+    periodCode: 'cumhuriyet',
+
+    movement: 'Beş Hececiler',
+
+    bio: '"Beş Hececiler" grubunun en güçlü temsilcisi olan Faruk Nafiz, sade Türkçe ve hece ölçüsüyle milli duyguları ve Anadolu coğrafyasını şiire taşımıştır. "Han Duvarları" adlı şiiri memleketçi edebiyatın en meşhur eserlerinden biri olup, Anadolu\'yu gezerken han duvarlarındaki isimleri okuyan şairin geçiciliği sorgulamasını anlatır. Behçet Kemal Çağlar ile birlikte 10. Yıl Marşı\'nı yazmıştır.',
+
     mainPoem: {
       id: 'faruk-nafiz-poem',
       title: 'Han Duvarları',
@@ -602,30 +775,53 @@ export const POETS: Poet[] = [
         tema: { description: 'Yalnızlık / Hüzün.', count: 0 },
         konu: { description: 'Terk edilmiş bir hanın atmosferi.', count: 0 }
       }
-    },
-    color: '#d97706',
-    gradientFrom: 'from-amber-700',
-    gradientTo: 'to-orange-900',
-    emoji: '­şÅÜ´©Å',
-    image: '/poets/Faruk Nafiz ├çaml─▒bel.jpg',
-    tags: ['Hece ├ûl├ğ├╝s├╝', 'Be┼ş Hececiler', 'Han Duvarlar─▒', 'Anadolu'],
-    facts: [
-      '"Han Duvarlar─▒" T├╝rk edebiyat─▒n─▒n en uzun ve en ├╝nl├╝ hece ┼şiirlerinden biridir.',
-      'Beh├ğet Kemal ├ça─şlar ile birlikte Cumhuriyet\'in 10. Y─▒l Mar┼ş─▒\'n─▒ yazm─▒┼şt─▒r.',
-      '┼Şiirlerinde Anadolu co─şrafyas─▒n─▒ ve halk k├╝lt├╝r├╝n├╝ ba┼şar─▒yla i┼şlemi┼ştir.',
-      'Uzun y─▒llar milletvekilli─şi yapm─▒┼şt─▒r.',
-      '"├çoban ├çe┼şmesi" ┼şiiri halk dili ve do─şa tasvirleriyle tan─▒n─▒r.',
-      'Tiyatro alan─▒nda da "Ak─▒n", "├ûzyurt" ve "Kahraman" gibi eserler yazm─▒┼şt─▒r.',
-    ],
+    },
+
+    color: '#d97706',
+
+    gradientFrom: 'from-amber-700',
+
+    gradientTo: 'to-orange-900',
+
+    emoji: '­şÅÜ´©Å',
+
+    image: '/poets/Faruk Nafiz Çamlıbel.jpg',
+
+    tags: ['Hece Ölçüsü', 'Beş Hececiler', 'Han Duvarları', 'Anadolu'],
+
+    facts: [
+
+      '"Han Duvarları" Türk edebiyatının en uzun ve en ünlü hece şiirlerinden biridir.',
+
+      'Behçet Kemal Çağlar ile birlikte Cumhuriyet\'in 10. Yıl Marşı\'nı yazmıştır.',
+
+      'Şiirlerinde Anadolu coğrafyasını ve halk kültürünü başarıyla işlemiştir.',
+
+      'Uzun yıllar milletvekilliği yapmıştır.',
+
+      '"Çoban Çeşmesi" şiiri halk dili ve doğa tasvirleriyle tanınır.',
+
+      'Tiyatro alanında da "Akın", "Özyurt" ve "Kahraman" gibi eserler yazmıştır.',
+
+    ],
+
   },
-  {
-    id: 'ahmet-kutsi',
-    name: 'Ahmet Kutsi Tecer',
-    years: '1901 ÔÇô 1967',
-    period: 'Cumhuriyet D├Ânemi',
-    periodCode: 'cumhuriyet',
-    movement: 'Cumhuriyet D├Ânemi ÔÇô Halk Gelene─şi',
-    bio: 'Halk edebiyat─▒ gelene─şini Cumhuriyet d├Ânemi ┼şiiriyle bulu┼şturan ┼şair, oyun yazar─▒ ve siyaset├ğidir. Anadolu\'nun yerli ve milli unsurlar─▒n─▒ eserlerine yans─▒tm─▒┼ş, halk k├╝lt├╝r├╝ ve folklor ├╝zerine ├Ânemli ├ğal─▒┼şmalar yapm─▒┼şt─▒r. Sivas\'ta g├Ârev yapt─▒─ş─▒ y─▒llarda halk ┼şairlerini ke┼şfetmesiyle tan─▒n─▒r. Tiyatro alan─▒nda da "K├Â┼şeba┼ş─▒" piyesiyle ├Ânemli bir iz b─▒rakm─▒┼şt─▒r.',
+  {
+
+    id: 'ahmet-kutsi',
+
+    name: 'Ahmet Kutsi Tecer',
+
+    years: '1901 ÔÇô 1967',
+
+    period: 'Cumhuriyet Dönemi',
+
+    periodCode: 'cumhuriyet',
+
+    movement: 'Cumhuriyet Dönemi ÔÇô Halk Geleneği',
+
+    bio: 'Halk edebiyatı geleneğini Cumhuriyet dönemi şiiriyle buluşturan şair, oyun yazarı ve siyasetçidir. Anadolu\'nun yerli ve milli unsurlarını eserlerine yansıtmış, halk kültürü ve folklor üzerine önemli çalışmalar yapmıştır. Sivas\'ta görev yaptığı yıllarda halk şairlerini keşfetmesiyle tanınır. Tiyatro alanında da "Köşebaşı" piyesiyle önemli bir iz bırakmıştır.',
+
     mainPoem: {
       id: 'ahmet-kutsi-poem',
       title: 'Nerdesin',
@@ -651,21 +847,36 @@ export const POETS: Poet[] = [
         tema: { description: 'Yalnızlık / Ayrılık.', count: 0 },
         konu: { description: 'Kayıp birini arama.', count: 0 }
       }
-    },
-    color: '#7c3aed',
-    gradientFrom: 'from-violet-700',
-    gradientTo: 'to-purple-900',
-    emoji: '­şÅö´©Å',
-    image: '/poets/Ahmet Kutsi Tecer.jpg',
-    tags: ['Ko┼şma', 'Halk Gelene─şi', 'Anadolu', 'Tiyatro'],
-    facts: [
-      'Hem ┼şair, hem tiyatro yazar─▒, hem de halk bilimci ve siyaset├ğidir.',
-      'Sivas\'ta g├Ârev yaparken k├Âr saz ┼şairi ├é┼ş─▒k Veysel\'i ke┼şfederek ─░stanbul\'a tan─▒tm─▒┼şt─▒r.',
-      '"K├Â┼şeba┼ş─▒" piyesi T├╝rk tiyatrosunun klasikleri aras─▒nda yer al─▒r.',
-      '"Orda Bir K├Ây Var Uzakta" ve "Nerdesin" en bilinen ┼şiirleridir.',
-      'Halk edebiyat─▒ ara┼şt─▒rmac─▒s─▒ olarak folklor ├ğal─▒┼şmalar─▒na b├╝y├╝k katk─▒ sa─şlam─▒┼şt─▒r.',
-      'Milletvekilli─şi de yapm─▒┼ş olan ├ğok y├Ânl├╝ bir ayd─▒nd─▒r.',
-    ],
+    },
+
+    color: '#7c3aed',
+
+    gradientFrom: 'from-violet-700',
+
+    gradientTo: 'to-purple-900',
+
+    emoji: '­şÅö´©Å',
+
+    image: '/poets/Ahmet Kutsi Tecer.jpg',
+
+    tags: ['Koşma', 'Halk Geleneği', 'Anadolu', 'Tiyatro'],
+
+    facts: [
+
+      'Hem şair, hem tiyatro yazarı, hem de halk bilimci ve siyasetçidir.',
+
+      'Sivas\'ta görev yaparken kör saz şairi Âşık Veysel\'i keşfederek İstanbul\'a tanıtmıştır.',
+
+      '"Köşebaşı" piyesi Türk tiyatrosunun klasikleri arasında yer alır.',
+
+      '"Orda Bir Köy Var Uzakta" ve "Nerdesin" en bilinen şiirleridir.',
+
+      'Halk edebiyatı araştırmacısı olarak folklor çalışmalarına büyük katkı sağlamıştır.',
+
+      'Milletvekilliği de yapmış olan çok yönlü bir aydındır.',
+
+    ],
+
   },
   {
     id: 'cahit-sitki',
